@@ -14,18 +14,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <main className="flex-1 overflow-y-auto relative bg-grid-zinc">
                         <div className="absolute inset-0 bg-black/95 pointer-events-none" />
 
-                        {/* Neo-Industrial Container */}
-                        <div className="relative z-10 p-6 h-[calc(100vh-64px)] overflow-hidden">
-                            <div className="h-full w-full rounded-tl-2xl border border-white/5 bg-zinc-900/20 shadow-2xl relative overflow-hidden flex flex-col">
-
-                                {/* Corner Accents */}
-                                <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/10 rounded-tl-2xl pointer-events-none" />
-                                <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/10 pointer-events-none" />
-
-                                {/* Content Scroll Area */}
-                                <div className="flex-1 overflow-y-auto p-6 scroll-smooth">
-                                    {children}
-                                </div>
+                        {/* Simplified Content Area */}
+                        <div className="relative z-10 h-full overflow-y-auto scroll-smooth">
+                            <div className="p-6 min-h-full">
+                                {children}
                             </div>
                         </div>
                     </main>
