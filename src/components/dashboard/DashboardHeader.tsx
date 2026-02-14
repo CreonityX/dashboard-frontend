@@ -1,19 +1,34 @@
 "use client";
-
+import React, { useState, useRef, useEffect } from "react";
 import { Search, Bell, HelpCircle, Command, ChevronRight, Home } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
+import { NotificationCenter } from "../widgets/shared/os/NotificationCenter";
+import { cn } from "@/lib/utils";
 
 export function DashboardHeader() {
     const pathname = usePathname();
     const segments = pathname.split('/').filter(Boolean);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const notificationRef = useRef<HTMLDivElement>(null);
+
+    // Close notifications when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+                setShowNotifications(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     return (
         <header className="h-16 z-10 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 flex items-center justify-between px-6 sticky top-0">
             {/* Left: Breadcrumbs */}
             <div className="flex items-center gap-2 text-sm font-mono">
-                <Link href="/dashboard" className="text-zinc-500 hover:text-white transition-colors">
+                <Link href="/" className="text-zinc-500 hover:text-white transition-colors">
                     <Home className="w-4 h-4" />
                 </Link>
                 {segments.length > 0 && (
@@ -41,7 +56,7 @@ export function DashboardHeader() {
             </div>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 relative">
                 <div className="relative group hidden sm:block">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500 group-focus-within:text-[#a3e635] transition-colors" />
                     <input
@@ -53,10 +68,29 @@ export function DashboardHeader() {
 
                 <div className="h-4 w-px bg-zinc-800" />
 
-                <button className="relative group p-2 hover:bg-zinc-900 rounded-sm transition-colors">
-                    <Bell className="w-4 h-4 text-zinc-400 group-hover:text-white transition-colors" />
-                    <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#a3e635] rounded-full" />
-                </button>
+                {/* Notification Bell with Popover */}
+                <div className="relative" ref={notificationRef}>
+                    <button
+                        onClick={() => setShowNotifications(!showNotifications)}
+                        className={cn(
+                            "relative group p-2 rounded-sm transition-colors",
+                            showNotifications ? "bg-zinc-800 text-white" : "hover:bg-zinc-900 text-zinc-400 hover:text-white"
+                        )}
+                    >
+                        <Bell className="w-4 h-4 transition-colors" />
+                        <span className="absolute top-2 right-2 w-1.5 h-1.5 bg-[#a3e635] rounded-full" />
+                    </button>
+
+                    {/* Popover Banner */}
+                    {showNotifications && (
+                        <div className="absolute right-0 top-full mt-2 w-[400px] max-h-[600px] overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950/95 backdrop-blur-xl shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-200">
+                            <div className="p-0 max-h-[500px] overflow-y-auto custom-scrollbar">
+                                <NotificationCenter />
+                            </div>
+
+                        </div>
+                    )}
+                </div>
 
                 <div className="flex items-center gap-2 pl-2 border-l border-zinc-800">
                     <div className="text-right hidden md:block">

@@ -17,11 +17,11 @@ import { useSidebar } from "./SidebarContext";
 import { TechIcon } from "../TechIcon";
 
 const NAV_ITEMS = [
-    { label: "DASHBOARD", icon: LayoutDashboard, href: "/dashboard" },
-    { label: "PROJECTS", icon: Briefcase, href: "/dashboard/projects" },
-    { label: "MESSAGES", icon: MessageSquare, href: "/dashboard/messages" },
-    { label: "FINANCE", icon: Wallet, href: "/dashboard/finance" },
-    { label: "SETTINGS", icon: Settings, href: "/dashboard/settings" },
+    { label: "DASHBOARD", icon: LayoutDashboard, href: "/" },
+    { label: "PROJECTS", icon: Briefcase, href: "/projects" },
+    { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
+    { label: "FINANCE", icon: Wallet, href: "/finance" },
+    { label: "SETTINGS", icon: Settings, href: "/settings" },
 ];
 
 export function DashboardSidebar() {
@@ -102,21 +102,21 @@ export function DashboardSidebar() {
 
             {/* 6. User Profile (Mini) */}
             <div className="p-4 border-t border-white/5 relative z-10">
-                <div className={cn(
-                    "flex items-center gap-3 transition-all duration-300",
+                <Link href="/profile" className={cn(
+                    "flex items-center gap-3 transition-all duration-300 group",
                     isCollapsed ? "justify-center" : ""
                 )}>
-                    <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0 group-hover:border-[#a3e635] transition-colors">
                         <span className="text-[10px] font-bold text-white">KZ</span>
                     </div>
                     <div className={cn(
                         "transition-opacity duration-300 overflow-hidden whitespace-nowrap",
                         isCollapsed ? "opacity-0 w-0" : "opacity-100 w-auto"
                     )}>
-                        <div className="text-xs font-bold text-white font-display">Kai_Zen</div>
+                        <div className="text-xs font-bold text-white font-display group-hover:text-[#a3e635] transition-colors">Kai_Zen</div>
                         <div className="text-[10px] text-zinc-500 font-mono">CREATOR_PRO</div>
                     </div>
-                </div>
+                </Link>
             </div>
         </aside>
     );
