@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { GraduationCap, BookOpen, Wrench, Users, TrendingUp, Newspaper } from "lucide-react";
 
 interface ResourcesShellProps {
     children?: ReactNode;
@@ -10,14 +9,7 @@ interface ResourcesShellProps {
     onTabChange: (id: string) => void;
 }
 
-const RESOURCE_TABS = [
-    { id: 'courses', label: 'Courses & Tutorials', icon: GraduationCap },
-    { id: 'best-practices', label: 'Best Practices', icon: BookOpen },
-    { id: 'tools', label: 'Templates & Tools', icon: Wrench },
-    { id: 'community', label: 'Creator Community', icon: Users },
-    { id: 'insights', label: 'Market Insights', icon: TrendingUp },
-    { id: 'news', label: 'Blog & News', icon: Newspaper },
-];
+import { RESOURCE_TABS } from "@/lib/mock-data";
 
 export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesShellProps) {
     return (

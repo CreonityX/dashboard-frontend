@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ResourcesShell } from "@/components/widgets/shared/resources/ResourcesShell";
 
 // Tabs
@@ -11,8 +12,14 @@ import { CommunityTab } from "@/components/widgets/shared/resources/tabs/Communi
 import { InsightsTab } from "@/components/widgets/shared/resources/tabs/InsightsTab";
 import { NewsTab } from "@/components/widgets/shared/resources/tabs/NewsTab";
 
-export default function ResourcesPage() {
-    const [activeTab, setActiveTab] = useState('courses');
+function ResourcesContent() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'courses';
+
+    const handleTabChange = (id: string) => {
+        router.push(`/resources?tab=${id}`);
+    };
 
     const renderContent = () => {
         switch (activeTab) {
@@ -27,8 +34,16 @@ export default function ResourcesPage() {
     };
 
     return (
-        <ResourcesShell activeTab={activeTab} onTabChange={setActiveTab}>
+        <ResourcesShell activeTab={activeTab} onTabChange={handleTabChange}>
             {renderContent()}
         </ResourcesShell>
+    );
+}
+
+export default function ResourcesPage() {
+    return (
+        <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
+            <ResourcesContent />
+        </Suspense>
     );
 }

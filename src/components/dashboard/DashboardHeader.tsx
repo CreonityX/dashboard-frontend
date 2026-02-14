@@ -1,13 +1,12 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { Search, Bell, HelpCircle, Command, ChevronRight, Home } from "lucide-react";
-import { MOCK_CONVERSATIONS, SETTINGS_TABS } from "@/lib/mock-data";
+import { MOCK_CONVERSATIONS, SETTINGS_TABS, RESOURCE_TABS, SUPPORT_TABS, CALENDAR_VIEWS } from "@/lib/mock-data";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
 import { NotificationCenter } from "../widgets/shared/os/NotificationCenter";
 import { cn } from "@/lib/utils";
-
 
 
 export function DashboardHeader() {
@@ -24,16 +23,37 @@ export function DashboardHeader() {
         return { label: label.toUpperCase(), href, isLink: true };
     });
 
-    // Handle Dynamic Sub-levels
-    if (pathname.includes('/settings')) {
-        const tab = searchParams.get('tab');
-        if (tab) {
-            const tabLabel = SETTINGS_TABS.find(t => t.id === tab)?.label;
+    // Helper to add sub-level breadcrumb
+    const getSubLevel = (paramName: string, tabs: any[], defaultId?: string) => {
+        const param = searchParams.get(paramName);
+        const targetId = param || defaultId; // Use param or fallback to default
+        if (targetId) {
+            const tabLabel = tabs.find(t => t.id === targetId)?.label;
             if (tabLabel) {
-                breadcrumbs.push({ label: tabLabel.toUpperCase(), href: '', isLink: false });
+                return { label: tabLabel.toUpperCase(), href: '', isLink: false };
             }
         }
-    } else if (pathname.includes('/messages')) {
+        return null;
+    };
+
+    // Handle Dynamic Sub-levels & Defaults
+    if (pathname.includes('/settings')) {
+        const sub = getSubLevel('tab', SETTINGS_TABS, 'account');
+        if (sub) breadcrumbs.push(sub);
+    }
+    else if (pathname.includes('/resources')) {
+        const sub = getSubLevel('tab', RESOURCE_TABS, 'courses');
+        if (sub) breadcrumbs.push(sub);
+    }
+    else if (pathname.includes('/support')) {
+        const sub = getSubLevel('tab', SUPPORT_TABS, 'help-center');
+        if (sub) breadcrumbs.push(sub);
+    }
+    else if (pathname.includes('/calendar')) {
+        const sub = getSubLevel('view', CALENDAR_VIEWS, 'month');
+        if (sub) breadcrumbs.push(sub);
+    }
+    else if (pathname.includes('/messages')) {
         const convId = searchParams.get('conversation');
         if (convId) {
             const brand = MOCK_CONVERSATIONS.find(c => c.id === convId)?.brand;

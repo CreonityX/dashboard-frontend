@@ -1,4 +1,4 @@
-import { User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote } from "lucide-react";
+import { User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote, GraduationCap, BookOpen, Wrench, Users, TrendingUp, Newspaper, Search, MessageSquare, HelpCircle, PlayCircle, Lightbulb, Activity, Calendar as CalendarIcon, ClipboardList, LayoutList } from "lucide-react";
 
 export const MOCK_CONVERSATIONS = [
     { id: '1', brand: 'Samsung', message: 'Hey, wanted to check on the progress for the S26 review...', time: '10:42 AM', unreadCount: 2, isOnline: true },
@@ -20,4 +20,30 @@ export const SETTINGS_TABS = [
     { id: 'integrations', label: 'Integrations', icon: Workflow },
     { id: 'support', label: 'Help & Support', icon: LifeBuoy },
     { id: 'danger', label: 'Account Management', icon: AlertTriangle, variant: 'danger' },
+];
+
+export const RESOURCE_TABS = [
+    { id: 'courses', label: 'Courses & Tutorials', icon: GraduationCap },
+    { id: 'best-practices', label: 'Best Practices', icon: BookOpen },
+    { id: 'tools', label: 'Templates & Tools', icon: Wrench },
+    { id: 'community', label: 'Creator Community', icon: Users },
+    { id: 'insights', label: 'Market Insights', icon: TrendingUp },
+    { id: 'news', label: 'Blog & News', icon: Newspaper },
+];
+
+export const SUPPORT_TABS = [
+    { id: 'help-center', label: 'Help Center', icon: Search },
+    { id: 'contact', label: 'Contact Support', icon: MessageSquare },
+    { id: 'tickets', label: 'My Tickets', icon: LifeBuoy },
+    { id: 'faqs', label: 'FAQs', icon: HelpCircle },
+    { id: 'tutorials', label: 'Video Tutorials', icon: PlayCircle },
+    { id: 'features', label: 'Feature Requests', icon: Lightbulb },
+    { id: 'status', label: 'Platform Status', icon: Activity },
+];
+
+export const CALENDAR_VIEWS = [
+    { id: 'month', label: 'Month', icon: CalendarIcon },
+    { id: 'week', label: 'Week', icon: LayoutList },
+    { id: 'day', label: 'Day', icon: CalendarIcon },
+    { id: 'agenda', label: 'Agenda', icon: ClipboardList },
 ];

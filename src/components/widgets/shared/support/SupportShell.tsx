@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { LifeBuoy, MessageSquare, HelpCircle, PlayCircle, Lightbulb, Activity, Search } from "lucide-react";
 
 interface SupportShellProps {
     children?: ReactNode;
@@ -10,15 +9,7 @@ interface SupportShellProps {
     onTabChange: (id: string) => void;
 }
 
-const SUPPORT_TABS = [
-    { id: 'help-center', label: 'Help Center', icon: Search },
-    { id: 'contact', label: 'Contact Support', icon: MessageSquare },
-    { id: 'tickets', label: 'My Tickets', icon: LifeBuoy },
-    { id: 'faqs', label: 'FAQs', icon: HelpCircle },
-    { id: 'tutorials', label: 'Video Tutorials', icon: PlayCircle },
-    { id: 'features', label: 'Feature Requests', icon: Lightbulb },
-    { id: 'status', label: 'Platform Status', icon: Activity },
-];
+import { SUPPORT_TABS } from "@/lib/mock-data";
 
 export function SupportShell({ activeTab, onTabChange, children }: SupportShellProps) {
     return (

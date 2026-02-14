@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { CalendarShell } from "@/components/widgets/shared/calendar/CalendarShell";
 import { MonthView } from "@/components/widgets/shared/calendar/views/MonthView";
 import { WeekView } from "@/components/widgets/shared/calendar/views/WeekView";
@@ -8,17 +9,21 @@ import { DayView } from "@/components/widgets/shared/calendar/views/DayView";
 import { AgendaView } from "@/components/widgets/shared/calendar/views/AgendaView";
 import { AddEventDialog } from "@/components/widgets/shared/calendar/AddEventDialog";
 
-export default function CalendarPage() {
-    const [view, setView] = useState<'month' | 'week' | 'day' | 'agenda'>('month');
+function CalendarContent() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const viewParam = searchParams.get('view');
+    // Ensure view is one of the allowed types, default to 'month'
+    const view = (viewParam === 'month' || viewParam === 'week' || viewParam === 'day' || viewParam === 'agenda') ? viewParam : 'month';
     const [isAddEventOpen, setIsAddEventOpen] = useState(false);
 
-    // This function will be passed to Shell to trigger the modal from the "Add Event" button
-    // For now, we'll just mock it or wire it up if Shell exposes the prop
-    // Updating Shell to accept onAddEvent would be better, but for now let's just render Views
+    const handleViewChange = (newView: string) => {
+        router.push(`/calendar?view=${newView}`);
+    };
 
     return (
         <div className="h-full">
-            <CalendarShell view={view} onViewChange={setView} onAddEvent={() => setIsAddEventOpen(true)}>
+            <CalendarShell view={view} onViewChange={handleViewChange} onAddEvent={() => setIsAddEventOpen(true)}>
                 {view === 'month' && <MonthView />}
                 {view === 'week' && <WeekView />}
                 {view === 'day' && <DayView />}
@@ -27,5 +32,13 @@ export default function CalendarPage() {
 
             <AddEventDialog isOpen={isAddEventOpen} onClose={() => setIsAddEventOpen(false)} />
         </div>
+    );
+}
+
+export default function CalendarPage() {
+    return (
+        <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
+            <CalendarContent />
+        </Suspense>
     );
 }

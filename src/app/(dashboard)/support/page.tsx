@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SupportShell } from "@/components/widgets/shared/support/SupportShell";
 
 // Tabs
@@ -12,8 +13,14 @@ import { VideoTutorials } from "@/components/widgets/shared/support/tabs/VideoTu
 import { FeatureRequests } from "@/components/widgets/shared/support/tabs/FeatureRequests";
 import { PlatformStatus } from "@/components/widgets/shared/support/tabs/PlatformStatus";
 
-export default function SupportPage() {
-    const [activeTab, setActiveTab] = useState('help-center');
+function SupportContent() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'help-center';
+
+    const handleTabChange = (id: string) => {
+        router.push(`/support?tab=${id}`);
+    };
 
     const renderContent = () => {
         switch (activeTab) {
@@ -29,8 +36,16 @@ export default function SupportPage() {
     };
 
     return (
-        <SupportShell activeTab={activeTab} onTabChange={setActiveTab}>
+        <SupportShell activeTab={activeTab} onTabChange={handleTabChange}>
             {renderContent()}
         </SupportShell>
+    );
+}
+
+export default function SupportPage() {
+    return (
+        <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
+            <SupportContent />
+        </Suspense>
     );
 }
