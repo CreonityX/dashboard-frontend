@@ -12,7 +12,7 @@ import { GlassTechCard } from "@/components/GlassTechCard";
 
 export default function DashboardHome() {
     return (
-        <div className="flex flex-col items-center justify-center h-full text-zinc-500 font-mono text-sm">
+        <div className="flex flex-col items-center justify-center h-full text-zinc-500 font-mono text-sm p-6">
             <div className="p-4 border border-zinc-800 bg-zinc-900/20 rounded-sm animate-pulse">
                 AWAITING_WIDGET_CONFIG...
             </div>

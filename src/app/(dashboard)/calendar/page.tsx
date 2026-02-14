@@ -17,9 +17,7 @@ export default function CalendarPage() {
     // Updating Shell to accept onAddEvent would be better, but for now let's just render Views
 
     return (
-        <div className="max-w-[1600px] mx-auto h-full space-y-4">
-            {/* Header is handled by Shell for this page to maximize space */}
-
+        <div className="h-full">
             <CalendarShell view={view} onViewChange={setView} onAddEvent={() => setIsAddEventOpen(true)}>
                 {view === 'month' && <MonthView />}
                 {view === 'week' && <WeekView />}

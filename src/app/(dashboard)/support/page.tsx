@@ -29,15 +29,8 @@ export default function SupportPage() {
     };
 
     return (
-        <div className="max-w-[1600px] mx-auto h-full space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold text-white font-display uppercase tracking-tight">Support Center</h1>
-                <p className="text-zinc-500 font-mono text-xs mt-1">HELP & RESOURCES // {activeTab.toUpperCase()}_MODE</p>
-            </div>
-
-            <SupportShell activeTab={activeTab} onTabChange={setActiveTab}>
-                {renderContent()}
-            </SupportShell>
-        </div>
+        <SupportShell activeTab={activeTab} onTabChange={setActiveTab}>
+            {renderContent()}
+        </SupportShell>
     );
 }

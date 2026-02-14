@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SettingsShell } from "@/components/widgets/shared/settings/SettingsShell";
 
 // Sections
@@ -15,15 +16,21 @@ import { IntegrationSettings } from "@/components/widgets/shared/settings/sectio
 import { SupportSettings } from "@/components/widgets/shared/settings/sections/SupportSettings";
 import { AccountManagement } from "@/components/widgets/shared/settings/sections/AccountManagement";
 
-export default function SettingsPage() {
-    const [activeTab, setActiveTab] = useState('account');
+function SettingsContent() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'account';
+
+    const handleTabChange = (id: string) => {
+        router.push(`/settings?tab=${id}`);
+    };
 
     const renderContent = () => {
         switch (activeTab) {
             case 'account': return <AccountSettings />;
             case 'security': return <SecuritySettings />;
             case 'payment': return <PaymentSettings />;
-            case 'billing': return <SubscriptionSettings />; // Mapping mismatch fix below
+            case 'billing': return <SubscriptionSettings />;
             case 'notifications': return <NotificationSettings />;
             case 'preferences': return <PreferenceSettings />;
             case 'privacy': return <PrivacySettings />;
@@ -35,15 +42,16 @@ export default function SettingsPage() {
     };
 
     return (
-        <div className="max-w-[1600px] mx-auto h-full">
-            <div className="mb-6">
-                <h1 className="text-3xl font-bold text-white font-display uppercase tracking-tight">System Configuration</h1>
-                <p className="text-zinc-500 font-mono text-xs mt-1">Global Settings // {activeTab.toUpperCase()}_MODULE</p>
-            </div>
+        <SettingsShell activeTab={activeTab} onTabChange={handleTabChange}>
+            {renderContent()}
+        </SettingsShell>
+    );
+}
 
-            <SettingsShell activeTab={activeTab} onTabChange={setActiveTab}>
-                {renderContent()}
-            </SettingsShell>
-        </div>
+export default function SettingsPage() {
+    return (
+        <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
+            <SettingsContent />
+        </Suspense>
     );
 }

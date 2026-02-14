@@ -30,27 +30,31 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
     };
 
     return (
-        <div className="flex flex-col lg:flex-row h-[calc(100vh-140px)] gap-6 overflow-hidden">
+        <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Controls */}
-            <aside className="w-full lg:w-64 flex-shrink-0 space-y-6 overflow-y-auto">
+            <aside className="w-full lg:w-64 flex-shrink-0 space-y-6 overflow-y-auto bg-zinc-900/40 border-r border-zinc-800 backdrop-blur-md">
                 {/* Mini Calendar Placeholder */}
-                <div className="bg-zinc-900/40 border border-white/5 p-4 rounded-lg">
-                    <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm font-bold text-white">February 2026</span>
+                <div className="p-4 border-b border-zinc-800 bg-zinc-900/60">
+                    <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-white font-display tracking-widest uppercase">Feb_2026</span>
                         <div className="flex gap-1">
-                            <button className="p-1 hover:bg-white/10 rounded-sm text-zinc-400"><ChevronLeft className="w-4 h-4" /></button>
-                            <button className="p-1 hover:bg-white/10 rounded-sm text-zinc-400"><ChevronRight className="w-4 h-4" /></button>
+                            <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-400 transition-colors"><ChevronLeft className="w-3 h-3" /></button>
+                            <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-400 transition-colors"><ChevronRight className="w-3 h-3" /></button>
                         </div>
                     </div>
+                </div>
+
+                {/* Grid Container */}
+                <div className="px-4">
                     {/* Simplified Grid for visual only */}
-                    <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-zinc-500 font-mono mb-2">
+                    <div className="grid grid-cols-7 gap-1 text-center text-[9px] text-zinc-600 font-mono mb-2">
                         <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
                     </div>
-                    <div className="grid grid-cols-7 gap-1 text-center text-xs text-zinc-300">
+                    <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-zinc-400 font-mono">
                         {Array.from({ length: 28 }).map((_, i) => (
                             <div key={i} className={cn(
-                                "aspect-square flex items-center justify-center rounded-sm hover:bg-white/5 cursor-pointer",
-                                i === 13 ? "bg-purple-500 text-white font-bold" : ""
+                                "aspect-square flex items-center justify-center rounded-sm hover:bg-zinc-800 cursor-pointer transition-colors",
+                                i === 13 ? "bg-[#a3e635] text-black font-bold shadow-[0_0_8px_rgba(163,230,53,0.4)]" : ""
                             )}>
                                 {i + 1}
                             </div>
@@ -60,8 +64,8 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
 
                 {/* Filters */}
                 <div className="space-y-3">
-                    <div className="flex items-center justify-between px-1">
-                        <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider">Event Filters</span>
+                    <div className="flex items-center justify-between px-1 border-b border-zinc-800 pb-2">
+                        <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest font-mono">View_Filters</span>
                         <Filter className="w-3 h-3 text-zinc-600" />
                     </div>
                     <div className="space-y-1">
@@ -71,14 +75,14 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                                 <button
                                     key={filter.id}
                                     onClick={() => toggleFilter(filter.id)}
-                                    className="w-full flex items-center gap-3 px-3 py-2 rounded-sm hover:bg-white/5 transition-colors group text-left"
+                                    className="w-full flex items-center gap-3 px-2 py-1.5 rounded-sm hover:bg-zinc-800/50 transition-colors group text-left"
                                 >
                                     <div className={cn(
-                                        "w-3 h-3 rounded-sm border transition-all",
-                                        isActive ? `border-transparent ${filter.color}` : "border-zinc-700 bg-transparent"
+                                        "w-2 h-2 rounded-[1px] transition-all duration-300",
+                                        isActive ? filter.color : "bg-zinc-800 border border-zinc-700"
                                     )} />
                                     <span className={cn(
-                                        "text-xs font-mono transition-colors",
+                                        "text-[10px] font-mono uppercase tracking-tight transition-colors",
                                         isActive ? "text-zinc-300" : "text-zinc-600 group-hover:text-zinc-400"
                                     )}>
                                         {filter.label}
@@ -90,35 +94,46 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                 </div>
 
                 {/* Integrations */}
-                <div className="p-4 border border-white/5 bg-zinc-900/20 rounded-lg space-y-3">
-                    <span className="text-xs font-bold text-zinc-500 uppercase tracking-wider block mb-2">Sync & Export</span>
-                    <button className="w-full flex items-center gap-2 text-xs text-zinc-400 hover:text-white transition-colors">
-                        <CalendarIcon className="w-3 h-3" /> Connect Google Cal
-                    </button>
-                    <button className="w-full flex items-center gap-2 text-xs text-zinc-400 hover:text-white transition-colors">
-                        <Download className="w-3 h-3" /> Export .ics
-                    </button>
-                    <button className="w-full flex items-center gap-2 text-xs text-zinc-400 hover:text-white transition-colors">
-                        <Upload className="w-3 h-3" /> Import Events
-                    </button>
+                <div className="px-4 pb-4 mt-auto">
+                    <div className="p-3 border border-zinc-800 bg-zinc-900/60 rounded-sm space-y-2">
+                        <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest block mb-2 font-mono">Data_Sync</span>
+                        <button className="w-full flex items-center gap-2 text-[10px] text-zinc-400 hover:text-[#a3e635] transition-colors font-mono group">
+                            <CalendarIcon className="w-3 h-3 text-zinc-600 group-hover:text-[#a3e635]" /> Sync_Google_Cal
+                        </button>
+                        <button className="w-full flex items-center gap-2 text-[10px] text-zinc-400 hover:text-[#a3e635] transition-colors font-mono group">
+                            <Download className="w-3 h-3 text-zinc-600 group-hover:text-[#a3e635]" /> Export_ICS
+                        </button>
+                    </div>
                 </div>
             </aside>
 
             {/* Main Calendar Area */}
-            <main className="flex-1 flex flex-col bg-zinc-900/20 border border-white/5 rounded-lg overflow-hidden relative">
+            <main className="flex-1 flex flex-col bg-zinc-900/40 overflow-hidden relative backdrop-blur-md">
+                {/* Header Decoration */}
+                <div className="absolute top-0 right-0 p-3 pointer-events-none z-20">
+                    <div className="flex gap-1">
+                        <div className="w-1 h-1 bg-zinc-700/50 rounded-sm" />
+                        <div className="w-1 h-1 bg-zinc-700/50 rounded-sm" />
+                        <div className="w-1 h-1 bg-[#a3e635]/50 rounded-sm" />
+                    </div>
+                </div>
+
+                {/* Content Background (Noise) */}
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
+
                 {/* Toolbar */}
-                <div className="h-14 border-b border-white/5 flex items-center justify-between px-6 bg-zinc-900/40">
-                    <div className="flex items-center gap-4">
-                        <h2 className="text-xl font-bold text-white font-display">February 2026</h2>
-                        <div className="flex items-center bg-black/40 rounded-sm p-0.5 border border-white/5">
-                            <button className="p-1 hover:bg-white/10 rounded-sm text-zinc-400 hover:text-white"><ChevronLeft className="w-4 h-4" /></button>
-                            <button className="px-3 text-xs font-mono text-zinc-300">Today</button>
-                            <button className="p-1 hover:bg-white/10 rounded-sm text-zinc-400 hover:text-white"><ChevronRight className="w-4 h-4" /></button>
+                <div className="h-14 border-b border-zinc-800 flex items-center justify-between px-6 bg-zinc-900/60 relative z-10">
+                    <div className="flex items-center gap-6">
+                        <h2 className="text-lg font-bold text-white font-display tracking-wide">FEBRUARY <span className="text-zinc-600">2026</span></h2>
+                        <div className="flex items-center bg-zinc-950/50 rounded-sm p-0.5 border border-zinc-800">
+                            <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-zinc-300 transition-colors"><ChevronLeft className="w-3 h-3" /></button>
+                            <button className="px-3 text-[10px] font-bold font-mono text-zinc-400 uppercase tracking-wider hover:text-white transition-colors">Today</button>
+                            <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-zinc-300 transition-colors"><ChevronRight className="w-3 h-3" /></button>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <div className="flex bg-black/40 rounded-sm p-1 border border-white/5">
+                        <div className="flex bg-zinc-950/50 rounded-sm p-1 border border-zinc-800 gap-1">
                             {['Month', 'Week', 'Day', 'Agenda'].map((v) => {
                                 const value = v.toLowerCase();
                                 const isActive = view === value;
@@ -127,8 +142,10 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                                         key={value}
                                         onClick={() => onViewChange(value)}
                                         className={cn(
-                                            "px-3 py-1 rounded-sm text-[10px] font-bold uppercase transition-all",
-                                            isActive ? "bg-zinc-800 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-300"
+                                            "px-3 py-1 rounded-[1px] text-[10px] font-bold uppercase transition-all font-mono tracking-tight",
+                                            isActive
+                                                ? "bg-zinc-800 text-[#a3e635] shadow-sm border border-zinc-700"
+                                                : "text-zinc-500 hover:text-zinc-300 border border-transparent"
                                         )}
                                     >
                                         {v}
@@ -138,15 +155,15 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                         </div>
                         <button
                             onClick={onAddEvent}
-                            className="flex items-center gap-2 px-3 py-1.5 bg-purple-500 hover:bg-purple-600 text-white text-xs font-bold uppercase rounded-sm transition-colors shadow-lg shadow-purple-500/20"
+                            className="flex items-center gap-2 px-4 py-1.5 bg-[#a3e635] hover:bg-[#a3e635]/90 text-black text-xs font-bold uppercase rounded-sm transition-all shadow-[0_0_15px_rgba(163,230,53,0.3)] hover:shadow-[0_0_20px_rgba(163,230,53,0.5)]"
                         >
-                            <Plus className="w-3 h-3" /> Add_Event
+                            <Plus className="w-3 h-3" /> New_Event
                         </button>
                     </div>
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto bg-black/20 custom-scrollbar relative">
+                <div className="flex-1 overflow-y-auto relative z-10 custom-scrollbar">
                     {children}
                 </div>
             </main>

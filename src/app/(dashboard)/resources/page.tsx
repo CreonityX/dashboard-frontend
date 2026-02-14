@@ -27,15 +27,8 @@ export default function ResourcesPage() {
     };
 
     return (
-        <div className="max-w-[1600px] mx-auto h-full space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold text-white font-display uppercase tracking-tight">Resources Hub</h1>
-                <p className="text-zinc-500 font-mono text-xs mt-1">KNOWLEDGE_BASE // {activeTab.toUpperCase()}_MODULE_ACTIVE</p>
-            </div>
-
-            <ResourcesShell activeTab={activeTab} onTabChange={setActiveTab}>
-                {renderContent()}
-            </ResourcesShell>
-        </div>
+        <ResourcesShell activeTab={activeTab} onTabChange={setActiveTab}>
+            {renderContent()}
+        </ResourcesShell>
     );
 }

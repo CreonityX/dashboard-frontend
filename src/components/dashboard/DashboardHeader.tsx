@@ -1,17 +1,47 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { Search, Bell, HelpCircle, Command, ChevronRight, Home } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { MOCK_CONVERSATIONS, SETTINGS_TABS } from "@/lib/mock-data";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
 import { NotificationCenter } from "../widgets/shared/os/NotificationCenter";
 import { cn } from "@/lib/utils";
 
+
+
 export function DashboardHeader() {
     const pathname = usePathname();
-    const segments = pathname.split('/').filter(Boolean);
+    const searchParams = useSearchParams();
     const [showNotifications, setShowNotifications] = useState(false);
     const notificationRef = useRef<HTMLDivElement>(null);
+
+    // Breadcrumb Logic
+    const segments = pathname.split('/').filter(Boolean);
+    const breadcrumbs = segments.map((segment, index) => {
+        const href = `/${segments.slice(0, index + 1).join('/')}`;
+        let label = segment === 'messages' ? 'INBOX' : segment.replace(/-/g, ' ');
+        return { label: label.toUpperCase(), href, isLink: true };
+    });
+
+    // Handle Dynamic Sub-levels
+    if (pathname.includes('/settings')) {
+        const tab = searchParams.get('tab');
+        if (tab) {
+            const tabLabel = SETTINGS_TABS.find(t => t.id === tab)?.label;
+            if (tabLabel) {
+                breadcrumbs.push({ label: tabLabel.toUpperCase(), href: '', isLink: false });
+            }
+        }
+    } else if (pathname.includes('/messages')) {
+        const convId = searchParams.get('conversation');
+        if (convId) {
+            const brand = MOCK_CONVERSATIONS.find(c => c.id === convId)?.brand;
+            if (brand) {
+                breadcrumbs.push({ label: brand.toUpperCase(), href: '', isLink: false });
+            }
+        }
+    }
 
     // Close notifications when clicking outside
     useEffect(() => {
@@ -31,25 +61,32 @@ export function DashboardHeader() {
                 <Link href="/" className="text-zinc-500 hover:text-white transition-colors">
                     <Home className="w-4 h-4" />
                 </Link>
-                {segments.length > 0 && (
-                    <ChevronRight className="w-4 h-4 text-zinc-700" />
-                )}
-                {segments.map((segment, index) => {
-                    const href = `/${segments.slice(0, index + 1).join('/')}`;
-                    const isLast = index === segments.length - 1;
+                {breadcrumbs.length > 0 && <ChevronRight className="w-4 h-4 text-zinc-700" />}
 
+                {breadcrumbs.map((crumb, index) => {
+                    const isLast = index === breadcrumbs.length - 1;
                     return (
-                        <Fragment key={href}>
-                            <Link
-                                href={href}
-                                className={`uppercase transition-colors ${isLast ? "text-white font-bold" : "text-zinc-500 hover:text-white"
-                                    }`}
-                            >
-                                {segment}
-                            </Link>
-                            {!isLast && (
-                                <ChevronRight className="w-4 h-4 text-zinc-700" />
-                            )}
+                        <Fragment key={index}>
+                            <div className="flex items-center gap-2">
+                                {crumb.isLink && !isLast ? (
+                                    <Link
+                                        href={crumb.href}
+                                        className="text-zinc-500 hover:text-white transition-colors uppercase font-medium"
+                                    >
+                                        {crumb.label}
+                                    </Link>
+                                ) : (
+                                    <span className={cn(
+                                        "uppercase transition-colors",
+                                        isLast ? "text-white font-bold" : "text-zinc-400 font-medium"
+                                    )}>
+                                        {crumb.label}
+                                    </span>
+                                )}
+                                {!isLast && (
+                                    <ChevronRight className="w-4 h-4 text-zinc-700" />
+                                )}
+                            </div>
                         </Fragment>
                     );
                 })}
