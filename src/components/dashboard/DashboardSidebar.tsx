@@ -10,7 +10,9 @@ import {
     Settings,
     ChevronLeft,
     ChevronRight,
-    User
+    User,
+    LifeBuoy,
+    GraduationCap
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
@@ -22,6 +24,8 @@ const NAV_ITEMS = [
     { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "FINANCE", icon: Wallet, href: "/finance" },
     { label: "SETTINGS", icon: Settings, href: "/settings" },
+    { label: "RESOURCES", icon: GraduationCap, href: "/resources" },
+    { label: "SUPPORT", icon: LifeBuoy, href: "/support" },
 ];
 
 export function DashboardSidebar() {

@@ -25,7 +25,7 @@ export function DashboardHeader() {
     }, []);
 
     return (
-        <header className="h-16 z-10 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 flex items-center justify-between px-6 sticky top-0">
+        <header className="h-16 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 flex items-center justify-between px-6 sticky top-0">
             {/* Left: Breadcrumbs */}
             <div className="flex items-center gap-2 text-sm font-mono">
                 <Link href="/" className="text-zinc-500 hover:text-white transition-colors">

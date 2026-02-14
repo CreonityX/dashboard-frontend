@@ -16,7 +16,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
                         {/* Neo-Industrial Container */}
                         <div className="relative z-10 p-6 h-[calc(100vh-64px)] overflow-hidden">
-                            <div className="h-full w-full rounded-tl-2xl border border-white/5 bg-zinc-900/20 backdrop-blur-sm shadow-2xl relative overflow-hidden flex flex-col">
+                            <div className="h-full w-full rounded-tl-2xl border border-white/5 bg-zinc-900/20 shadow-2xl relative overflow-hidden flex flex-col">
 
                                 {/* Corner Accents */}
                                 <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/10 rounded-tl-2xl pointer-events-none" />
