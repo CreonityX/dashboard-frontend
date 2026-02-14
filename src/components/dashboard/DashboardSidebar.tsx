@@ -12,7 +12,8 @@ import {
     ChevronRight,
     User,
     LifeBuoy,
-    GraduationCap
+    GraduationCap,
+    Calendar
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
@@ -23,6 +24,7 @@ const NAV_ITEMS = [
     { label: "PROJECTS", icon: Briefcase, href: "/projects" },
     { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "FINANCE", icon: Wallet, href: "/finance" },
+    { label: "CALENDAR", icon: Calendar, href: "/calendar" },
     { label: "SETTINGS", icon: Settings, href: "/settings" },
     { label: "RESOURCES", icon: GraduationCap, href: "/resources" },
     { label: "SUPPORT", icon: LifeBuoy, href: "/support" },
