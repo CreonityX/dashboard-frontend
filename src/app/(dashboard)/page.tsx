@@ -1,21 +1,37 @@
 "use client";
 
-import { TotalEarningsCard } from "@/components/widgets/creator/financial/TotalEarningsCard";
-import { GigKanban } from "@/components/widgets/shared/command/GigKanban";
-import { NotificationCenter } from "@/components/widgets/shared/os/NotificationCenter";
-import { UserProfileHeader } from "@/components/widgets/shared/os/UserProfileHeader";
-import { ContentTopList } from "@/components/widgets/creator/analytics/ContentTopList";
-import { WidgetShell } from "@/components/WidgetShell";
-import { Zap, Command, LayoutGrid } from "lucide-react";
-import Link from "next/link";
-import { GlassTechCard } from "@/components/GlassTechCard";
+import { HomeShell } from "@/components/widgets/shared/home/HomeShell";
+import { WelcomeBanner } from "@/components/widgets/shared/home/WelcomeBanner";
+import { QuickStatsRow } from "@/components/widgets/shared/home/QuickStatsRow";
+import { EarningsOverviewCard } from "@/components/widgets/shared/home/EarningsOverviewCard";
+import { ActiveProjectsStatus } from "@/components/widgets/shared/home/ActiveProjectsStatus";
+import { RecentActivityFeed } from "@/components/widgets/shared/home/RecentActivityFeed";
+import { RecommendedGigsCarousel } from "@/components/widgets/shared/home/RecommendedGigsCarousel";
 
 export default function DashboardHome() {
     return (
-        <div className="flex flex-col items-center justify-center h-full text-zinc-500 font-mono text-sm p-6">
-            <div className="p-4 border border-zinc-800 bg-zinc-900/20 rounded-sm animate-pulse">
-                AWAITING_WIDGET_CONFIG...
+        <HomeShell>
+            <WelcomeBanner />
+
+            <QuickStatsRow />
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto">
+                <div className="lg:col-span-2">
+                    <EarningsOverviewCard />
+                </div>
+                <div className="lg:col-span-1">
+                    <ActiveProjectsStatus />
+                </div>
             </div>
-        </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-2">
+                    <RecommendedGigsCarousel />
+                </div>
+                <div className="lg:col-span-1">
+                    <RecentActivityFeed />
+                </div>
+            </div>
+        </HomeShell>
     );
 }

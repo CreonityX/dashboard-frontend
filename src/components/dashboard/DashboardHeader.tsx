@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { Search, Bell, HelpCircle, Command, ChevronRight, Home } from "lucide-react";
-import { MOCK_CONVERSATIONS, SETTINGS_TABS, RESOURCE_TABS, SUPPORT_TABS, CALENDAR_VIEWS, PROFILE_TABS, ANALYTICS_TABS, FINANCE_TABS } from "@/lib/mock-data";
+import { MOCK_CONVERSATIONS, SETTINGS_TABS, RESOURCE_TABS, SUPPORT_TABS, CALENDAR_VIEWS, PROFILE_TABS, ANALYTICS_TABS, FINANCE_TABS, PROJECT_TABS } from "@/lib/mock-data";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -63,6 +63,10 @@ export function DashboardHeader() {
     }
     else if (pathname.includes('/finance')) {
         const sub = getSubLevel('tab', FINANCE_TABS, 'overview');
+        if (sub) breadcrumbs.push(sub);
+    }
+    else if (pathname.includes('/projects')) {
+        const sub = getSubLevel('tab', PROJECT_TABS, 'discover');
         if (sub) breadcrumbs.push(sub);
     }
     else if (pathname.includes('/messages')) {

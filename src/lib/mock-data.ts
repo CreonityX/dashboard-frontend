@@ -2,7 +2,8 @@ import {
     User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote, GraduationCap, BookOpen,
     Settings, HelpCircle, Check, Briefcase, MessageSquare, Wallet, FileText, TrendingUp, Users, Video, Image, LogOut,
     Plus, Minus, ChevronDown, ChevronRight, Search, Menu, X, LayoutDashboard, Calendar, Activity, LayoutList,
-    ArrowLeftRight, Landmark, Wrench, Newspaper, PlayCircle, Lightbulb, CalendarIcon, ClipboardList, Eye, Edit3, ShieldCheck
+    ArrowLeftRight, Landmark, Wrench, Newspaper, PlayCircle, Lightbulb, CalendarIcon, ClipboardList, Eye, Edit3, ShieldCheck,
+    Send, Zap, CheckCircle, Bookmark, Mail
 } from "lucide-react";
 
 export const MOCK_CONVERSATIONS = [
@@ -78,4 +79,13 @@ export const FINANCE_TABS = [
     { id: 'invoices', label: 'Invoices', icon: FileText },
     { id: 'tax', label: 'Tax Center', icon: Landmark },
     { id: 'referrals', label: 'Referrals', icon: Users },
+];
+
+export const PROJECT_TABS = [
+    { id: 'discover', label: 'Discover', icon: Search },
+    { id: 'applied', label: 'Applied', icon: Send },
+    { id: 'active', label: 'Active', icon: Zap },
+    { id: 'completed', label: 'Completed', icon: CheckCircle },
+    { id: 'saved', label: 'Saved', icon: Bookmark },
+    { id: 'invitations', label: 'Invitations', icon: Mail },
 ];
