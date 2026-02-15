@@ -53,7 +53,7 @@ export function FinanceShell({ activeTab, onTabChange, children }: FinanceShellP
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 bg-zinc-900/40 overflow-hidden flex flex-col relative backdrop-blur-md">
+            <main className="flex-1 overflow-hidden flex flex-col relative backdrop-blur-md">
                 {/* Header Decoration */}
                 <div className="absolute top-0 right-0 p-4 pointer-events-none z-20">
                     <div className="flex gap-1">

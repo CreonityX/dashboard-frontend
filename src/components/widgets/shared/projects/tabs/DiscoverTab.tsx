@@ -78,9 +78,9 @@ const GIGS = [
 
 export function DiscoverTab() {
     return (
-        <div className="flex flex-col lg:flex-row gap-6 h-full">
+        <div className="flex flex-col lg:flex-row gap-8 h-full">
             {/* Sidebar Filters */}
-            <div className="w-full lg:w-64 flex-shrink-0 space-y-6">
+            <div className="w-full lg:w-72 flex-shrink-0 space-y-6">
                 {/* Search Mobile/Desktop */}
                 <div className="relative group">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 group-hover:text-zinc-300 transition-colors" />

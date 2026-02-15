@@ -26,7 +26,7 @@ export function MessagesShell() {
     };
 
     return (
-        <div className="flex h-full w-full bg-zinc-900/40 relative overflow-hidden backdrop-blur-md">
+        <div className="flex h-full w-full relative overflow-hidden backdrop-blur-md">
             {/* Thread List Panel */}
             <div className="w-80 border-r border-zinc-800 flex flex-col bg-zinc-900/20">
 
