@@ -14,8 +14,8 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Navigation */}
-            <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-r border-zinc-800 overflow-y-auto">
-                <nav className="p-2 space-y-1">
+            <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-b lg:border-b-0 lg:border-r border-zinc-800 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden">
+                <nav className="p-2 flex lg:flex-col gap-2 min-w-max lg:min-w-0">
                     {SETTINGS_TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
                         const isDanger = tab.variant === 'danger';
@@ -24,7 +24,7 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
                                 key={tab.id}
                                 onClick={() => onTabChange(tab.id)}
                                 className={cn(
-                                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent",
+                                    "flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent whitespace-nowrap lg:whitespace-normal",
                                     isActive
                                         ? "bg-[#a3e635]/10 text-white border-[#a3e635]/20"
                                         : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50 hover:border-zinc-800",
@@ -33,13 +33,13 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
                                 )}
                             >
                                 <tab.icon className={cn(
-                                    "w-4 h-4 transition-colors",
+                                    "w-4 h-4 transition-colors shrink-0",
                                     isActive ? (isDanger ? "text-red-500" : "text-[#a3e635]") : "text-zinc-600 group-hover:text-zinc-400",
                                     isDanger && !isActive && "text-red-900/50 group-hover:text-red-500"
                                 )} />
                                 <span className="text-xs font-mono font-medium tracking-tight uppercase">{tab.label}</span>
                                 {isActive && !isDanger && (
-                                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#a3e635] shadow-[0_0_6px_#a3e635]" />
+                                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#a3e635] shadow-[0_0_6px_#a3e635] hidden lg:block" />
                                 )}
                             </button>
                         );
@@ -62,7 +62,7 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
 
                 {/* Live Content */}
-                <div className="flex-1 overflow-y-auto p-6 lg:p-10 custom-scrollbar relative z-10">
+                <div className="flex-1 overflow-y-auto p-4 lg:p-10 custom-scrollbar relative z-10">
                     {children}
                 </div>
 

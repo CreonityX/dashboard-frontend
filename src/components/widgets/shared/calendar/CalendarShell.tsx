@@ -22,6 +22,7 @@ const EVENT_FILTERS = [
 
 export function CalendarShell({ children, view, onViewChange, onAddEvent }: CalendarShellProps) {
     const [activeFilters, setActiveFilters] = useState<string[]>(EVENT_FILTERS.map(f => f.id));
+    const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
     const toggleFilter = (id: string) => {
         setActiveFilters(prev =>
@@ -32,7 +33,21 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Controls */}
-            <aside className="w-full lg:w-72 flex-shrink-0 flex flex-col gap-6 overflow-y-auto bg-zinc-900/60 border-r border-zinc-800 backdrop-blur-md p-6">
+            <aside className={cn(
+                "w-full lg:w-72 flex-shrink-0 flex flex-col gap-6 overflow-y-auto bg-zinc-900/95 lg:bg-zinc-900/60 border-r border-zinc-800 backdrop-blur-md p-6 z-40 transition-transform duration-300 ease-in-out",
+                // Mobile: Absolute positioning, full height, toggled via state
+                "absolute inset-0 lg:relative lg:translate-x-0",
+                showMobileSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+            )}>
+                {/* Mobile Close Button */}
+                <div className="flex justify-end lg:hidden mb-2">
+                    <button
+                        onClick={() => setShowMobileSidebar(false)}
+                        className="p-2 bg-zinc-800 text-zinc-400 hover:text-white rounded-sm"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+                </div>
 
                 {/* Mini Calendar */}
                 <div className="tech-border p-4">
@@ -123,8 +138,16 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
 
                 {/* Toolbar */}
                 <div className="h-14 border-b border-zinc-800 flex items-center justify-between px-6 bg-zinc-900/60 relative z-10">
-                    <div className="flex items-center gap-6">
-                        <h2 className="text-lg font-bold text-white font-display tracking-wide">FEBRUARY <span className="text-zinc-600">2026</span></h2>
+                    <div className="flex items-center gap-2 lg:gap-6">
+                        {/* Mobile Toggle */}
+                        <button
+                            onClick={() => setShowMobileSidebar(true)}
+                            className="lg:hidden p-2 text-zinc-400 hover:text-white"
+                        >
+                            <Filter className="w-4 h-4" />
+                        </button>
+
+                        <h2 className="text-lg font-bold text-white font-display tracking-wide truncate">FEBRUARY <span className="text-zinc-600 hidden sm:inline">2026</span></h2>
                         <div className="flex items-center bg-zinc-950/50 rounded-sm p-0.5 border border-zinc-800">
                             <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-zinc-300 transition-colors"><ChevronLeft className="w-3 h-3" /></button>
                             <button className="px-3 text-[10px] font-bold font-mono text-zinc-400 uppercase tracking-wider hover:text-white transition-colors">Today</button>
@@ -163,7 +186,7 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                 </div>
 
                 {/* Content */}
-                <div className="flex-1 overflow-y-auto relative z-10 custom-scrollbar">
+                <div className="flex-1 overflow-auto relative z-10 custom-scrollbar">
                     {children}
                 </div>
             </main>

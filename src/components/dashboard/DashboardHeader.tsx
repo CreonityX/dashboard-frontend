@@ -104,34 +104,34 @@ export function DashboardHeader() {
                     <Menu className="w-5 h-5" />
                 </button>
 
-                <div className="flex items-center gap-2 text-sm font-mono">
-                    <Link href="/" className="text-zinc-500 hover:text-white transition-colors">
+                <div className="flex items-center gap-2 text-sm font-mono overflow-hidden whitespace-nowrap mask-linear-fade">
+                    <Link href="/" className="text-zinc-500 hover:text-white transition-colors shrink-0">
                         <Home className="w-4 h-4" />
                     </Link>
-                    {breadcrumbs.length > 0 && <ChevronRight className="w-4 h-4 text-zinc-700" />}
+                    {breadcrumbs.length > 0 && <ChevronRight className="w-4 h-4 text-zinc-700 shrink-0" />}
 
                     {breadcrumbs.map((crumb, index) => {
                         const isLast = index === breadcrumbs.length - 1;
                         return (
                             <Fragment key={index}>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 min-w-0">
                                     {crumb.isLink && !isLast ? (
                                         <Link
                                             href={crumb.href}
-                                            className="text-zinc-500 hover:text-white transition-colors uppercase font-medium"
+                                            className="text-zinc-500 hover:text-white transition-colors uppercase font-medium truncate"
                                         >
                                             {crumb.label}
                                         </Link>
                                     ) : (
                                         <span className={cn(
-                                            "uppercase transition-colors",
+                                            "uppercase transition-colors truncate",
                                             isLast ? "text-white font-bold" : "text-zinc-400 font-medium"
                                         )}>
                                             {crumb.label}
                                         </span>
                                     )}
                                     {!isLast && (
-                                        <ChevronRight className="w-4 h-4 text-zinc-700" />
+                                        <ChevronRight className="w-4 h-4 text-zinc-700 shrink-0" />
                                     )}
                                 </div>
                             </Fragment>
@@ -141,7 +141,7 @@ export function DashboardHeader() {
             </div>
 
             {/* Right: Actions */}
-            <div className="flex items-center gap-4 relative">
+            <div className="flex items-center gap-2 sm:gap-4 relative shrink-0">
                 <div className="relative group hidden sm:block">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500 group-focus-within:text-[#a3e635] transition-colors" />
                     <input

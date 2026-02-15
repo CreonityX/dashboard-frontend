@@ -22,7 +22,7 @@ export function CoursesTab() {
             </div>
 
             <ResourceSection title="Continue Learning">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
                     <CourseCard
                         title="Advanced Video Editing with Premiere Pro"
                         category="Production"
@@ -41,7 +41,7 @@ export function CoursesTab() {
             </ResourceSection>
 
             <ResourceSection title="Recommended for You">
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
                     <CourseCard
                         title="TikTok Algorithm Decoded 2026"
                         category="Growth"
