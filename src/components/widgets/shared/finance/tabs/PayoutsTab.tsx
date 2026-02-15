@@ -18,46 +18,51 @@ export function PayoutsTab() {
             {/* Left Column: Withdrawal & Methods */}
             <div className="lg:col-span-2 space-y-6">
                 {/* Withdrawal Card */}
-                <div className="bg-zinc-900/40 border border-zinc-800 p-6 rounded-sm relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10">
-                        <CreditCard className="w-24 h-24 text-zinc-500" />
+                <div className="tech-border p-6 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <CreditCard className="w-32 h-32 text-zinc-500" />
                     </div>
 
-                    <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider mb-6 relative z-10">Request_Withdrawal</h3>
+                    <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider mb-6 relative z-10 flex items-center gap-2">
+                        <CreditCard className="w-4 h-4 text-[#a3e635]" /> Request_Withdrawal
+                    </h3>
 
                     <div className="relative z-10 space-y-6">
                         <div>
-                            <label className="text-[10px] text-zinc-500 font-mono uppercase mb-2 block">Amount to Withdraw</label>
+                            <label className="text-[10px] text-zinc-500 font-mono uppercase mb-2 block tracking-wider">Amount to Withdraw</label>
                             <div className="flex items-center gap-4">
-                                <div className="flex-1 bg-zinc-950 border border-zinc-800 rounded-sm px-4 py-3 flex items-center">
-                                    <span className="text-zinc-500 mr-2">$</span>
-                                    <input type="text" defaultValue="5,250.00" className="bg-transparent border-none outline-none text-xl font-bold text-white font-mono w-full" />
+                                <div className="flex-1 bg-zinc-950 border border-zinc-800 px-4 py-3 flex items-center focus-within:border-[#a3e635]/50 transition-colors">
+                                    <span className="text-zinc-500 mr-2 font-mono">$</span>
+                                    <input type="text" defaultValue="5,250.00" className="bg-transparent border-none outline-none text-xl font-bold text-white font-mono w-full placeholder:text-zinc-800" />
                                 </div>
-                                <button className="text-[10px] font-bold text-[#a3e635] bg-[#a3e635]/10 px-3 py-3 rounded-sm border border-[#a3e635]/20 hover:bg-[#a3e635]/20 font-mono uppercase">
+                                <button className="text-[10px] font-bold text-[#a3e635] bg-[#a3e635]/10 px-4 py-3 border border-[#a3e635]/20 hover:bg-[#a3e635]/20 font-mono uppercase transition-colors">
                                     MAX
                                 </button>
                             </div>
-                            <p className="text-[10px] text-zinc-500 font-mono mt-2">Available Balance: <span className="text-white">$5,250.00</span></p>
+                            <p className="text-[10px] text-zinc-500 font-mono mt-2">Available Balance: <span className="text-white font-bold">$5,250.00</span></p>
                         </div>
 
                         <div>
-                            <label className="text-[10px] text-zinc-500 font-mono uppercase mb-2 block">Destination</label>
-                            <div className="bg-zinc-950 border border-zinc-800 rounded-sm p-3 flex items-center justify-between cursor-pointer hover:border-zinc-700 transition-colors">
+                            <label className="text-[10px] text-zinc-500 font-mono uppercase mb-2 block tracking-wider">Destination</label>
+                            <div className="bg-zinc-950 border border-zinc-800 p-3 flex items-center justify-between cursor-pointer hover:border-[#a3e635]/30 transition-colors group/dest">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-8 h-8 rounded-sm bg-zinc-900 flex items-center justify-center border border-zinc-800">
-                                        <Building2 className="w-4 h-4 text-zinc-400" />
+                                    <div className="w-10 h-10 bg-zinc-900/50 flex items-center justify-center border border-zinc-800 group-hover/dest:border-zinc-700">
+                                        <Building2 className="w-5 h-5 text-zinc-400 group-hover/dest:text-white transition-colors" />
                                     </div>
                                     <div>
-                                        <div className="text-xs font-bold text-white">Chase Checking ****8821</div>
+                                        <div className="text-xs font-bold text-white mb-0.5">Chase Checking ****8821</div>
                                         <div className="text-[10px] text-zinc-500 font-mono">Instant Transfer (1.5% fee)</div>
                                     </div>
                                 </div>
-                                <ArrowRight className="w-4 h-4 text-zinc-600" />
+                                <div className="w-8 h-8 flex items-center justify-center bg-zinc-900 border border-zinc-800 group-hover/dest:bg-[#a3e635] group-hover/dest:text-black transition-all">
+                                    <ArrowRight className="w-4 h-4" />
+                                </div>
                             </div>
                         </div>
 
-                        <button className="w-full py-3 bg-[#a3e635] text-black font-bold font-mono text-xs uppercase tracking-wider rounded-sm hover:opacity-90 transition-opacity">
-                            Initiate_Transfer
+                        <button className="w-full py-4 bg-[#a3e635] text-black font-bold font-mono text-xs uppercase tracking-widest hover:bg-[#b2eb59] transition-colors relative overflow-hidden group/btn">
+                            <span className="relative z-10">Initiate_Transfer</span>
+                            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-300" />
                         </button>
                     </div>
                 </div>

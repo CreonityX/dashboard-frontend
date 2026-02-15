@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Bell, Calendar, TrendingUp, CheckCircle2 } from "lucide-react";
+import { DashboardWidgetShell } from "../DashboardWidgetShell";
 
 interface HomeShellProps {
     children?: ReactNode;
@@ -24,57 +25,68 @@ export function HomeShell({ children }: HomeShellProps) {
             {/* Right Sidebar Widgets */}
             <aside className="w-full lg:w-80 flex-shrink-0 bg-zinc-900/60 border-l border-zinc-800 overflow-y-auto p-6 space-y-6 hidden xl:block">
                 {/* Mini Calendar Widget */}
-                <div className="bg-zinc-950/50 border border-zinc-800 rounded-sm p-4">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
-                            <Calendar className="w-3.5 h-3.5 text-[#a3e635]" /> Schedule
-                        </h3>
-                        <span className="text-[10px] text-zinc-500 font-mono">FEB 2026</span>
-                    </div>
-                    <div className="grid grid-cols-7 gap-1 text-center mb-2">
-                        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
-                            <div key={d} className="text-[10px] text-zinc-600 font-mono">{d}</div>
-                        ))}
-                    </div>
-                    <div className="grid grid-cols-7 gap-1 text-center">
-                        {Array.from({ length: 28 }).map((_, i) => (
-                            <div key={i} className={cn(
-                                "text-xs p-1.5 rounded-sm hover:bg-zinc-800 cursor-pointer font-mono",
-                                i === 14 ? "bg-[#a3e635] text-black font-bold" : "text-zinc-400",
-                                [5, 12, 18, 25].includes(i) && i !== 14 ? "relative after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-[#a3e635] after:rounded-full" : ""
-                            )}>
-                                {i + 1}
+                <DashboardWidgetShell title="Schedule" icon={Calendar} className="min-h-0">
+                    <div className="p-4">
+                        <div className="flex justify-between items-center mb-4">
+                            <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-wider">FEB 2026</div>
+                            <div className="flex gap-1">
+                                <div className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse" />
                             </div>
-                        ))}
+                        </div>
+                        <div className="grid grid-cols-7 gap-1 text-center mb-2">
+                            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => (
+                                <div key={d} className="text-[10px] text-zinc-600 font-mono">{d}</div>
+                            ))}
+                        </div>
+                        <div className="grid grid-cols-7 gap-1 text-center">
+                            {Array.from({ length: 28 }).map((_, i) => (
+                                <div key={i} className={cn(
+                                    "text-xs p-1.5 rounded-sm hover:bg-zinc-800 cursor-pointer font-mono transition-colors",
+                                    i === 14 ? "bg-[#a3e635] text-black font-bold shadow-[0_0_10px_rgba(163,230,53,0.3)]" : "text-zinc-400",
+                                    [5, 12, 18, 25].includes(i) && i !== 14 ? "relative after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-[#a3e635] after:rounded-full" : ""
+                                )}>
+                                    {i + 1}
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </DashboardWidgetShell>
 
                 {/* Quick Earnings */}
-                <div className="bg-zinc-950/50 border border-zinc-800 rounded-sm p-4">
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
-                            <TrendingUp className="w-3.5 h-3.5 text-[#a3e635]" /> Earnings
-                        </h3>
+                <DashboardWidgetShell title="Earnings" icon={TrendingUp} className="min-h-0">
+                    <div className="p-4">
+                        <div className="text-3xl font-bold text-white font-mono mb-2 tracking-tighter">$12,450<span className="text-zinc-600 text-lg">.00</span></div>
+                        <div className="flex items-center justify-between">
+                            <div className="text-[10px] text-zinc-500 font-mono flex items-center gap-1.5 bg-zinc-950/50 px-2 py-1 rounded-sm border border-zinc-800">
+                                <span className="text-[#a3e635] font-bold">+15%</span> vs last month
+                            </div>
+                            <div className="h-8 w-16 flex items-end justify-between gap-0.5 opacity-50">
+                                {[20, 40, 30, 70, 50, 80].map((h, i) => (
+                                    <div key={i} style={{ height: `${h}%` }} className="w-2 bg-[#a3e635]" />
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    <div className="text-2xl font-bold text-white font-mono mb-1">$12,450.00</div>
-                    <div className="text-[10px] text-zinc-500 font-mono flex items-center gap-1.5">
-                        <span className="text-[#a3e635]">+15%</span> vs last month
-                    </div>
-                </div>
+                </DashboardWidgetShell>
 
                 {/* Profile Meter */}
-                <div className="bg-zinc-950/50 border border-zinc-800 rounded-sm p-4">
-                    <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#a3e635]" /> Profile
-                        </h3>
-                        <span className="text-[10px] text-[#a3e635] font-mono">85%</span>
+                <DashboardWidgetShell title="Profile" icon={CheckCircle2} className="min-h-0">
+                    <div className="p-4">
+                        <div className="flex items-center justify-between mb-3">
+                            <span className="text-[10px] text-zinc-400 font-mono uppercase">Completion Status</span>
+                            <span className="text-xs font-bold text-[#a3e635] font-mono">85%</span>
+                        </div>
+                        <div className="h-2 w-full bg-zinc-950 border border-zinc-800 rounded-full overflow-hidden mb-3 relative">
+                            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none" />
+                            <div className="h-full bg-[#a3e635] w-[85%] shadow-[0_0_15px_rgba(163,230,53,0.5)] relative">
+                                <div className="absolute top-0 right-0 bottom-0 w-[1px] bg-white/50" />
+                            </div>
+                        </div>
+                        <p className="text-[10px] text-zinc-500 font-mono border-t border-zinc-800 pt-3">
+                            Complete your <span className="text-zinc-300 hover:text-white cursor-pointer hover:underline decoration-[#a3e635]">bio section</span> to reach 100%
+                        </p>
                     </div>
-                    <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden mb-2">
-                        <div className="h-full bg-[#a3e635] w-[85%]" />
-                    </div>
-                    <p className="text-[10px] text-zinc-500 font-mono">Complete your bio to reach 100%</p>
-                </div>
+                </DashboardWidgetShell>
             </aside>
         </div>
     );

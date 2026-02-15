@@ -20,13 +20,17 @@ export function RecentActivityFeed() {
                     <div className="absolute left-[19px] top-2 bottom-2 w-[1px] bg-zinc-800" />
 
                     {ACTIVITIES.map((act) => (
-                        <div key={act.id} className="flex gap-4 relative">
-                            <div className={cn("w-10 h-10 rounded-sm border border-zinc-800 bg-zinc-950 flex items-center justify-center z-10 shrink-0", act.color)}>
-                                <act.icon className="w-4 h-4" />
+                        <div key={act.id} className="flex gap-4 relative group">
+                            <div className={cn("w-10 h-10 border border-zinc-800 bg-zinc-950 flex items-center justify-center z-10 shrink-0 relative", act.color)}>
+                                <div className="absolute inset-0 bg-current opacity-5" />
+                                <act.icon className="w-4 h-4 relative z-10" />
+                                {/* Corner Accents */}
+                                <div className="absolute top-0 left-0 w-1 h-1 border-t border-l border-current opacity-50" />
+                                <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r border-current opacity-50" />
                             </div>
                             <div className="pt-1">
-                                <div className="text-xs text-zinc-300 font-medium leading-tight mb-1">{act.text}</div>
-                                <div className="text-[10px] text-zinc-500 font-mono uppercase">{act.time}</div>
+                                <div className="text-xs text-zinc-300 font-medium leading-tight mb-1 group-hover:text-white transition-colors">{act.text}</div>
+                                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-wide">{act.time}</div>
                             </div>
                         </div>
                     ))}

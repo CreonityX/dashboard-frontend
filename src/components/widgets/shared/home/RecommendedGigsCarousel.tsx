@@ -26,27 +26,37 @@ export function RecommendedGigsCarousel() {
                 </div>
             }
         >
-            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                 {RECOMMENDED.map((gig) => (
-                    <div key={gig.id} className="bg-zinc-950 border border-zinc-800 p-4 rounded-sm hover:border-[#a3e635]/50 transition-colors group cursor-pointer relative overflow-hidden">
+                    <div key={gig.id} className="tech-border p-5 group cursor-pointer hover:bg-zinc-900/50 transition-all duration-300 relative">
+                        {/* Hover Overlay */}
+                        <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-[#a3e635] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+
                         {/* Match Badge */}
-                        <div className="absolute top-2 right-2 bg-zinc-900/90 backdrop-blur border border-zinc-800 px-1.5 py-0.5 rounded-sm text-[9px] font-mono text-[#a3e635]">
+                        <div className="absolute top-0 right-0 bg-[#a3e635] text-black px-2 py-0.5 text-[9px] font-mono font-bold uppercase tracking-wide">
                             {gig.match}% Match
                         </div>
 
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className={cn("w-8 h-8 rounded-sm text-white flex items-center justify-center text-xs font-bold", gig.bg)}>
+                        <div className="flex items-center gap-3 mb-4 mt-2">
+                            <div className={cn("w-10 h-10 flex items-center justify-center text-sm font-bold tracking-tighter border border-white/10 shadow-inner", gig.bg, "text-white")}>
                                 {gig.brand[0]}
                             </div>
-                            <div className="text-xs font-bold text-white">{gig.brand}</div>
+                            <div>
+                                <div className="text-xs font-bold text-white font-display uppercase tracking-wider leading-none mb-1">{gig.brand}</div>
+                                <div className="text-[9px] text-zinc-500 font-mono">VERIFIED_PARTNER</div>
+                            </div>
                         </div>
 
-                        <div className="text-xs text-zinc-400 font-medium mb-3 min-h-[32px]">{gig.title}</div>
+                        <div className="text-xs text-zinc-300 font-medium mb-4 min-h-[32px] leading-relaxed group-hover:text-white transition-colors">
+                            {gig.title}
+                        </div>
 
-                        <div className="flex items-center justify-between pt-3 border-t border-zinc-800/50">
-                            <div className="text-[10px] text-zinc-500 font-mono">{gig.budget}</div>
-                            <div className="w-5 h-5 rounded-full bg-zinc-900 flex items-center justify-center text-zinc-500 group-hover:text-white group-hover:bg-zinc-800 transition-colors">
-                                <ArrowRight className="w-3 h-3" />
+                        <div className="flex items-center justify-between pt-3 border-t border-zinc-800 border-dashed">
+                            <div className="text-[10px] text-[#a3e635] font-mono bg-[#a3e635]/5 px-1.5 py-0.5 rounded-sm border border-[#a3e635]/10">
+                                {gig.budget}
+                            </div>
+                            <div className="w-6 h-6 flex items-center justify-center text-zinc-600 group-hover:text-white transition-colors">
+                                <ArrowRight className="w-3.5 h-3.5" />
                             </div>
                         </div>
                     </div>

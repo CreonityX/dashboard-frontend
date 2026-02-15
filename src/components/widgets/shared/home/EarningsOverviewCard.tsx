@@ -25,9 +25,10 @@ export function EarningsOverviewCard() {
                 </div>
 
                 {/* Bars Visualization */}
-                <div className="flex items-end justify-between gap-1 h-32 relative z-10">
+                <div className="flex items-end justify-between gap-1 h-32 relative z-10 border-b border-zinc-800/50 pb-1">
+                    <div className="absolute inset-0 bg-grid-zinc opacity-10 pointer-events-none" />
                     {[40, 65, 45, 80, 55, 90, 70, 85, 60, 75, 50, 95].map((h, i) => (
-                        <div key={i} className="flex-1 bg-zinc-800 hover:bg-[#a3e635] transition-colors rounded-t-[1px] relative group" style={{ height: `${h}%` }}>
+                        <div key={i} className="flex-1 bg-zinc-800/50 hover:bg-[#a3e635] transition-colors relative group border-t border-x border-zinc-700/30 hover:border-transparent" style={{ height: `${h}%` }}>
                             <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-zinc-950 text-white text-[9px] px-1.5 py-0.5 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-zinc-800 z-20 pointer-events-none">
                                 ${h * 100}
                             </div>

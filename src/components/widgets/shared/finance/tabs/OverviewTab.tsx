@@ -28,24 +28,26 @@ export function OverviewTab() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {EARNINGS_SUMMARY.map((item, i) => (
                     <div key={i} className={cn(
-                        "p-5 rounded-sm border flex flex-col justify-between min-h-[120px]",
+                        "p-5 flex flex-col justify-between min-h-[120px] transition-all duration-300 group relative overflow-hidden",
                         item.active
-                            ? "bg-[#a3e635] border-[#a3e635] text-black"
-                            : "bg-zinc-900/40 border-zinc-800 text-white"
+                            ? "bg-[#a3e635] text-black border border-[#a3e635]"
+                            : "tech-border hover:bg-zinc-900/60"
                     )}>
+                        {item.active && <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />}
+
                         <div>
-                            <div className={cn("text-[10px] font-mono uppercase font-bold tracking-wider mb-2", item.active ? "text-zinc-800" : "text-zinc-500")}>
+                            <div className={cn("text-[10px] font-mono uppercase font-bold tracking-wider mb-2", item.active ? "text-zinc-900" : "text-zinc-500")}>
                                 {item.label}
                             </div>
-                            <div className={cn("text-2xl font-bold font-display tracking-tight", item.active ? "text-black" : "text-white")}>
+                            <div className={cn("text-3xl font-bold font-display tracking-tighter", item.active ? "text-black" : "text-white")}>
                                 {item.value}
                             </div>
                         </div>
-                        <div className="flex items-center justify-between mt-2">
-                            <div className={cn("text-[10px] font-mono", item.active ? "text-zinc-800" : "text-zinc-500")}>
+                        <div className="flex items-center justify-between mt-2 pt-4 border-t border-black/10">
+                            <div className={cn("text-[10px] font-mono", item.active ? "text-zinc-800 font-bold" : "text-zinc-500")}>
                                 {item.sub}
                             </div>
-                            {item.active && <ArrowRight className="w-4 h-4" />}
+                            {item.active && <ArrowRight className="w-4 h-4 text-black" />}
                         </div>
                     </div>
                 ))}
@@ -53,15 +55,19 @@ export function OverviewTab() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Earnings Chart */}
-                <div className="lg:col-span-2 bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm flex flex-col">
-                    <div className="flex justify-between items-center mb-6">
+                <div className="lg:col-span-2 tech-border p-5 flex flex-col relative group">
+                    <div className="absolute inset-0 bg-grid-zinc opacity-5 pointer-events-none" />
+
+                    <div className="flex justify-between items-center mb-6 relative z-10">
                         <div>
-                            <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider">Earnings_Velocity</h3>
-                            <p className="text-[10px] text-zinc-500 font-mono">REVENUE_FLOW // 12_MONTH_HISTORY</p>
+                            <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
+                                <BarChart3 className="w-4 h-4 text-[#a3e635]" /> Earnings_Velocity
+                            </h3>
+                            <p className="text-[10px] text-zinc-500 font-mono pl-6">REVENUE_FLOW // 12_MONTH_HISTORY</p>
                         </div>
                         <div className="flex gap-2">
                             {['1W', '1M', '3M', '1Y'].map(range => (
-                                <button key={range} className="px-3 py-1 bg-zinc-950 border border-zinc-800 text-[10px] font-mono text-zinc-400 hover:text-white rounded-[2px] hover:border-zinc-700 transition-colors">
+                                <button key={range} className="px-3 py-1 bg-zinc-950 border border-zinc-800 text-[10px] font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors">
                                     {range}
                                 </button>
                             ))}
@@ -69,21 +75,21 @@ export function OverviewTab() {
                     </div>
 
                     {/* Chart Container */}
-                    <div className="flex-1 bg-zinc-950/30 border border-zinc-800/50 rounded-sm relative min-h-[300px] flex items-end px-4 pb-0 gap-2">
+                    <div className="flex-1 bg-zinc-950/30 border border-zinc-800/50 relative min-h-[300px] flex items-end px-4 pb-0 gap-2">
                         {/* Mock Bars */}
                         {Array.from({ length: 12 }).map((_, i) => {
                             const height = Math.floor(Math.random() * 60) + 20;
                             return (
-                                <div key={i} className="flex-1 flex flex-col justify-end group cursor-pointer relative">
+                                <div key={i} className="flex-1 flex flex-col justify-end group/bar cursor-pointer relative">
                                     <div
-                                        className="w-full bg-zinc-800/50 group-hover:bg-[#a3e635] transition-colors rounded-t-[2px] relative"
+                                        className="w-full bg-zinc-800/50 group-hover/bar:bg-[#a3e635] transition-colors relative border-t border-x border-zinc-700/30 group-hover/bar:border-transparent"
                                         style={{ height: `${height}%` }}
                                     >
-                                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-2 py-1 rounded-[2px] opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-zinc-700 pointer-events-none z-10">
+                                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-2 py-1 opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap border border-zinc-700 pointer-events-none z-10 font-mono">
                                             ${height * 120}
                                         </div>
                                     </div>
-                                    <div className="text-[9px] text-zinc-600 font-mono text-center mt-2 border-t border-zinc-800 pt-2">
+                                    <div className="text-[9px] text-zinc-600 font-mono text-center mt-2 border-t border-zinc-800 pt-2 group-hover/bar:text-white transition-colors">
                                         {['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'][i]}
                                     </div>
                                 </div>
@@ -95,21 +101,21 @@ export function OverviewTab() {
                 {/* Right Column: Breakdown & Quick Stats */}
                 <div className="space-y-6">
                     {/* Breakdown */}
-                    <div className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm">
+                    <div className="tech-border p-5">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xs font-bold text-zinc-300 font-display uppercase">Source_Breakdown</h3>
+                            <h3 className="text-xs font-bold text-zinc-300 font-display uppercase tracking-wider">Source_Breakdown</h3>
                             <PieChart className="w-4 h-4 text-zinc-600" />
                         </div>
 
                         <div className="space-y-4">
                             {REVENUE_BREAKDOWN.map(item => (
                                 <div key={item.platform} className="group">
-                                    <div className="flex justify-between text-[10px] font-mono text-zinc-500 mb-1">
+                                    <div className="flex justify-between text-[10px] font-mono text-zinc-500 mb-1 group-hover:text-zinc-300 transition-colors">
                                         <span>{item.platform}</span>
                                         <span>{item.value}%</span>
                                     </div>
-                                    <div className="h-1.5 bg-zinc-800 rounded-sm overflow-hidden">
-                                        <div className={cn("h-full rounded-sm", item.color)} style={{ width: `${item.value}%` }} />
+                                    <div className="h-1 bg-zinc-800 overflow-hidden">
+                                        <div className={cn("h-full", item.color)} style={{ width: `${item.value}%` }} />
                                     </div>
                                 </div>
                             ))}
@@ -117,25 +123,25 @@ export function OverviewTab() {
                     </div>
 
                     {/* Top Campaigns */}
-                    <div className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm">
+                    <div className="tech-border p-5">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xs font-bold text-zinc-300 font-display uppercase">Top_Earners</h3>
-                            <button className="text-[9px] text-[#a3e635] font-mono hover:underline">VIEW_ALL</button>
+                            <h3 className="text-xs font-bold text-zinc-300 font-display uppercase tracking-wider">Top_Earners</h3>
+                            <button className="text-[9px] text-[#a3e635] font-mono hover:underline uppercase">View_All</button>
                         </div>
                         <div className="space-y-3">
                             {TOP_CAMPAIGNS.map((c, i) => (
-                                <div key={i} className="flex items-center justify-between p-2 hover:bg-zinc-800/30 rounded-sm transition-colors cursor-pointer">
+                                <div key={i} className="flex items-center justify-between p-2 hover:bg-zinc-900/50 border border-transparent hover:border-zinc-800 transition-colors cursor-pointer group">
                                     <div className="flex items-center gap-3">
-                                        <div className="w-8 h-8 rounded-full bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-zinc-400">
+                                        <div className="w-8 h-8 bg-zinc-950 flex items-center justify-center text-[10px] font-bold text-zinc-400 border border-zinc-800 group-hover:border-zinc-600 group-hover:text-white transition-colors">
                                             {c.brand[0]}
                                         </div>
                                         <div>
-                                            <div className="text-xs font-bold text-white">{c.brand}</div>
-                                            <div className="text-[9px] text-zinc-500 font-mono">{c.campaign}</div>
+                                            <div className="text-xs font-bold text-white group-hover:text-[#a3e635] transition-colors">{c.brand}</div>
+                                            <div className="text-[9px] text-zinc-500 font-mono uppercase">{c.campaign}</div>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-xs font-bold text-[#a3e635]">{c.amount}</div>
+                                        <div className="text-xs font-bold text-white font-mono">{c.amount}</div>
                                         <div className="text-[9px] text-zinc-600 font-mono">{c.date}</div>
                                     </div>
                                 </div>

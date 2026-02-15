@@ -147,9 +147,10 @@ export function DiscoverTab() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {GIGS.map((gig) => (
-                        <div key={gig.id} className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-5 hover:border-[#a3e635]/30 transition-all group relative group cursor-pointer">
+                        <div key={gig.id} className="tech-border p-5 hover:bg-zinc-900/60 transition-all duration-300 group relative cursor-pointer overflow-hidden">
+                            <div className="absolute inset-0 bg-grid-zinc opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none" />
                             {/* Match Score */}
                             <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-zinc-950/80 backdrop-blur-sm border border-zinc-800 px-2 py-1 rounded-sm">
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#a3e635]" />
