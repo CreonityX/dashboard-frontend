@@ -65,8 +65,8 @@ export function DashboardWidgetShell({
                         )} />
                     </div>
 
-                    {/* Corner Decoration */}
-                    <div className="w-2 h-2 border-t border-r border-zinc-500/50" />
+                    {/* Corner Decoration - REMOVED per user request */}
+                    {/* <div className="w-2 h-2 border-t border-r border-zinc-500/50" /> */}
                 </div>
             </div>
 

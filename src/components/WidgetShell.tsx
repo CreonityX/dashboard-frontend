@@ -78,11 +78,11 @@ export function WidgetShell({
             {/* 4. Background Effects */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 pointer-events-none" />
 
-            {/* 5. Industrial Corner Brackets */}
-            <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-zinc-600 rounded-tl-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+            {/* 5. Industrial Corner Brackets - REMOVED per user request */}
+            {/* <div className="absolute -top-[1px] -left-[1px] w-4 h-4 border-t-2 border-l-2 border-zinc-600 rounded-tl-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="absolute -top-[1px] -right-[1px] w-4 h-4 border-t-2 border-r-2 border-zinc-600 rounded-tr-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="absolute -bottom-[1px] -left-[1px] w-4 h-4 border-b-2 border-l-2 border-zinc-600 rounded-bl-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-zinc-600 rounded-br-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute -bottom-[1px] -right-[1px] w-4 h-4 border-b-2 border-r-2 border-zinc-600 rounded-br-sm pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity" /> */}
 
         </div>
     );

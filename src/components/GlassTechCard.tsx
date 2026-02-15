@@ -11,11 +11,11 @@ export function GlassTechCard({ children, title, description, className = "" }: 
     return (
         <div className={`relative group border border-white/10 bg-black/40 backdrop-blur-xl overflow-hidden flex flex-col ${className}`}>
 
-            {/* 1. Industrial Corner Markers */}
-            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/40"></div>
+            {/* 1. Industrial Corner Markers - REMOVED per user request */}
+            {/* <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/40"></div>
             <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/40"></div>
             <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/40"></div>
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/40"></div>
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/40"></div> */}
 
             {/* 2. Holographic Noise & Gradient */}
             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>

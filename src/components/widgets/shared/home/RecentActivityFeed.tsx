@@ -24,9 +24,6 @@ export function RecentActivityFeed() {
                             <div className={cn("w-10 h-10 border border-zinc-800 bg-zinc-950 flex items-center justify-center z-10 shrink-0 relative", act.color)}>
                                 <div className="absolute inset-0 bg-current opacity-5" />
                                 <act.icon className="w-4 h-4 relative z-10" />
-                                {/* Corner Accents */}
-                                <div className="absolute top-0 left-0 w-1 h-1 border-t border-l border-current opacity-50" />
-                                <div className="absolute bottom-0 right-0 w-1 h-1 border-b border-r border-current opacity-50" />
                             </div>
                             <div className="pt-1">
                                 <div className="text-xs text-zinc-300 font-medium leading-tight mb-1 group-hover:text-white transition-colors">{act.text}</div>
