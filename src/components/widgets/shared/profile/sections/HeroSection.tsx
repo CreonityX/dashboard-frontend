@@ -7,7 +7,7 @@ export function HeroSection() {
     return (
         <div className="relative mb-8">
             {/* Banner */}
-            <div className="h-48 rounded-lg bg-gradient-to-r from-zinc-800 to-zinc-900 relative overflow-hidden">
+            <div className="h-48 rounded-sm bg-gradient-to-r from-zinc-800 to-zinc-900 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             </div>

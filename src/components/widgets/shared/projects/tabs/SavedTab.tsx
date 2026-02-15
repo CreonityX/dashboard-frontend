@@ -27,10 +27,7 @@ const SAVED = [
 export function SavedTab() {
     return (
         <div className="space-y-6">
-            <div>
-                <h2 className="text-lg font-bold text-white font-display tracking-wide">Saved_Opportunities</h2>
-                <p className="text-zinc-500 font-mono text-xs">BOOKMARKS // {SAVED.length}_ITEMS</p>
-            </div>
+            <p className="text-zinc-500 font-mono text-xs">BOOKMARKS // {SAVED.length}_ITEMS</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {SAVED.map((gig) => (

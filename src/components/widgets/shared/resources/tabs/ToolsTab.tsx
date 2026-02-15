@@ -6,11 +6,8 @@ import { Download, Calculator, FileText, PieChart, Users, DollarSign } from "luc
 export function ToolsTab() {
     return (
         <div className="max-w-6xl mx-auto pb-20 animate-in fade-in zoom-in-95 duration-500 space-y-8">
-            <div className="bg-gradient-to-r from-purple-900/20 to-zinc-900 border border-purple-500/20 p-6 rounded-sm mb-8 flex items-center justify-between">
-                <div>
-                    <h2 className="text-xl font-bold text-white font-display uppercase">Creator Toolkit</h2>
-                    <p className="text-xs text-zinc-400 mt-1">Download templates and use our calculators to optimize your business.</p>
-                </div>
+            <div className="bg-gradient-to-r from-purple-900/20 to-zinc-900 border border-purple-500/20 p-4 rounded-sm mb-8">
+                <p className="text-xs text-zinc-400">Download templates and use our calculators to optimize your business.</p>
             </div>
 
             <ResourceSection title="Interactive Calculators">

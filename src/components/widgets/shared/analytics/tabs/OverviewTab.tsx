@@ -94,12 +94,9 @@ function SimpleLineChart() {
 export function OverviewTab() {
     return (
         <div className="space-y-6">
-            {/* Header Controls */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">PERFORMANCE_OVERVIEW</h2>
-                    <p className="text-zinc-500 font-mono text-xs">GLOBAL_METRICS // LAST_30_DAYS</p>
-                </div>
+            {/* Time Selector */}
+            <div className="flex justify-between items-center">
+                <p className="text-zinc-500 font-mono text-xs">GLOBAL_METRICS // LAST_30_DAYS</p>
                 <div className="flex items-center gap-2">
                     <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-sm text-xs text-zinc-400 hover:text-white hover:border-zinc-700 transition-all font-mono">
                         <Calendar className="w-3.5 h-3.5" />

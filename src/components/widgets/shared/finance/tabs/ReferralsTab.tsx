@@ -4,7 +4,7 @@ export function ReferralsTab() {
     return (
         <div className="space-y-6">
             <div className="bg-[#a3e635]/10 border border-[#a3e635]/20 p-6 rounded-sm flex flex-col items-center text-center">
-                <h2 className="text-lg font-bold text-white font-display tracking-wide uppercase mb-2">Invite_Creators</h2>
+                <div className="text-sm font-bold text-white font-display tracking-wide uppercase mb-2">Invite_Creators</div>
                 <p className="text-zinc-400 font-mono text-xs max-w-md mb-6">Earn 5% of platform fees for every creator who joins using your unique invite link. Payments are processed monthly.</p>
 
                 <div className="flex w-full max-w-md items-center gap-2">

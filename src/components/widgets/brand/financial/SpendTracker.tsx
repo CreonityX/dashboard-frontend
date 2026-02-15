@@ -15,7 +15,7 @@ export function SpendTracker() {
                     <div className="text-xs font-mono text-zinc-500 mb-1">OF $100k</div>
                 </div>
                 <div className="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
-                    <div className="bg-purple-500 h-full w-[84%] shadow-[0_0_15px_rgba(168,85,247,0.4)]"></div>
+                    <div className="bg-gradient-to-r from-purple-500 to-[#a3e635] h-full w-[84%] shadow-[0_0_15px_rgba(168,85,247,0.4)]"></div>
                 </div>
                 <div className="flex justify-between mt-2 text-[10px] font-mono text-zinc-500">
                     <span>84% UTILIZED</span>

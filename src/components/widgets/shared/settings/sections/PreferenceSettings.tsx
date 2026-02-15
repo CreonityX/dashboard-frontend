@@ -46,7 +46,7 @@ export function PreferenceSettings() {
 
 function ThemeCard({ label, icon: Icon, active }: { label: string, icon: any, active: boolean }) {
     return (
-        <button className={`p-4 border rounded-lg flex flex-col items-center gap-2 transition-all ${active ? "border-[#a3e635] bg-[#a3e635]/10 text-white" : "border-zinc-800 bg-zinc-900/40 text-zinc-500 hover:border-zinc-600 hover:text-zinc-300"}`}>
+        <button className={`p-4 border rounded-sm flex flex-col items-center gap-2 transition-all ${active ? "border-[#a3e635] bg-[#a3e635]/10 text-white" : "border-zinc-800 bg-zinc-900/40 text-zinc-500 hover:border-zinc-600 hover:text-zinc-300"}`}>
             <Icon className="w-6 h-6" />
             <span className="text-xs font-mono uppercase">{label}</span>
         </button>

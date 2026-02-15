@@ -6,11 +6,8 @@ import { Search } from "lucide-react";
 export function CoursesTab() {
     return (
         <div className="max-w-6xl mx-auto pb-20 animate-in fade-in zoom-in-95 duration-500 space-y-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 className="text-xl font-bold text-white font-display uppercase">Course Library</h2>
-                    <p className="text-xs text-zinc-500 font-mono mt-1">Master the skills to grow your creator business.</p>
-                </div>
+            <div className="flex items-center justify-between gap-4">
+                <p className="text-xs text-zinc-500 font-mono">Master the skills to grow your creator business.</p>
                 <div className="relative w-full md:w-64">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500" />
                     <input

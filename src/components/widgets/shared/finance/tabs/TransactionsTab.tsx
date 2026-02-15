@@ -12,20 +12,15 @@ const TRANSACTIONS = [
 export function TransactionsTab() {
     return (
         <div className="space-y-6">
-            {/* Header & Controls */}
-            <div className="flex flex-col gap-4">
-                <div className="flex justify-between items-end">
-                    <div>
-                        <h2 className="text-lg font-bold text-white font-display tracking-wide">TRANSACTION_LEDGER</h2>
-                        <p className="text-zinc-500 font-mono text-xs">HISTORY // {TRANSACTIONS.length}_RECORDS</p>
-                    </div>
-                    <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">
-                        <Download className="w-3 h-3" /> Export_CSV
-                    </button>
-                </div>
+            {/* Controls */}
+            <div className="flex justify-end">
+                <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">
+                    <Download className="w-3 h-3" /> Export_CSV
+                </button>
+            </div>
 
-                {/* Toolbar */}
-                <div className="flex flex-col sm:flex-row gap-3 p-1 bg-zinc-900/40 border border-zinc-800 rounded-sm">
+            {/* Toolbar */}
+            <div className="flex flex-col sm:flex-row gap-3 p-1 bg-zinc-900/40 border border-zinc-800 rounded-sm">
                     {/* Search */}
                     <div className="flex-1 relative group">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-400 transition-colors" />
@@ -47,7 +42,6 @@ export function TransactionsTab() {
                         </button>
                     </div>
                 </div>
-            </div>
 
             {/* Table */}
             <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden overflow-x-auto">

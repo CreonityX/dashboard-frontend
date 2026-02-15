@@ -168,7 +168,7 @@ export function DashboardHeader() {
 
                     {/* Popover Banner */}
                     {showNotifications && (
-                        <div className="absolute right-0 top-full mt-2 w-[400px] max-h-[600px] overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950/95 backdrop-blur-xl shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="absolute right-0 top-full mt-2 w-[400px] max-h-[600px] overflow-hidden rounded-sm border border-zinc-800 bg-zinc-950/95 backdrop-blur-xl shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-200">
                             <div className="p-0 max-h-[500px] overflow-y-auto custom-scrollbar">
                                 <NotificationCenter />
                             </div>

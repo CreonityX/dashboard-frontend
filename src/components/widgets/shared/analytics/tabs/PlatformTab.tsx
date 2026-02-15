@@ -41,31 +41,24 @@ export function PlatformTab() {
 
     return (
         <div className="space-y-6">
-            {/* Header & Tabs */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">PLATFORM_INTELLIGENCE</h2>
-                    <p className="text-zinc-500 font-mono text-xs">CONNECTIVITY // {activePlatform.toUpperCase()}_STREAM</p>
-                </div>
-
-                <div className="flex bg-zinc-950/50 p-1 rounded-sm border border-zinc-800">
-                    {PLATFORMS.map(p => {
-                        const isActive = activePlatform === p.id;
-                        return (
-                            <button
-                                key={p.id}
-                                onClick={() => setActivePlatform(p.id)}
-                                className={cn(
-                                    "px-4 py-1.5 rounded-[1px] text-[10px] font-bold font-mono uppercase transition-all flex items-center gap-2",
-                                    isActive ? "bg-zinc-800 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-300"
-                                )}
-                            >
-                                <p.icon className={cn("w-3 h-3", isActive ? p.color : "text-zinc-600")} />
-                                {p.label}
-                            </button>
-                        );
-                    })}
-                </div>
+            {/* Platform Tabs */}
+            <div className="flex bg-zinc-950/50 p-1 rounded-sm border border-zinc-800">
+                {PLATFORMS.map(p => {
+                    const isActive = activePlatform === p.id;
+                    return (
+                        <button
+                            key={p.id}
+                            onClick={() => setActivePlatform(p.id)}
+                            className={cn(
+                                "px-4 py-1.5 rounded-[1px] text-[10px] font-bold font-mono uppercase transition-all flex items-center gap-2",
+                                isActive ? "bg-zinc-800 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-300"
+                            )}
+                        >
+                            <p.icon className={cn("w-3 h-3", isActive ? p.color : "text-zinc-600")} />
+                            {p.label}
+                        </button>
+                    );
+                })}
             </div>
 
             {/* Main KPI Grid */}

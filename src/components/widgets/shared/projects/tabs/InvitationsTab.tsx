@@ -25,10 +25,7 @@ const INVITES = [
 export function InvitationsTab() {
     return (
         <div className="space-y-6">
-            <div>
-                <h2 className="text-lg font-bold text-white font-display tracking-wide">Direct_Invitations</h2>
-                <p className="text-zinc-500 font-mono text-xs">EXCLUSIVE_OFFERS // {INVITES.length}_PENDING</p>
-            </div>
+            <p className="text-zinc-500 font-mono text-xs">EXCLUSIVE_OFFERS // {INVITES.length}_PENDING</p>
 
             <div className="space-y-4 max-w-2xl">
                 {INVITES.map((invite) => (

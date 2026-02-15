@@ -13,15 +13,8 @@ const CONTENT_ITEMS = [
 export function ContentTab() {
     return (
         <div className="space-y-6">
-            {/* Header & Controls */}
-            <div className="flex flex-col gap-4">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">CONTENT_LIBRARY</h2>
-                    <p className="text-zinc-500 font-mono text-xs">ARCHIVE // {CONTENT_ITEMS.length}_ITEMS_INDEXED</p>
-                </div>
-
-                {/* Toolbar */}
-                <div className="flex flex-col sm:flex-row gap-3 p-1 bg-zinc-900/40 border border-zinc-800 rounded-sm">
+            {/* Toolbar */}
+            <div className="flex flex-col sm:flex-row gap-3 p-1 bg-zinc-900/40 border border-zinc-800 rounded-sm">
                     {/* Search */}
                     <div className="flex-1 relative group">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-400 transition-colors" />
@@ -43,7 +36,6 @@ export function ContentTab() {
                         </button>
                     </div>
                 </div>
-            </div>
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">

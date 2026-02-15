@@ -19,12 +19,6 @@ const LOCATIONS = [
 export function AudienceTab() {
     return (
         <div className="space-y-6">
-            {/* Header */}
-            <div>
-                <h2 className="text-lg font-bold text-white font-display tracking-wide">AUDIENCE_INSIGHTS</h2>
-                <p className="text-zinc-500 font-mono text-xs">DEMOGRAPHICS_DATA // GLOBAL_REACH</p>
-            </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Age Distribution */}
                 <div className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm">

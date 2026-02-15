@@ -6,10 +6,7 @@ export function MyTickets() {
     return (
         <div className="max-w-5xl mx-auto pb-20 animate-in fade-in zoom-in-95 duration-500 space-y-8">
             <div className="flex items-center justify-between">
-                <div>
-                    <h2 className="text-xl font-bold text-white font-display uppercase">Ticket History</h2>
-                    <p className="text-xs text-zinc-500 font-mono mt-1">Showing last 30 days transactions</p>
-                </div>
+                <p className="text-xs text-zinc-500 font-mono">Showing last 30 days transactions</p>
                 <div className="flex gap-2">
                     {['All', 'Open', 'Closed'].map((filter) => (
                         <button key={filter} className="px-3 py-1.5 border border-zinc-800 text-zinc-400 text-xs font-mono uppercase bg-zinc-900/50 hover:bg-zinc-800 hover:text-white transition-colors rounded-sm first:bg-[#a3e635]/10 first:text-[#a3e635] first:border-[#a3e635]/20">

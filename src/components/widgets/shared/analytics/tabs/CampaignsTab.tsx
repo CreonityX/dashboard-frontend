@@ -10,12 +10,6 @@ const CAMPAIGNS = [
 export function CampaignsTab() {
     return (
         <div className="space-y-6">
-            {/* Header */}
-            <div>
-                <h2 className="text-lg font-bold text-white font-display tracking-wide">CAMPAIGN_PERFORMANCE</h2>
-                <p className="text-zinc-500 font-mono text-xs">ROI_TRACKING // COMMERCIAL_METRICS</p>
-            </div>
-
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div className="bg-zinc-900/40 border border-zinc-800 p-4 rounded-sm flex items-center gap-4">

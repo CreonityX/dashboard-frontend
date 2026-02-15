@@ -16,7 +16,7 @@ export function HelpCenterHome() {
     return (
         <div className="max-w-4xl mx-auto space-y-12 pb-20 animate-in fade-in zoom-in-95 duration-500">
             {/* Search Hero */}
-            <div className="relative h-64 rounded-xl bg-zinc-900 border border-white/5 overflow-hidden flex flex-col items-center justify-center text-center p-6">
+            <div className="relative h-64 rounded-sm bg-zinc-900 border border-white/5 overflow-hidden flex flex-col items-center justify-center text-center p-6">
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50" />
 

@@ -49,11 +49,8 @@ const STEPS = ["Applied", "Under Review", "Shortlisted", "Interview", "Offer"];
 export function AppliedTab() {
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">Application_Status</h2>
-                    <p className="text-zinc-500 font-mono text-xs">TRACKING // {APPLICATIONS.length}_ACTIVE</p>
-                </div>
+            <div className="flex justify-between items-center">
+                <p className="text-zinc-500 font-mono text-xs">TRACKING // {APPLICATIONS.length}_ACTIVE</p>
                 <div className="flex gap-2">
                     {['All', 'Reviewing', 'Shortlisted', 'Interview'].map(filter => (
                         <button key={filter} className="px-3 py-1 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">

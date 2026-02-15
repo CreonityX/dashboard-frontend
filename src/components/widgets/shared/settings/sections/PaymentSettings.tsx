@@ -23,7 +23,7 @@ export function PaymentSettings() {
                         <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-[#a3e635] text-black text-[9px] font-bold font-mono rounded-sm">DEFAULT</div>
                     </GlassTechCard>
 
-                    <button className="h-full min-h-[80px] border border-dashed border-zinc-700 bg-zinc-900/30 rounded-lg flex items-center justify-center gap-2 text-zinc-500 hover:text-white hover:border-zinc-500 transition-colors group">
+                    <button className="h-full min-h-[80px] border border-dashed border-zinc-700 bg-zinc-900/30 rounded-sm flex items-center justify-center gap-2 text-zinc-500 hover:text-white hover:border-zinc-500 transition-colors group">
                         <div className="w-6 h-6 rounded-full border border-zinc-600 flex items-center justify-center group-hover:border-white">
                             <Plus className="w-3 h-3" />
                         </div>

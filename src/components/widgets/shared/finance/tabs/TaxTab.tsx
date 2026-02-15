@@ -3,11 +3,6 @@ import { Landmark, FileText, Calculator, Download, ExternalLink } from "lucide-r
 export function TaxTab() {
     return (
         <div className="space-y-6">
-            <div>
-                <h2 className="text-lg font-bold text-white font-display tracking-wide">TAX_CENTER</h2>
-                <p className="text-zinc-500 font-mono text-xs">COMPLIANCE // FISCAL_YEAR_2026</p>
-            </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* YTD Summary */}
                 <div className="lg:col-span-2 space-y-6">

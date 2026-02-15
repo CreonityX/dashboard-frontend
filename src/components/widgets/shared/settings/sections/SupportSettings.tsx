@@ -47,7 +47,7 @@ export function SupportSettings() {
 
 function SupportCard({ icon: Icon, title, description, highlight }: { icon: any, title: string, description: string, highlight?: boolean }) {
     return (
-        <button className={`p-6 border rounded-lg text-left transition-all hover:-translate-y-1 ${highlight ? "border-[#a3e635] bg-[#a3e635]/10" : "border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60"}`}>
+        <button className={`p-6 border rounded-sm text-left transition-all hover:-translate-y-1 ${highlight ? "border-[#a3e635] bg-[#a3e635]/10" : "border-white/10 bg-zinc-900/40 hover:bg-zinc-800/60"}`}>
             <Icon className={`w-6 h-6 mb-3 ${highlight ? "text-[#a3e635]" : "text-white"}`} />
             <h3 className="text-sm font-bold text-white mb-1">{title}</h3>
             <p className="text-xs text-zinc-500">{description}</p>

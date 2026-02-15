@@ -41,7 +41,7 @@ export function DemographicsDeepDive() {
                     <div className="flex items-center gap-2 text-[10px] font-mono">
                         <span className="w-8 text-zinc-400">18-24</span>
                         <div className="flex-1 h-1 bg-zinc-800 rounded-full">
-                            <div className="h-full bg-indigo-500 w-[65%]" />
+                            <div className="h-full bg-gradient-to-r from-purple-500 to-[#a3e635] w-[65%]" />
                         </div>
                         <span className="text-white">65%</span>
                     </div>
@@ -49,7 +49,7 @@ export function DemographicsDeepDive() {
                     <div className="flex items-center gap-2 text-[10px] font-mono">
                         <span className="w-8 text-zinc-400">25-34</span>
                         <div className="flex-1 h-1 bg-zinc-800 rounded-full">
-                            <div className="h-full bg-indigo-400 w-[25%]" />
+                            <div className="h-full bg-purple-400 w-[25%]" />
                         </div>
                         <span className="text-white">25%</span>
                     </div>

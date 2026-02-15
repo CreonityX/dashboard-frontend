@@ -25,7 +25,7 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="w-full max-w-lg bg-zinc-900 border border-white/10 rounded-lg shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]">
+            <div className="w-full max-w-lg bg-zinc-900 border border-white/10 rounded-sm shadow-2xl relative overflow-hidden flex flex-col max-h-[90vh]">
 
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-white/5 bg-zinc-900">
@@ -62,7 +62,7 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
                         <input
                             type="text"
                             placeholder="Event Title"
-                            className="w-full bg-transparent text-2xl font-bold text-white placeholder:text-zinc-600 focus:outline-none border-b border-zinc-800 focus:border-purple-500 pb-2 transition-colors"
+                            className="w-full bg-transparent text-2xl font-bold text-white placeholder:text-zinc-600 focus:outline-none border-b border-zinc-800 focus:border-[#a3e635] pb-2 transition-colors"
                             autoFocus
                         />
                     </div>
@@ -71,11 +71,11 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
                             <label className="text-[10px] uppercase font-bold text-zinc-500 flex items-center gap-1"><Calendar className="w-3 h-3" /> Date</label>
-                            <input type="date" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-sm px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500" />
+                            <input type="date" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-sm px-3 py-2 text-sm text-white focus:outline-none focus:border-[#a3e635]" />
                         </div>
                         <div className="space-y-1">
                             <label className="text-[10px] uppercase font-bold text-zinc-500 flex items-center gap-1"><Clock className="w-3 h-3" /> Time</label>
-                            <input type="time" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-sm px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500" />
+                            <input type="time" className="w-full bg-zinc-800/50 border border-zinc-700 rounded-sm px-3 py-2 text-sm text-white focus:outline-none focus:border-[#a3e635]" />
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
                             <LinkIcon className="w-4 h-4 text-zinc-600" />
-                            <select className="flex-1 bg-transparent border-b border-zinc-800 text-sm text-zinc-400 py-1 focus:outline-none focus:border-purple-500 appearance-none">
+                            <select className="flex-1 bg-transparent border-b border-zinc-800 text-sm text-zinc-400 py-1 focus:outline-none focus:border-[#a3e635] appearance-none">
                                 <option>Link to Gig / Project...</option>
                                 <option>Samsung S26 Review</option>
                                 <option>Nike Summer Campaign</option>
@@ -94,7 +94,7 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
                             <input
                                 type="text"
                                 placeholder="Add Attendees (email)"
-                                className="flex-1 bg-transparent border-b border-zinc-800 text-sm text-white placeholder:text-zinc-600 py-1 focus:outline-none focus:border-purple-500"
+                                className="flex-1 bg-transparent border-b border-zinc-800 text-sm text-white placeholder:text-zinc-600 py-1 focus:outline-none focus:border-[#a3e635]"
                             />
                         </div>
                         <div className="flex items-center gap-3">
@@ -102,14 +102,14 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
                             <input
                                 type="text"
                                 placeholder="Location or Video Link"
-                                className="flex-1 bg-transparent border-b border-zinc-800 text-sm text-white placeholder:text-zinc-600 py-1 focus:outline-none focus:border-purple-500"
+                                className="flex-1 bg-transparent border-b border-zinc-800 text-sm text-white placeholder:text-zinc-600 py-1 focus:outline-none focus:border-[#a3e635]"
                             />
                         </div>
                     </div>
 
                     {/* Notes */}
                     <textarea
-                        className="w-full h-24 bg-zinc-800/30 border border-zinc-800 rounded-sm p-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-purple-500 resize-none"
+                        className="w-full h-24 bg-zinc-800/30 border border-zinc-800 rounded-sm p-3 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#a3e635] resize-none"
                         placeholder="Add notes or description..."
                     />
                 </div>
@@ -117,7 +117,7 @@ export function AddEventDialog({ isOpen, onClose }: AddEventDialogProps) {
                 {/* Footer */}
                 <div className="p-4 border-t border-white/5 bg-zinc-900 flex justify-end gap-2">
                     <button onClick={onClose} className="px-4 py-2 text-xs font-bold text-zinc-400 hover:text-white uppercase transition-colors">Cancel</button>
-                    <button onClick={onClose} className="px-6 py-2 bg-purple-500 hover:bg-purple-600 text-white text-xs font-bold uppercase rounded-sm shadow-lg shadow-purple-500/20 transition-all">Save Event</button>
+                    <button onClick={onClose} className="px-6 py-2 bg-[#a3e635] hover:bg-[#a3e635]/90 text-black text-xs font-bold uppercase rounded-sm shadow-lg shadow-[#a3e635]/20 transition-all">Save Event</button>
                 </div>
             </div>
         </div>

@@ -5,10 +5,7 @@ import { ResourceSection, InsightCard } from "@/components/widgets/shared/resour
 export function NewsTab() {
     return (
         <div className="max-w-4xl mx-auto pb-20 animate-in fade-in zoom-in-95 duration-500 space-y-8">
-            <div className="mb-8">
-                <h2 className="text-xl font-bold text-white font-display uppercase">Latest News</h2>
-                <p className="text-xs text-zinc-500 font-mono mt-1">Updates from the Creonity team and the creator economy.</p>
-            </div>
+            <p className="text-xs text-zinc-500 font-mono mb-8">Updates from the Creonity team and the creator economy.</p>
 
             <ResourceSection title="Platform Announcements">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

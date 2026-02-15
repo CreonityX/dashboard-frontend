@@ -51,7 +51,7 @@ export function CourseCard({ title, category, duration, difficulty, progress, th
                                 <span>{progress}%</span>
                             </div>
                             <div className="h-1 bg-zinc-800 rounded-full overflow-hidden">
-                                <div className="h-full bg-purple-500 transition-all duration-500" style={{ width: `${progress}%` }} />
+                                <div className="h-full bg-gradient-to-r from-purple-500 to-[#a3e635] transition-all duration-500" style={{ width: `${progress}%` }} />
                             </div>
                         </div>
                     ) : (

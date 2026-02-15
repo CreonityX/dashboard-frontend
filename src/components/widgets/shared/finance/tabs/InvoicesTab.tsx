@@ -3,19 +3,13 @@ import { FileText, Plus, Download, Send, Settings, Check } from "lucide-react";
 export function InvoicesTab() {
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">INVOICE_CENTER</h2>
-                    <p className="text-zinc-500 font-mono text-xs">BILLING // AUTO_GENERATED</p>
-                </div>
-                <div className="flex gap-3">
+            <div className="flex justify-end gap-3">
                     <button className="flex items-center gap-2 px-3 py-2 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-xs text-zinc-400 hover:text-white transition-colors">
                         <Settings className="w-4 h-4" /> Settings
                     </button>
                     <button className="flex items-center gap-2 px-4 py-2 bg-[#a3e635] text-black text-xs font-bold font-mono rounded-[2px] uppercase hover:bg-[#a3e635]/90 transition-all">
                         <Plus className="w-4 h-4" /> Create_Invoice
                     </button>
-                </div>
             </div>
 
             <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden text-sm">

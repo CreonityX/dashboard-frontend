@@ -34,11 +34,8 @@ const COMPLETED_PROJECTS = [
 export function CompletedTab() {
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">Project_Archive</h2>
-                    <p className="text-zinc-500 font-mono text-xs">LIFETIME_EARNINGS // $14,500</p>
-                </div>
+            <div className="flex justify-between items-center">
+                <p className="text-zinc-500 font-mono text-xs">LIFETIME_EARNINGS // $14,500</p>
                 <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">
                     <Download className="w-3 h-3" /> Export_Portfolio
                 </button>

@@ -70,7 +70,7 @@ export function SubscriptionSettings() {
 function PlanCard({ title, price, features, active = false }: { title: string, price: string, features: string[], active?: boolean }) {
     return (
         <div className={cn(
-            "p-6 border rounded-lg relative flex flex-col h-full",
+            "p-6 border rounded-sm relative flex flex-col h-full",
             active ? "border-[#a3e635] bg-[#a3e635]/5 shadow-[0_0_20px_rgba(163,230,53,0.1)]" : "border-white/10 bg-zinc-900/40"
         )}>
             {active && (

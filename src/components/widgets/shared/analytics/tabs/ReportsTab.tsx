@@ -3,19 +3,14 @@ import { FileText, Download, Plus, Mail } from "lucide-react";
 export function ReportsTab() {
     return (
         <div className="space-y-6">
-            {/* Header */}
-            <div className="flex items-center justify-between">
-                <div>
-                    <h2 className="text-lg font-bold text-white font-display tracking-wide">AUTOMATED_REPORTS</h2>
-                    <p className="text-zinc-500 font-mono text-xs">EXPORT_DATA // PDF_GENERATOR</p>
-                </div>
+            {/* Action Button */}
+            <div className="flex justify-end">
                 <button className="flex items-center gap-2 px-4 py-2 bg-[#a3e635] text-black text-xs font-bold font-mono rounded-[2px] uppercase hover:bg-[#a3e635]/90 transition-all">
                     <Plus className="w-4 h-4" /> New_Report
                 </button>
             </div>
 
             {/* Templates */}
-            <h3 className="text-xs font-bold text-zinc-500 font-display tracking-widest uppercase mt-4">Available_Templates</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {['Monthly Performance', 'Campaign Summary', 'Yearly Overview', 'Media Kit One-Pager'].map((title, i) => (
                     <div key={i} className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm hover:border-zinc-600 transition-colors group cursor-pointer flex flex-col items-center text-center">

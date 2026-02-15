@@ -136,9 +136,8 @@ export function DiscoverTab() {
             {/* Main Grid */}
             <div className="flex-1">
                 <div className="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 className="text-lg font-bold text-white font-display tracking-wide">Featured_Opportunities</h2>
-                        <p className="text-zinc-500 font-mono text-xs">MATCHED_FOR_YOU // {GIGS.length}_RESULTS</p>
+                    <div className="text-zinc-500 font-mono text-xs">
+                        MATCHED_FOR_YOU // {GIGS.length}_RESULTS
                     </div>
                     <div className="flex gap-2">
                         <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">

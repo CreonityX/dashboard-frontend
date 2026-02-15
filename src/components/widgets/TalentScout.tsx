@@ -38,7 +38,7 @@ function TalentCard({ name, niche, score, followers }: any) {
         <div className="flex items-center gap-4 p-3 bg-zinc-900/20 border border-zinc-800 hover:border-zinc-600 transition-colors group">
             {/* Avatar Placeholder */}
             <div className="w-10 h-10 bg-zinc-800 rounded-sm relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 via-[#a3e635]/10 to-transparent" />
                 <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#a3e635] border-2 border-black rounded-full" />
             </div>
 

@@ -13,8 +13,8 @@ export function HolographicRevenue() {
                             className="w-full rounded-t-sm transition-all duration-500 hover:brightness-125 relative"
                             style={{
                                 height: `${height}%`,
-                                background: 'linear-gradient(180deg, #a78bfa 0%, #7c3aed 100%)',
-                                boxShadow: '0 0 15px rgba(124, 58, 237, 0.4)'
+                                background: i % 3 === 0 ? 'linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%)' : 'linear-gradient(180deg, #a3e635 0%, #84cc16 100%)',
+                                boxShadow: i % 3 === 0 ? '0 0 15px rgba(139, 92, 246, 0.4)' : '0 0 15px rgba(163, 230, 53, 0.4)'
                             }}
                         >
                             {/* Top Face for 3D effect */}
@@ -25,7 +25,7 @@ export function HolographicRevenue() {
             </div>
 
             {/* Bottom Floating Stats */}
-            <div className="bg-black/40 backdrop-blur-md rounded-xl p-3 border border-white/5 flex justify-between items-center relative overflow-hidden group">
+            <div className="bg-black/40 backdrop-blur-md rounded-sm p-3 border border-white/5 flex justify-between items-center relative overflow-hidden group">
 
                 {/* Neon Glow Line */}
                 <div className="absolute bottom-0 left-0 h-[3px] bg-[#a3e635] w-[40%] rounded-r-full shadow-[0_0_10px_#a3e635]"></div>

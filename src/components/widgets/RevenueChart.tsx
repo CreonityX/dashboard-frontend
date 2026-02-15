@@ -31,8 +31,8 @@ export function RevenueChart() {
                                 className="w-full rounded-t-sm transition-all duration-500 hover:brightness-125 relative group-hover:-translate-y-2 transform-gpu"
                                 style={{
                                     height: `${height}%`,
-                                    background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.8) 0%, rgba(124, 58, 237, 0.2) 100%)',
-                                    boxShadow: '0 0 20px rgba(139, 92, 246, 0.1)',
+                                    background: i % 2 === 0 ? 'linear-gradient(180deg, rgba(139, 92, 246, 0.8) 0%, rgba(124, 58, 237, 0.2) 100%)' : 'linear-gradient(180deg, rgba(163, 230, 53, 0.8) 0%, rgba(132, 204, 22, 0.2) 100%)',
+                                    boxShadow: i % 2 === 0 ? '0 0 20px rgba(139, 92, 246, 0.1)' : '0 0 20px rgba(163, 230, 53, 0.1)',
                                     borderTop: '1px solid rgba(255,255,255,0.3)'
                                 }}
                             >
@@ -44,7 +44,7 @@ export function RevenueChart() {
                 </div>
 
                 {/* Bottom Glow */}
-                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-purple-500/20 to-transparent pointer-events-none blur-2xl"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-purple-500/20 via-[#a3e635]/10 to-transparent pointer-events-none blur-2xl"></div>
 
             </div>
         </GlassTechCard>

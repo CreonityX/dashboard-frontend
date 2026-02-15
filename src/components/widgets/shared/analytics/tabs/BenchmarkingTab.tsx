@@ -11,12 +11,6 @@ const BENCHMARKS = [
 export function BenchmarkingTab() {
     return (
         <div className="space-y-6">
-            {/* Header */}
-            <div>
-                <h2 className="text-lg font-bold text-white font-display tracking-wide">COMPETITIVE_BENCHMARKING</h2>
-                <p className="text-zinc-500 font-mono text-xs">VS_INDUSTRY_AVERAGE // TECH_NICHE</p>
-            </div>
-
             {/* Comparison Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {BENCHMARKS.map((item) => (
