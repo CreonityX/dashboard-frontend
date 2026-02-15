@@ -14,8 +14,10 @@ import {
     LifeBuoy,
     GraduationCap,
     Calendar,
-    BarChart3
+    BarChart3,
+    X
 } from "lucide-react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
 import { TechIcon } from "../TechIcon";
@@ -147,8 +149,10 @@ export function DashboardSidebar() {
                         <NavGroup items={MAIN_NAV_ITEMS} />
                     </div>
 
-                    {/* Bottom Section Spacer Line */}
-                    <div className="my-4 mx-6 border-t border-white/5" />
+                    {/* Promo Box (Only show when not collapsed) */}
+                    {!isCollapsed && (
+                        <SidebarPromoBox />
+                    )}
 
                     {/* Bottom Section */}
                     <div>
@@ -178,5 +182,40 @@ export function DashboardSidebar() {
                 </div>
             </aside>
         </>
+    );
+}
+
+function SidebarPromoBox() {
+    const [isVisible, setIsVisible] = useState(true);
+
+    if (!isVisible) return null;
+
+    return (
+        <div className="px-4 mb-4 mt-auto">
+            <div className="relative p-3 bg-zinc-900/50 border border-zinc-800 rounded-sm overflow-hidden group hover:border-zinc-700 transition-colors">
+                {/* Close Button */}
+                <button
+                    onClick={() => setIsVisible(false)}
+                    className="absolute top-1.5 right-1.5 p-1 text-zinc-600 hover:text-white transition-colors z-10"
+                >
+                    <X className="w-3 h-3" />
+                </button>
+
+                {/* Header */}
+                <div className="flex items-center gap-2 mb-1.5">
+                    <div className="w-1 h-1 bg-[#a3e635] rounded-full animate-pulse" />
+                    <span className="text-[9px] font-bold text-[#a3e635] uppercase tracking-wider font-mono">Pro_Offer</span>
+                </div>
+
+                {/* Content */}
+                <h4 className="text-xs font-bold text-white leading-tight mb-0.5 font-display">UPGRADE_NOW</h4>
+                <p className="text-[9px] text-zinc-500 font-mono mb-2 leading-tight">50% off your first 3 months.</p>
+
+                {/* Action */}
+                <button className="w-full py-1 bg-[#a3e635] hover:bg-[#a3e635]/90 text-black text-[9px] font-bold uppercase tracking-wider rounded-[1px] transition-all flex items-center justify-center gap-1">
+                    Claim_Offer
+                </button>
+            </div>
+        </div>
     );
 }
