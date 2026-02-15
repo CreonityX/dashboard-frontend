@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ProfileShell } from "@/components/widgets/shared/profile/ProfileShell";
 
 // Tabs
@@ -10,8 +11,14 @@ import { VerificationTab } from "@/components/widgets/shared/profile/tabs/Verifi
 import { MediaKitTab } from "@/components/widgets/shared/profile/tabs/MediaKitTab";
 import { PrivacyTab } from "@/components/widgets/shared/profile/tabs/PrivacyTab";
 
-export default function ProfilePage() {
-    const [activeTab, setActiveTab] = useState('public');
+function ProfileContent() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const activeTab = searchParams.get('tab') || 'public';
+
+    const handleTabChange = (id: string) => {
+        router.push(`/profile?tab=${id}`);
+    };
 
     const renderContent = () => {
         switch (activeTab) {
@@ -25,15 +32,20 @@ export default function ProfilePage() {
     };
 
     return (
-        <div className="max-w-[1600px] mx-auto h-full space-y-6">
-            <div>
-                <h1 className="text-3xl font-bold text-white font-display uppercase tracking-tight">Identity Matrix</h1>
-                <p className="text-zinc-500 font-mono text-xs mt-1">CREATOR_PROFILE // {activeTab.toUpperCase()}_MODE</p>
-            </div>
+        <div className="h-full">
 
-            <ProfileShell activeTab={activeTab} onTabChange={setActiveTab}>
+
+            <ProfileShell activeTab={activeTab} onTabChange={handleTabChange}>
                 {renderContent()}
             </ProfileShell>
         </div>
+    );
+}
+
+export default function ProfilePage() {
+    return (
+        <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
+            <ProfileContent />
+        </Suspense>
     );
 }

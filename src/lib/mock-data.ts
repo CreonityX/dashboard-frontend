@@ -1,4 +1,4 @@
-import { User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote, GraduationCap, BookOpen, Wrench, Users, TrendingUp, Newspaper, Search, MessageSquare, HelpCircle, PlayCircle, Lightbulb, Activity, Calendar as CalendarIcon, ClipboardList, LayoutList } from "lucide-react";
+import { User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote, GraduationCap, BookOpen, Wrench, Users, TrendingUp, Newspaper, Search, MessageSquare, HelpCircle, PlayCircle, Lightbulb, Activity, Calendar as CalendarIcon, ClipboardList, LayoutList, Eye, Edit3, ShieldCheck, FileText } from "lucide-react";
 
 export const MOCK_CONVERSATIONS = [
     { id: '1', brand: 'Samsung', message: 'Hey, wanted to check on the progress for the S26 review...', time: '10:42 AM', unreadCount: 2, isOnline: true },
@@ -46,4 +46,22 @@ export const CALENDAR_VIEWS = [
     { id: 'week', label: 'Week', icon: LayoutList },
     { id: 'day', label: 'Day', icon: CalendarIcon },
     { id: 'agenda', label: 'Agenda', icon: ClipboardList },
+];
+
+export const PROFILE_TABS = [
+    { id: 'public', label: 'Public Profile', icon: Eye },
+    { id: 'edit', label: 'Edit Profile', icon: Edit3 },
+    { id: 'verification', label: 'Verification', icon: ShieldCheck },
+    { id: 'mediakit', label: 'Media Kit', icon: FileText },
+    { id: 'privacy', label: 'Privacy', icon: Lock },
+];
+
+export const ANALYTICS_TABS = [
+    { id: 'overview', label: 'Overview', icon: Activity },
+    { id: 'content', label: 'Content Performance', icon: LayoutList },
+    { id: 'audience', label: 'Audience Insights', icon: Users },
+    { id: 'platform', label: 'Platform Analytics', icon: Monitor }, // Using Monitor as generic platform icon
+    { id: 'campaigns', label: 'Campaign ROI', icon: TrendingUp },
+    { id: 'benchmarking', label: 'Benchmarking', icon: TrendingUp }, // Reusing TrendingUp for now or find better
+    { id: 'reports', label: 'Reports', icon: FileText },
 ];

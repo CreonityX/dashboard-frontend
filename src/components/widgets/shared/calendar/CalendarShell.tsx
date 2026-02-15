@@ -45,16 +45,17 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                 </div>
 
                 {/* Grid Container */}
-                <div className="px-4">
+                <div className="px-5">
                     {/* Simplified Grid for visual only */}
-                    <div className="grid grid-cols-7 gap-1 text-center text-[9px] text-zinc-600 font-mono mb-2">
+                    <div className="grid grid-cols-7 gap-1.5 text-center text-[9px] text-zinc-600 font-mono mb-2">
                         <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
                     </div>
-                    <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-zinc-400 font-mono">
+                    <div className="grid grid-cols-7 gap-1.5 text-center text-[10px] text-zinc-400 font-mono">
                         {Array.from({ length: 28 }).map((_, i) => (
                             <div key={i} className={cn(
-                                "aspect-square flex items-center justify-center rounded-sm hover:bg-zinc-800 cursor-pointer transition-colors",
-                                i === 13 ? "bg-[#a3e635] text-black font-bold shadow-[0_0_8px_rgba(163,230,53,0.4)]" : ""
+                                "aspect-square flex items-center justify-center rounded-[2px] cursor-pointer transition-all",
+                                "hover:bg-zinc-800 hover:text-white",
+                                i === 13 ? "bg-[#a3e635] text-black font-bold shadow-[0_0_8px_rgba(163,230,53,0.3)]" : ""
                             )}>
                                 {i + 1}
                             </div>

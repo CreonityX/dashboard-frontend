@@ -13,7 +13,8 @@ import {
     User,
     LifeBuoy,
     GraduationCap,
-    Calendar
+    Calendar,
+    BarChart3
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
@@ -23,6 +24,7 @@ const MAIN_NAV_ITEMS = [
     { label: "DASHBOARD", icon: LayoutDashboard, href: "/" },
     { label: "PROJECTS", icon: Briefcase, href: "/projects" },
     { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
+    { label: "ANALYTICS", icon: BarChart3, href: "/analytics" },
     { label: "FINANCE", icon: Wallet, href: "/finance" },
     { label: "CALENDAR", icon: Calendar, href: "/calendar" },
 ];

@@ -1,24 +1,22 @@
 "use client";
 
-import { ReactNode, useState } from "react";
-import { User, Edit3, ShieldCheck, Lock, FileText, Eye } from "lucide-react";
+import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { ANALYTICS_TABS } from "@/lib/mock-data";
 
-interface ProfileShellProps {
+interface AnalyticsShellProps {
     children?: ReactNode;
     activeTab: string;
     onTabChange: (id: string) => void;
 }
 
-import { PROFILE_TABS } from "@/lib/mock-data";
-
-export function ProfileShell({ activeTab, onTabChange, children }: ProfileShellProps) {
+export function AnalyticsShell({ activeTab, onTabChange, children }: AnalyticsShellProps) {
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Navigation */}
             <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-r border-zinc-800 overflow-y-auto">
                 <nav className="p-2 space-y-1">
-                    {PROFILE_TABS.map((tab) => {
+                    {ANALYTICS_TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
                         return (
                             <button
@@ -41,14 +39,14 @@ export function ProfileShell({ activeTab, onTabChange, children }: ProfileShellP
                     })}
                 </nav>
 
-                {/* Identity Matrix Header (Moved to Sidebar) */}
+                {/* Data Core Header (Sidebar) */}
                 <div className="p-4 mt-4 border-t border-zinc-800">
                     <div className="bg-zinc-900/60 border border-zinc-800 p-3 rounded-sm">
-                        <div className="text-[10px] font-bold text-white uppercase mb-1 font-display tracking-widest">Identity_Matrix</div>
-                        <div className="text-[10px] text-zinc-500 mb-2 leading-tight font-mono">CREATOR_PROFILE // {activeTab.toUpperCase()}_MODE</div>
+                        <div className="text-[10px] font-bold text-white uppercase mb-1 font-display tracking-widest">Data_Core</div>
+                        <div className="text-[10px] text-zinc-500 mb-2 leading-tight font-mono">INSIGHTS // {activeTab.toUpperCase()}</div>
                         <div className="flex items-center gap-2">
                             <div className="w-1.5 h-1.5 rounded-full bg-[#a3e635] animate-pulse" />
-                            <span className="text-[9px] text-[#a3e635] font-mono">SYSTEM_ACTIVE</span>
+                            <span className="text-[9px] text-[#a3e635] font-mono">STREAM_ACTIVE</span>
                         </div>
                     </div>
                 </div>
@@ -77,9 +75,9 @@ export function ProfileShell({ activeTab, onTabChange, children }: ProfileShellP
                 <div className="h-8 border-t border-zinc-800 bg-zinc-900/80 flex items-center px-4 justify-between text-[10px] text-zinc-600 font-mono select-none relative z-10">
                     <span className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-zinc-700 rounded-sm"></span>
-                        VIEW_MODE: {activeTab.toUpperCase()}
+                        VIEW: {activeTab.toUpperCase()}
                     </span>
-                    <span className="text-[#a3e635]/50">PROFILE_ID: USR_8821_X</span>
+                    <span className="text-[#a3e635]/50">LATENCY: 12ms</span>
                 </div>
             </main>
         </div>
