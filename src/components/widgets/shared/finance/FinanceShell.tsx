@@ -14,8 +14,8 @@ export function FinanceShell({ activeTab, onTabChange, children }: FinanceShellP
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Navigation */}
-            <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-r border-zinc-800 overflow-y-auto">
-                <nav className="p-2 space-y-1">
+            <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-b lg:border-b-0 lg:border-r border-zinc-800 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden">
+                <nav className="p-2 flex lg:flex-col gap-2 min-w-max lg:min-w-0">
                     {FINANCE_TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
                         return (
@@ -23,14 +23,14 @@ export function FinanceShell({ activeTab, onTabChange, children }: FinanceShellP
                                 key={tab.id}
                                 onClick={() => onTabChange(tab.id)}
                                 className={cn(
-                                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent",
+                                    "flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent whitespace-nowrap lg:whitespace-normal",
                                     isActive
                                         ? "bg-[#a3e635]/10 text-[#a3e635] border-[#a3e635]/20"
                                         : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50 hover:border-zinc-800"
                                 )}
                             >
                                 <tab.icon className={cn(
-                                    "w-4 h-4 transition-colors",
+                                    "w-4 h-4 transition-colors shrink-0",
                                     isActive ? "text-[#a3e635]" : "text-zinc-600 group-hover:text-zinc-400"
                                 )} />
                                 <span className="text-xs font-mono font-medium uppercase tracking-tight">{tab.label}</span>
@@ -39,8 +39,8 @@ export function FinanceShell({ activeTab, onTabChange, children }: FinanceShellP
                     })}
                 </nav>
 
-                {/* Finance Matrix Header (Sidebar) */}
-                <div className="p-4 mt-4 border-t border-zinc-800">
+                {/* Finance Matrix Header (Sidebar) - Hidden on Mobile to save space */}
+                <div className="p-4 mt-4 border-t border-zinc-800 hidden lg:block">
                     <div className="bg-zinc-900/60 border border-zinc-800 p-3 rounded-sm">
                         <div className="text-[10px] font-bold text-white uppercase mb-1 font-display tracking-widest">Finance_Matrix</div>
                         <div className="text-[10px] text-zinc-500 mb-2 leading-tight font-mono">WALLET_CORE // {activeTab.toUpperCase()}</div>

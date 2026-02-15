@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { Search, Bell, HelpCircle, Command, ChevronRight, Home } from "lucide-react";
+import { Search, Bell, HelpCircle, Command, ChevronRight, Home, Menu } from "lucide-react";
 import { MOCK_CONVERSATIONS, SETTINGS_TABS, RESOURCE_TABS, SUPPORT_TABS, CALENDAR_VIEWS, PROFILE_TABS, ANALYTICS_TABS, FINANCE_TABS, PROJECT_TABS } from "@/lib/mock-data";
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Fragment } from "react";
 import { NotificationCenter } from "../widgets/shared/os/NotificationCenter";
 import { cn } from "@/lib/utils";
+import { useSidebar } from "./SidebarContext";
 
 
 export function DashboardHeader() {
@@ -14,6 +15,7 @@ export function DashboardHeader() {
     const searchParams = useSearchParams();
     const [showNotifications, setShowNotifications] = useState(false);
     const notificationRef = useRef<HTMLDivElement>(null);
+    const { toggleMobileSidebar } = useSidebar();
 
     // Breadcrumb Logic
     const segments = pathname.split('/').filter(Boolean);
@@ -92,40 +94,50 @@ export function DashboardHeader() {
 
     return (
         <header className="h-16 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 flex items-center justify-between px-6 sticky top-0">
-            {/* Left: Breadcrumbs */}
-            <div className="flex items-center gap-2 text-sm font-mono">
-                <Link href="/" className="text-zinc-500 hover:text-white transition-colors">
-                    <Home className="w-4 h-4" />
-                </Link>
-                {breadcrumbs.length > 0 && <ChevronRight className="w-4 h-4 text-zinc-700" />}
+            {/* Left: Hamburger & Breadcrumbs */}
+            <div className="flex items-center gap-4">
+                {/* Mobile Hamburger */}
+                <button
+                    onClick={toggleMobileSidebar}
+                    className="p-2 -ml-2 text-zinc-400 hover:text-white lg:hidden"
+                >
+                    <Menu className="w-5 h-5" />
+                </button>
 
-                {breadcrumbs.map((crumb, index) => {
-                    const isLast = index === breadcrumbs.length - 1;
-                    return (
-                        <Fragment key={index}>
-                            <div className="flex items-center gap-2">
-                                {crumb.isLink && !isLast ? (
-                                    <Link
-                                        href={crumb.href}
-                                        className="text-zinc-500 hover:text-white transition-colors uppercase font-medium"
-                                    >
-                                        {crumb.label}
-                                    </Link>
-                                ) : (
-                                    <span className={cn(
-                                        "uppercase transition-colors",
-                                        isLast ? "text-white font-bold" : "text-zinc-400 font-medium"
-                                    )}>
-                                        {crumb.label}
-                                    </span>
-                                )}
-                                {!isLast && (
-                                    <ChevronRight className="w-4 h-4 text-zinc-700" />
-                                )}
-                            </div>
-                        </Fragment>
-                    );
-                })}
+                <div className="flex items-center gap-2 text-sm font-mono">
+                    <Link href="/" className="text-zinc-500 hover:text-white transition-colors">
+                        <Home className="w-4 h-4" />
+                    </Link>
+                    {breadcrumbs.length > 0 && <ChevronRight className="w-4 h-4 text-zinc-700" />}
+
+                    {breadcrumbs.map((crumb, index) => {
+                        const isLast = index === breadcrumbs.length - 1;
+                        return (
+                            <Fragment key={index}>
+                                <div className="flex items-center gap-2">
+                                    {crumb.isLink && !isLast ? (
+                                        <Link
+                                            href={crumb.href}
+                                            className="text-zinc-500 hover:text-white transition-colors uppercase font-medium"
+                                        >
+                                            {crumb.label}
+                                        </Link>
+                                    ) : (
+                                        <span className={cn(
+                                            "uppercase transition-colors",
+                                            isLast ? "text-white font-bold" : "text-zinc-400 font-medium"
+                                        )}>
+                                            {crumb.label}
+                                        </span>
+                                    )}
+                                    {!isLast && (
+                                        <ChevronRight className="w-4 h-4 text-zinc-700" />
+                                    )}
+                                </div>
+                            </Fragment>
+                        );
+                    })}
+                </div>
             </div>
 
             {/* Right: Actions */}

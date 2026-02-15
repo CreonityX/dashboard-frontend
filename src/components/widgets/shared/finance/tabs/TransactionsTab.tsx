@@ -50,68 +50,70 @@ export function TransactionsTab() {
             </div>
 
             {/* Table */}
-            <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden">
-                <div className="grid grid-cols-12 px-4 py-3 bg-zinc-950/30 text-[9px] font-mono text-zinc-500 uppercase tracking-wider border-b border-zinc-800">
-                    <div className="col-span-2">Date / ID</div>
-                    <div className="col-span-5">Description</div>
-                    <div className="col-span-2 text-center">Status</div>
-                    <div className="col-span-2 text-right">Amount</div>
-                    <div className="col-span-1 text-right">Invoice</div>
-                </div>
+            <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden overflow-x-auto">
+                <div className="min-w-[800px]">
+                    <div className="grid grid-cols-12 px-4 py-3 bg-zinc-950/30 text-[9px] font-mono text-zinc-500 uppercase tracking-wider border-b border-zinc-800">
+                        <div className="col-span-2">Date / ID</div>
+                        <div className="col-span-5">Description</div>
+                        <div className="col-span-2 text-center">Status</div>
+                        <div className="col-span-2 text-right">Amount</div>
+                        <div className="col-span-1 text-right">Invoice</div>
+                    </div>
 
-                <div className="divide-y divide-zinc-800">
-                    {TRANSACTIONS.map((tx) => (
-                        <div key={tx.id} className="grid grid-cols-12 px-4 py-4 items-center hover:bg-zinc-800/30 transition-colors group">
-                            {/* Date/ID */}
-                            <div className="col-span-2">
-                                <div className="text-xs font-bold text-white">{tx.date}</div>
-                                <div className="text-[10px] text-zinc-600 font-mono">{tx.id}</div>
-                            </div>
-
-                            {/* Description */}
-                            <div className="col-span-5 flex items-center gap-3">
-                                <div className={cn(
-                                    "w-8 h-8 rounded-full flex items-center justify-center border",
-                                    tx.type === 'credit' ? "bg-[#a3e635]/10 border-[#a3e635]/20 text-[#a3e635]" : "bg-zinc-800 border-zinc-700 text-zinc-400"
-                                )}>
-                                    {tx.type === 'credit' ? <ArrowDownLeft className="w-4 h-4" /> : <ArrowUpRight className="w-4 h-4" />}
+                    <div className="divide-y divide-zinc-800">
+                        {TRANSACTIONS.map((tx) => (
+                            <div key={tx.id} className="grid grid-cols-12 px-4 py-4 items-center hover:bg-zinc-800/30 transition-colors group">
+                                {/* Date/ID */}
+                                <div className="col-span-2">
+                                    <div className="text-xs font-bold text-white">{tx.date}</div>
+                                    <div className="text-[10px] text-zinc-600 font-mono">{tx.id}</div>
                                 </div>
-                                <div>
-                                    <div className="text-sm font-medium text-zinc-200">{tx.desc}</div>
-                                    <div className="text-[10px] text-zinc-500 font-mono">{tx.brand}</div>
+
+                                {/* Description */}
+                                <div className="col-span-5 flex items-center gap-3">
+                                    <div className={cn(
+                                        "w-8 h-8 rounded-full flex items-center justify-center border",
+                                        tx.type === 'credit' ? "bg-[#a3e635]/10 border-[#a3e635]/20 text-[#a3e635]" : "bg-zinc-800 border-zinc-700 text-zinc-400"
+                                    )}>
+                                        {tx.type === 'credit' ? <ArrowDownLeft className="w-4 h-4" /> : <ArrowUpRight className="w-4 h-4" />}
+                                    </div>
+                                    <div>
+                                        <div className="text-sm font-medium text-zinc-200">{tx.desc}</div>
+                                        <div className="text-[10px] text-zinc-500 font-mono">{tx.brand}</div>
+                                    </div>
+                                </div>
+
+                                {/* Status */}
+                                <div className="col-span-2 text-center">
+                                    <span className={cn(
+                                        "text-[9px] font-bold font-mono px-2 py-0.5 rounded-sm uppercase border",
+                                        tx.status === 'completed'
+                                            ? "bg-zinc-900 text-zinc-400 border-zinc-700"
+                                            : "bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
+                                    )}>
+                                        {tx.status}
+                                    </span>
+                                </div>
+
+                                {/* Amount */}
+                                <div className="col-span-2 text-right">
+                                    <span className={cn(
+                                        "text-sm font-bold font-mono",
+                                        tx.type === 'credit' ? "text-[#a3e635]" : "text-white"
+                                    )}>
+                                        {tx.amount}
+                                    </span>
+                                </div>
+
+                                {/* Action */}
+                                <div className="col-span-1 flex justify-end">
+                                    <button className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-600 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
+                                        <FileText className="w-4 h-4" />
+                                    </button>
                                 </div>
                             </div>
-
-                            {/* Status */}
-                            <div className="col-span-2 text-center">
-                                <span className={cn(
-                                    "text-[9px] font-bold font-mono px-2 py-0.5 rounded-sm uppercase border",
-                                    tx.status === 'completed'
-                                        ? "bg-zinc-900 text-zinc-400 border-zinc-700"
-                                        : "bg-yellow-500/10 text-yellow-500 border-yellow-500/20"
-                                )}>
-                                    {tx.status}
-                                </span>
-                            </div>
-
-                            {/* Amount */}
-                            <div className="col-span-2 text-right">
-                                <span className={cn(
-                                    "text-sm font-bold font-mono",
-                                    tx.type === 'credit' ? "text-[#a3e635]" : "text-white"
-                                )}>
-                                    {tx.amount}
-                                </span>
-                            </div>
-
-                            {/* Action */}
-                            <div className="col-span-1 flex justify-end">
-                                <button className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-600 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
-                                    <FileText className="w-4 h-4" />
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
 

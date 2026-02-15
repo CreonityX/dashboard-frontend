@@ -23,7 +23,7 @@ export function HomeShell({ children }: HomeShellProps) {
             </main>
 
             {/* Right Sidebar Widgets */}
-            <aside className="w-full lg:w-80 flex-shrink-0 bg-zinc-900/60 border-l border-zinc-800 overflow-y-auto p-6 space-y-6 hidden xl:block">
+            <aside className="w-full xl:w-80 flex-shrink-0 bg-zinc-900/60 border-l lg:border-l-0 xl:border-l border-t lg:border-t-0 border-zinc-800 overflow-y-auto p-6 space-y-6 block">
                 {/* Mini Calendar Widget */}
                 <DashboardWidgetShell title="Schedule" icon={Calendar} className="min-h-0">
                     <div className="p-4">
