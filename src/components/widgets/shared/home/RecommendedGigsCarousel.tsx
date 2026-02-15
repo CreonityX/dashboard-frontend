@@ -2,6 +2,7 @@
 
 import { Star, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DashboardWidgetShell } from "../DashboardWidgetShell";
 
 const RECOMMENDED = [
     { id: 1, brand: "GoPro", title: "Action Cam Launch", match: 98, budget: "$2k - $4k", bg: "bg-blue-600" },
@@ -11,22 +12,21 @@ const RECOMMENDED = [
 
 export function RecommendedGigsCarousel() {
     return (
-        <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-6">
-            <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
-                    <Star className="w-4 h-4 text-yellow-500" /> Recommended_For_You
-                </h3>
+        <DashboardWidgetShell
+            title="Recommended_For_You"
+            icon={Star}
+            headerAction={
                 <div className="flex gap-1">
-                    <button className="w-6 h-6 flex items-center justify-center border border-zinc-800 rounded-sm text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors">
+                    <button className="w-5 h-5 flex items-center justify-center border border-zinc-800 rounded-sm text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors text-xs">
                         ←
                     </button>
-                    <button className="w-6 h-6 flex items-center justify-center border border-zinc-800 rounded-sm text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors">
+                    <button className="w-5 h-5 flex items-center justify-center border border-zinc-800 rounded-sm text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors text-xs">
                         →
                     </button>
                 </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            }
+        >
+            <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4">
                 {RECOMMENDED.map((gig) => (
                     <div key={gig.id} className="bg-zinc-950 border border-zinc-800 p-4 rounded-sm hover:border-[#a3e635]/50 transition-colors group cursor-pointer relative overflow-hidden">
                         {/* Match Badge */}
@@ -52,6 +52,6 @@ export function RecommendedGigsCarousel() {
                     </div>
                 ))}
             </div>
-        </div>
+        </DashboardWidgetShell>
     );
 }

@@ -2,6 +2,7 @@
 
 import { Activity, CheckCircle2, MessageSquare, Briefcase, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { DashboardWidgetShell } from "../DashboardWidgetShell";
 
 const ACTIVITIES = [
     { id: 1, type: "payment", text: "Received payment from Samsung", time: "2h ago", icon: CheckCircle2, color: "text-[#a3e635]" },
@@ -12,29 +13,25 @@ const ACTIVITIES = [
 
 export function RecentActivityFeed() {
     return (
-        <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-6 h-full">
-            <div className="flex items-center justify-between mb-6">
-                <h3 className="text-sm font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-purple-500" /> Recent_Activity
-                </h3>
-            </div>
+        <DashboardWidgetShell title="Recent_Activity" icon={Activity} className="h-full">
+            <div className="p-6 h-full relative">
+                <div className="space-y-6 relative h-full">
+                    {/* Vertical Line */}
+                    <div className="absolute left-[19px] top-2 bottom-2 w-[1px] bg-zinc-800" />
 
-            <div className="space-y-6 relative">
-                {/* Vertical Line */}
-                <div className="absolute left-[19px] top-2 bottom-2 w-[1px] bg-zinc-800" />
-
-                {ACTIVITIES.map((act) => (
-                    <div key={act.id} className="flex gap-4 relative">
-                        <div className={cn("w-10 h-10 rounded-sm border border-zinc-800 bg-zinc-950 flex items-center justify-center z-10 shrink-0", act.color)}>
-                            <act.icon className="w-4 h-4" />
+                    {ACTIVITIES.map((act) => (
+                        <div key={act.id} className="flex gap-4 relative">
+                            <div className={cn("w-10 h-10 rounded-sm border border-zinc-800 bg-zinc-950 flex items-center justify-center z-10 shrink-0", act.color)}>
+                                <act.icon className="w-4 h-4" />
+                            </div>
+                            <div className="pt-1">
+                                <div className="text-xs text-zinc-300 font-medium leading-tight mb-1">{act.text}</div>
+                                <div className="text-[10px] text-zinc-500 font-mono uppercase">{act.time}</div>
+                            </div>
                         </div>
-                        <div className="pt-1">
-                            <div className="text-xs text-zinc-300 font-medium leading-tight mb-1">{act.text}</div>
-                            <div className="text-[10px] text-zinc-500 font-mono uppercase">{act.time}</div>
-                        </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
-        </div>
+        </DashboardWidgetShell>
     );
 }
