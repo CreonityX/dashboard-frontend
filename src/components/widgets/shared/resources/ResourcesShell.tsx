@@ -28,9 +28,9 @@ export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesSh
             <aside className={cn(
                 "w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 lg:border-r border-zinc-800 overflow-y-auto",
                 // Mobile: Only show when menu is active
-                showMobileMenu ? "flex flex-col h-full" : "hidden lg:flex"
+                showMobileMenu ? "flex flex-col h-full" : "hidden lg:flex lg:flex-col"
             )}>
-                <nav className="p-4 space-y-2 lg:p-2 lg:space-y-1">
+                <nav className="p-4 space-y-2 lg:p-2 lg:space-y-1 lg:flex-1 lg:overflow-y-auto">
                     {RESOURCE_TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
                         return (
@@ -58,7 +58,7 @@ export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesSh
                 </nav>
 
                 {/* Promo Box - Hidden on mobile menu list for cleaner look */}
-                <div className="p-4 mt-4 border-t border-zinc-800 hidden lg:block">
+                <div className="p-4 mt-auto border-t border-zinc-800 hidden lg:block flex-shrink-0">
                     <div className="bg-gradient-to-br from-[#a3e635]/5 to-zinc-900 border border-[#a3e635]/20 p-3 rounded-sm">
                         <div className="text-[10px] font-bold text-[#a3e635] uppercase mb-1 font-display">Pro Membership</div>
                         <div className="text-[10px] text-zinc-500 mb-3 leading-tight font-mono">Unlock premium courses and advanced analytics.</div>
