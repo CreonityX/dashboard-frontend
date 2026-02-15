@@ -137,8 +137,8 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
 
                 {/* Toolbar */}
-                <div className="h-14 border-b border-zinc-800 flex items-center justify-between px-6 bg-zinc-900/60 relative z-10">
-                    <div className="flex items-center gap-2 lg:gap-6">
+                <div className="h-16 lg:h-14 border-b border-zinc-800 flex items-center justify-between px-2 lg:px-6 bg-zinc-900/60 relative z-10 gap-2 overflow-x-auto no-scrollbar">
+                    <div className="flex items-center gap-2 lg:gap-6 flex-shrink-0">
                         {/* Mobile Toggle */}
                         <button
                             onClick={() => setShowMobileSidebar(true)}
@@ -147,16 +147,16 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                             <Filter className="w-4 h-4" />
                         </button>
 
-                        <h2 className="text-lg font-bold text-white font-display tracking-wide truncate">FEBRUARY <span className="text-zinc-600 hidden sm:inline">2026</span></h2>
+                        <h2 className="text-sm lg:text-lg font-bold text-white font-display tracking-wide truncate">FEB<span className="hidden sm:inline">RUARY</span> <span className="text-zinc-600 hidden sm:inline">2026</span></h2>
                         <div className="flex items-center bg-zinc-950/50 rounded-sm p-0.5 border border-zinc-800">
                             <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-zinc-300 transition-colors"><ChevronLeft className="w-3 h-3" /></button>
-                            <button className="px-3 text-[10px] font-bold font-mono text-zinc-400 uppercase tracking-wider hover:text-white transition-colors">Today</button>
+                            <button className="px-2 lg:px-3 text-[10px] font-bold font-mono text-zinc-400 uppercase tracking-wider hover:text-white transition-colors">Today</button>
                             <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-zinc-300 transition-colors"><ChevronRight className="w-3 h-3" /></button>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4">
-                        <div className="flex bg-zinc-950/50 rounded-sm p-1 border border-zinc-800 gap-1">
+                    <div className="flex items-center gap-2 lg:gap-4 flex-shrink-0">
+                        <div className="flex bg-zinc-950/50 rounded-sm p-1 border border-zinc-800 gap-1 overflow-x-scroll no-scrollbar max-w-[150px] lg:max-w-none">
                             {['Month', 'Week', 'Day', 'Agenda'].map((v) => {
                                 const value = v.toLowerCase();
                                 const isActive = view === value;
@@ -165,7 +165,7 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                                         key={value}
                                         onClick={() => onViewChange(value)}
                                         className={cn(
-                                            "px-3 py-1 rounded-[1px] text-[10px] font-bold uppercase transition-all font-mono tracking-tight",
+                                            "px-2 lg:px-3 py-1 rounded-[1px] text-[10px] font-bold uppercase transition-all font-mono tracking-tight whitespace-nowrap",
                                             isActive
                                                 ? "bg-zinc-800 text-[#a3e635] shadow-sm border border-zinc-700"
                                                 : "text-zinc-500 hover:text-zinc-300 border border-transparent"
@@ -178,9 +178,9 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                         </div>
                         <button
                             onClick={onAddEvent}
-                            className="flex items-center gap-2 px-4 py-1.5 bg-[#a3e635] hover:bg-[#a3e635]/90 text-black text-xs font-bold uppercase rounded-sm transition-all shadow-[0_0_15px_rgba(163,230,53,0.3)] hover:shadow-[0_0_20px_rgba(163,230,53,0.5)]"
+                            className="flex items-center gap-2 px-3 lg:px-4 py-1.5 bg-[#a3e635] hover:bg-[#a3e635]/90 text-black text-xs font-bold uppercase rounded-sm transition-all shadow-[0_0_15px_rgba(163,230,53,0.3)] hover:shadow-[0_0_20px_rgba(163,230,53,0.5)] whitespace-nowrap"
                         >
-                            <Plus className="w-3 h-3" /> New_Event
+                            <Plus className="w-3 h-3" /> <span className="hidden sm:inline">New_Event</span><span className="sm:hidden">New</span>
                         </button>
                     </div>
                 </div>

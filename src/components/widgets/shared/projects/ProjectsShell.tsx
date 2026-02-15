@@ -67,7 +67,7 @@ export function ProjectsShell({ activeTab, onTabChange, children }: ProjectsShel
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
 
                 {/* Live Content */}
-                <div className="flex-1 overflow-y-auto p-6 lg:p-10 custom-scrollbar relative z-10">
+                <div className="flex-1 overflow-y-auto p-4 lg:p-10 custom-scrollbar relative z-10">
                     {children}
                 </div>
 

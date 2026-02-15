@@ -60,32 +60,34 @@ export function MonthView({ currentDate }: MonthViewProps) {
     const startDay = getStartDayOfMonth(currentDate);
 
     return (
-        <div className="h-full flex flex-col min-w-[800px] lg:min-w-0">
-            {/* Days Header */}
-            <div className="grid grid-cols-7 border-b border-zinc-800 bg-zinc-900/40">
-                {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(day => (
-                    <div key={day} className="py-2 text-center text-[10px] font-bold text-zinc-500 font-mono tracking-wider border-r border-zinc-800 last:border-r-0">
-                        {day}
-                    </div>
-                ))}
-            </div>
-            {/* Grid */}
-            <div className="grid grid-cols-7 flex-1 auto-rows-fr">
-                {days.map((day, idx) => {
-                    const dateStr = `2026-02-${String(day.date).padStart(2, '0')}`; // This mock date will need to be dynamic based on currentDate
-                    const dayEvents = day.isCurrentMonth ? EVENTS.filter(e => e.date === dateStr) : [];
-                    const isToday = day.date === 14 && day.isCurrentMonth; // Mocking today as Feb 14
+        <div className="h-full flex flex-col w-full overflow-hidden">
+            <div className="flex-1 flex flex-col min-w-[800px] lg:min-w-0 overflow-x-auto lg:overflow-visible">
+                {/* Days Header */}
+                <div className="grid grid-cols-7 border-b border-zinc-800 bg-zinc-900/40">
+                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map(day => (
+                        <div key={day} className="py-2 text-center text-[10px] font-bold text-zinc-500 font-mono tracking-wider border-r border-zinc-800 last:border-r-0">
+                            {day}
+                        </div>
+                    ))}
+                </div>
+                {/* Grid */}
+                <div className="grid grid-cols-7 flex-1 auto-rows-fr">
+                    {days.map((day, idx) => {
+                        const dateStr = `2026-02-${String(day.date).padStart(2, '0')}`; // This mock date will need to be dynamic based on currentDate
+                        const dayEvents = day.isCurrentMonth ? EVENTS.filter(e => e.date === dateStr) : [];
+                        const isToday = day.date === 14 && day.isCurrentMonth; // Mocking today as Feb 14
 
-                    return (
-                        <CalendarGridCell
-                            key={idx}
-                            date={day.date}
-                            isCurrentMonth={day.isCurrentMonth}
-                            events={dayEvents}
-                            isToday={isToday}
-                        />
-                    );
-                })}
+                        return (
+                            <CalendarGridCell
+                                key={idx}
+                                date={day.date}
+                                isCurrentMonth={day.isCurrentMonth}
+                                events={dayEvents}
+                                isToday={isToday}
+                            />
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

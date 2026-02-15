@@ -16,6 +16,7 @@ function CalendarContent() {
     // Ensure view is one of the allowed types, default to 'month'
     const view = (viewParam === 'month' || viewParam === 'week' || viewParam === 'day' || viewParam === 'agenda') ? viewParam : 'month';
     const [isAddEventOpen, setIsAddEventOpen] = useState(false);
+    const currentDate = new Date(); // Use current date for now, could be state driven later
 
     const handleViewChange = (newView: string) => {
         router.push(`/calendar?view=${newView}`);
@@ -24,7 +25,7 @@ function CalendarContent() {
     return (
         <div className="h-full">
             <CalendarShell view={view} onViewChange={handleViewChange} onAddEvent={() => setIsAddEventOpen(true)}>
-                {view === 'month' && <MonthView />}
+                {view === 'month' && <MonthView currentDate={currentDate} />}
                 {view === 'week' && <WeekView />}
                 {view === 'day' && <DayView />}
                 {view === 'agenda' && <AgendaView />}

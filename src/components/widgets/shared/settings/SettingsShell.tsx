@@ -9,22 +9,35 @@ interface SettingsShellProps {
 
 import { SETTINGS_TABS } from "@/lib/mock-data";
 
+import { useState } from "react";
+import { ChevronRight, ArrowLeft } from "lucide-react";
+
 export function SettingsShell({ activeTab, onTabChange, children }: { activeTab: string, onTabChange: (id: string) => void, children: ReactNode }) {
+    const [showMobileMenu, setShowMobileMenu] = useState(true);
+
+    const handleTabClick = (id: string) => {
+        onTabChange(id);
+        setShowMobileMenu(false);
+    };
 
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Navigation */}
-            <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-b lg:border-b-0 lg:border-r border-zinc-800 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden">
-                <nav className="p-2 flex lg:flex-col gap-2 min-w-max lg:min-w-0">
+            <aside className={cn(
+                "w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 lg:border-r border-zinc-800 overflow-y-auto",
+                // Mobile: Only show when menu is active
+                showMobileMenu ? "flex flex-col h-full" : "hidden lg:flex"
+            )}>
+                <nav className="p-4 space-y-2 lg:p-2 lg:space-y-1">
                     {SETTINGS_TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
                         const isDanger = tab.variant === 'danger';
                         return (
                             <button
                                 key={tab.id}
-                                onClick={() => onTabChange(tab.id)}
+                                onClick={() => handleTabClick(tab.id)}
                                 className={cn(
-                                    "flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent whitespace-nowrap lg:whitespace-normal",
+                                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent whitespace-nowrap lg:whitespace-normal",
                                     isActive
                                         ? "bg-[#a3e635]/10 text-white border-[#a3e635]/20"
                                         : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50 hover:border-zinc-800",
@@ -37,7 +50,11 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
                                     isActive ? (isDanger ? "text-red-500" : "text-[#a3e635]") : "text-zinc-600 group-hover:text-zinc-400",
                                     isDanger && !isActive && "text-red-900/50 group-hover:text-red-500"
                                 )} />
-                                <span className="text-xs font-mono font-medium tracking-tight uppercase">{tab.label}</span>
+                                <span className="text-xs font-mono font-medium tracking-tight uppercase flex-1">{tab.label}</span>
+
+                                {/* Mobile Chevron */}
+                                <ChevronRight className="w-4 h-4 text-zinc-700 lg:hidden" />
+
                                 {isActive && !isDanger && (
                                     <div className="ml-auto w-1.5 h-1.5 rounded-full bg-[#a3e635] shadow-[0_0_6px_#a3e635] hidden lg:block" />
                                 )}
@@ -48,7 +65,11 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 bg-zinc-900/40 overflow-hidden flex flex-col relative backdrop-blur-md">
+            <main className={cn(
+                "flex-1 bg-zinc-900/40 overflow-hidden flex flex-col relative backdrop-blur-md",
+                // Mobile: Hide when menu is showing
+                showMobileMenu ? "hidden lg:flex" : "flex"
+            )}>
                 {/* Header Decoration */}
                 <div className="absolute top-0 right-0 p-4 pointer-events-none z-20">
                     <div className="flex gap-1">
@@ -56,6 +77,17 @@ export function SettingsShell({ activeTab, onTabChange, children }: { activeTab:
                         <div className="w-1 h-1 bg-zinc-700/50 rounded-sm" />
                         <div className="w-1 h-1 bg-[#a3e635]/50 rounded-sm" />
                     </div>
+                </div>
+
+                {/* Mobile Back Button Header - Simplified */}
+                <div className="lg:hidden flex items-center p-4 border-b border-zinc-800 bg-zinc-900/80 backdrop-blur-md sticky top-0 z-30">
+                    <button
+                        onClick={() => setShowMobileMenu(true)}
+                        className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+                    >
+                        <ArrowLeft className="w-5 h-5" />
+                        <span className="text-xs font-mono uppercase">Back_To_Menu</span>
+                    </button>
                 </div>
 
                 {/* Content Background (Noise) */}

@@ -11,20 +11,34 @@ interface ResourcesShellProps {
 
 import { RESOURCE_TABS } from "@/lib/mock-data";
 
+import { useState } from "react";
+import { ChevronRight, ArrowLeft } from "lucide-react";
+
 export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesShellProps) {
+    const [showMobileMenu, setShowMobileMenu] = useState(true);
+
+    const handleTabClick = (id: string) => {
+        onTabChange(id);
+        setShowMobileMenu(false);
+    };
+
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Navigation */}
-            <aside className="w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 border-b lg:border-b-0 lg:border-r border-zinc-800 overflow-x-auto lg:overflow-y-auto lg:overflow-x-hidden">
-                <nav className="p-2 flex lg:flex-col gap-2 min-w-max lg:min-w-0">
+            <aside className={cn(
+                "w-full lg:w-64 flex-shrink-0 bg-zinc-900/40 lg:border-r border-zinc-800 overflow-y-auto",
+                // Mobile: Only show when menu is active
+                showMobileMenu ? "flex flex-col h-full" : "hidden lg:flex"
+            )}>
+                <nav className="p-4 space-y-2 lg:p-2 lg:space-y-1">
                     {RESOURCE_TABS.map((tab) => {
                         const isActive = activeTab === tab.id;
                         return (
                             <button
                                 key={tab.id}
-                                onClick={() => onTabChange(tab.id)}
+                                onClick={() => handleTabClick(tab.id)}
                                 className={cn(
-                                    "flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent whitespace-nowrap lg:whitespace-normal",
+                                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-sm transition-all duration-200 text-left group border border-transparent whitespace-nowrap lg:whitespace-normal",
                                     isActive
                                         ? "bg-[#a3e635]/10 text-[#a3e635] border-[#a3e635]/20"
                                         : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50 hover:border-zinc-800"
@@ -34,13 +48,16 @@ export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesSh
                                     "w-4 h-4 transition-colors shrink-0",
                                     isActive ? "text-[#a3e635]" : "text-zinc-600 group-hover:text-zinc-400"
                                 )} />
-                                <span className="text-xs font-mono font-medium uppercase tracking-tight">{tab.label}</span>
+                                <span className="text-xs font-mono font-medium uppercase tracking-tight flex-1">{tab.label}</span>
+
+                                {/* Mobile Chevron */}
+                                <ChevronRight className="w-4 h-4 text-zinc-700 lg:hidden" />
                             </button>
                         );
                     })}
                 </nav>
 
-                {/* Promo Box - Hidden on mobile */}
+                {/* Promo Box - Hidden on mobile menu list for cleaner look */}
                 <div className="p-4 mt-4 border-t border-zinc-800 hidden lg:block">
                     <div className="bg-gradient-to-br from-[#a3e635]/5 to-zinc-900 border border-[#a3e635]/20 p-3 rounded-sm">
                         <div className="text-[10px] font-bold text-[#a3e635] uppercase mb-1 font-display">Pro Membership</div>
@@ -53,7 +70,11 @@ export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesSh
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 bg-zinc-900/40 overflow-hidden flex flex-col relative backdrop-blur-md">
+            <main className={cn(
+                "flex-1 bg-zinc-900/40 overflow-hidden flex flex-col relative backdrop-blur-md",
+                // Mobile: Hide when menu is showing
+                showMobileMenu ? "hidden lg:flex" : "flex"
+            )}>
                 {/* Header Decoration */}
                 <div className="absolute top-0 right-0 p-4 pointer-events-none z-20">
                     <div className="flex gap-1">
@@ -61,6 +82,17 @@ export function ResourcesShell({ activeTab, onTabChange, children }: ResourcesSh
                         <div className="w-1 h-1 bg-zinc-700/50 rounded-sm" />
                         <div className="w-1 h-1 bg-[#a3e635]/50 rounded-sm" />
                     </div>
+                </div>
+
+                {/* Mobile Back Button Header - Simplified */}
+                <div className="lg:hidden flex items-center p-4 border-b border-zinc-800 bg-zinc-900/80 backdrop-blur-md sticky top-0 z-30">
+                    <button
+                        onClick={() => setShowMobileMenu(true)}
+                        className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
+                    >
+                        <ArrowLeft className="w-5 h-5" />
+                        <span className="text-xs font-mono uppercase">Back_To_Menu</span>
+                    </button>
                 </div>
 
                 {/* Content Background (Noise) */}
