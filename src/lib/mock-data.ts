@@ -1,4 +1,9 @@
-import { User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote, GraduationCap, BookOpen, Wrench, Users, TrendingUp, Newspaper, Search, MessageSquare, HelpCircle, PlayCircle, Lightbulb, Activity, Calendar as CalendarIcon, ClipboardList, LayoutList, Eye, Edit3, ShieldCheck, FileText } from "lucide-react";
+import {
+    User, Shield, CreditCard, Bell, Lock, Workflow, LifeBuoy, AlertTriangle, Monitor, Banknote, GraduationCap, BookOpen,
+    Settings, HelpCircle, Check, Briefcase, MessageSquare, Wallet, FileText, TrendingUp, Users, Video, Image, LogOut,
+    Plus, Minus, ChevronDown, ChevronRight, Search, Menu, X, LayoutDashboard, Calendar, Activity, LayoutList,
+    ArrowLeftRight, Landmark, Wrench, Newspaper, PlayCircle, Lightbulb, CalendarIcon, ClipboardList, Eye, Edit3, ShieldCheck
+} from "lucide-react";
 
 export const MOCK_CONVERSATIONS = [
     { id: '1', brand: 'Samsung', message: 'Hey, wanted to check on the progress for the S26 review...', time: '10:42 AM', unreadCount: 2, isOnline: true },
@@ -64,4 +69,13 @@ export const ANALYTICS_TABS = [
     { id: 'campaigns', label: 'Campaign ROI', icon: TrendingUp },
     { id: 'benchmarking', label: 'Benchmarking', icon: TrendingUp }, // Reusing TrendingUp for now or find better
     { id: 'reports', label: 'Reports', icon: FileText },
+];
+
+export const FINANCE_TABS = [
+    { id: 'overview', label: 'Overview', icon: LayoutDashboard },
+    { id: 'transactions', label: 'Transactions', icon: ArrowLeftRight },
+    { id: 'payouts', label: 'Payouts', icon: CreditCard },
+    { id: 'invoices', label: 'Invoices', icon: FileText },
+    { id: 'tax', label: 'Tax Center', icon: Landmark },
+    { id: 'referrals', label: 'Referrals', icon: Users },
 ];
