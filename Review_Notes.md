@@ -1,14 +1,10 @@
 # Dashboard Branding Alignment Review - Final Status
+v3.0 - Post-Feedback Fixes
 
-## Completed Refactorings v2
--   **Structure**: Removed generic styling from Home widgets.
--   **Theme**: Applied `tech-border` and industrial styling to `RecommendedGigs`, `QuickStats`, and Sidebar Widgets.
--   **Typography**: Updated `WelcomeBanner` to use "System Online" aesthetic.
--   **Pages**:
-    -   **Home**: Fully aligned.
-    -   **Projects (Discover)**: Updated Gig Cards to `tech-border`.
-    -   **Finance (Overview & Payouts)**: Updated all cards and charts to `tech-border` and removed rounded aesthetics.
--   **Build**: Passed successfully.
+## Completed Refactorings
+-   **Sidebar Overlap**: Fixed Calendar sidebar spacing by adding `p-6` and `gap-6`, ensuring filters do not touch the navigation bar. 
+-   **Visual Cleanup**: Removed "weird" corner bracket accents from `tech-border` globally and from the `DashboardWidgetShell`. The design is now cleaner and strictly border-focused.
+-   **Calendar Theme**: Applied `tech-border` and industrial styling (sharp corners) to the Calendar sidebar widgets (Mini Calendar, Filters, Sync).
 
 ## Verification
-Please review `http://localhost:3000` to confirm visual changes across Home, Projects, and Finance.
+Please review `http://localhost:3000/calendar` to confirm the spacing fix and the new cleaner look without corner brackets.

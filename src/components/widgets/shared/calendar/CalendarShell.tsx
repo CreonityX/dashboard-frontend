@@ -32,28 +32,27 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Controls */}
-            <aside className="w-full lg:w-64 flex-shrink-0 space-y-6 overflow-y-auto bg-zinc-900/40 border-r border-zinc-800 backdrop-blur-md">
-                {/* Mini Calendar Placeholder */}
-                <div className="p-4 border-b border-zinc-800 bg-zinc-900/60">
-                    <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-white font-display tracking-widest uppercase">Feb_2026</span>
+            <aside className="w-full lg:w-72 flex-shrink-0 flex flex-col gap-6 overflow-y-auto bg-zinc-900/60 border-r border-zinc-800 backdrop-blur-md p-6">
+
+                {/* Mini Calendar */}
+                <div className="tech-border p-4">
+                    <div className="flex items-center justify-between mb-4">
+                        <span className="text-xs font-bold text-white font-display tracking-widest uppercase flex items-center gap-2">
+                            <CalendarIcon className="w-3.5 h-3.5 text-[#a3e635]" /> Feb_2026
+                        </span>
                         <div className="flex gap-1">
-                            <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-400 transition-colors"><ChevronLeft className="w-3 h-3" /></button>
-                            <button className="p-1 hover:bg-zinc-800 rounded-sm text-zinc-400 transition-colors"><ChevronRight className="w-3 h-3" /></button>
+                            <button className="p-1 hover:bg-zinc-800 rounded-[1px] text-zinc-400 transition-colors"><ChevronLeft className="w-3 h-3" /></button>
+                            <button className="p-1 hover:bg-zinc-800 rounded-[1px] text-zinc-400 transition-colors"><ChevronRight className="w-3 h-3" /></button>
                         </div>
                     </div>
-                </div>
-
-                {/* Grid Container */}
-                <div className="px-5">
-                    {/* Simplified Grid for visual only */}
-                    <div className="grid grid-cols-7 gap-1.5 text-center text-[9px] text-zinc-600 font-mono mb-2">
+                    {/* Grid */}
+                    <div className="grid grid-cols-7 gap-1 text-center text-[9px] text-zinc-600 font-mono mb-2">
                         <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
                     </div>
-                    <div className="grid grid-cols-7 gap-1.5 text-center text-[10px] text-zinc-400 font-mono">
+                    <div className="grid grid-cols-7 gap-1 text-center text-[10px] text-zinc-400 font-mono">
                         {Array.from({ length: 28 }).map((_, i) => (
                             <div key={i} className={cn(
-                                "aspect-square flex items-center justify-center rounded-[2px] cursor-pointer transition-all",
+                                "aspect-square flex items-center justify-center rounded-[1px] cursor-pointer transition-all",
                                 "hover:bg-zinc-800 hover:text-white",
                                 i === 13 ? "bg-[#a3e635] text-black font-bold shadow-[0_0_8px_rgba(163,230,53,0.3)]" : ""
                             )}>
@@ -64,8 +63,8 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                 </div>
 
                 {/* Filters */}
-                <div className="space-y-3">
-                    <div className="flex items-center justify-between px-1 border-b border-zinc-800 pb-2">
+                <div className="tech-border p-4 space-y-4">
+                    <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
                         <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest font-mono">View_Filters</span>
                         <Filter className="w-3 h-3 text-zinc-600" />
                     </div>
@@ -76,7 +75,7 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                                 <button
                                     key={filter.id}
                                     onClick={() => toggleFilter(filter.id)}
-                                    className="w-full flex items-center gap-3 px-2 py-1.5 rounded-sm hover:bg-zinc-800/50 transition-colors group text-left"
+                                    className="w-full flex items-center gap-3 px-2 py-1.5 rounded-[1px] hover:bg-zinc-800/50 transition-colors group text-left"
                                 >
                                     <div className={cn(
                                         "w-2 h-2 rounded-[1px] transition-all duration-300",
@@ -95,8 +94,8 @@ export function CalendarShell({ children, view, onViewChange, onAddEvent }: Cale
                 </div>
 
                 {/* Integrations */}
-                <div className="px-4 pb-4 mt-auto">
-                    <div className="p-3 border border-zinc-800 bg-zinc-900/60 rounded-sm space-y-2">
+                <div className="mt-auto">
+                    <div className="p-3 border border-zinc-800 bg-zinc-950/30 rounded-[1px] space-y-2">
                         <span className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest block mb-2 font-mono">Data_Sync</span>
                         <button className="w-full flex items-center gap-2 text-[10px] text-zinc-400 hover:text-[#a3e635] transition-colors font-mono group">
                             <CalendarIcon className="w-3 h-3 text-zinc-600 group-hover:text-[#a3e635]" /> Sync_Google_Cal
