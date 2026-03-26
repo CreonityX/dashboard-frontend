@@ -1,12 +1,7 @@
-import { DollarSign, TrendingUp, TrendingDown, Calendar, CreditCard, ArrowRight, Download, BarChart3, PieChart } from "lucide-react";
+import { useMemo, useState } from "react";
+import { ArrowRight, BarChart3, Calendar, PieChart } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const EARNINGS_SUMMARY = [
-    { label: "Lifetime Earnings", value: "$142,500.00", sub: "Since Jan 2024", highlight: true },
-    { label: "This Month", value: "$8,450.00", sub: "+12% vs last month", trend: 'up' },
-    { label: "Pending Payments", value: "$3,200.00", sub: "4 invoices processing", trend: 'neutral' },
-    { label: "Available to Withdraw", value: "$5,250.00", sub: "Ready for transfer", active: true },
-];
+import { useFinanceMvp } from "@/components/widgets/shared/finance/FinanceMvpContext";
 
 const REVENUE_BREAKDOWN = [
     { platform: "Instagram", value: 45, color: "bg-pink-500" },
@@ -15,18 +10,39 @@ const REVENUE_BREAKDOWN = [
     { platform: "Other", value: 10, color: "bg-zinc-500" },
 ];
 
-const TOP_CAMPAIGNS = [
-    { brand: "Nike", campaign: "Air Max Launch", amount: "$12,000", date: "Feb 10" },
-    { brand: "Samsung", campaign: "Galaxy S26", amount: "$8,500", date: "Jan 24" },
-    { brand: "Sony", campaign: "Alpha Camera", amount: "$5,000", date: "Jan 15" },
-];
-
 export function OverviewTab() {
+    const {
+        selectedRange,
+        monthlyEarnings,
+        selectedMonth,
+        setSelectedMonth,
+        setSelectedRange,
+        lifetimeEarnings,
+        monthEarnings,
+        pendingPayments,
+        availableToWithdraw,
+        invoices,
+        formatCurrency,
+        isLoading
+    } = useFinanceMvp();
+    const [panelMessage, setPanelMessage] = useState("Click a month bar to inspect earnings velocity.");
+    const topCampaigns = useMemo(
+        () => [...invoices].sort((a, b) => b.amount - a.amount).slice(0, 5),
+        [invoices]
+    );
+
+    const earningsSummary = [
+        { label: "Lifetime Earnings", value: formatCurrency(lifetimeEarnings), sub: "Since Jan 2024" },
+        { label: "This Month", value: formatCurrency(monthEarnings), sub: `Range: ${selectedRange}` },
+        { label: "Pending Payments", value: formatCurrency(pendingPayments), sub: `${invoices.filter((item) => item.status === "sent").length} invoices outstanding` },
+        { label: "Available to Withdraw", value: formatCurrency(availableToWithdraw), sub: "Ready for transfer", active: true }
+    ];
+
     return (
         <div className="space-y-6">
             {/* Top Summary Bar */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {EARNINGS_SUMMARY.map((item, i) => (
+                {earningsSummary.map((item, i) => (
                     <div key={i} className={cn(
                         "p-5 flex flex-col justify-between min-h-[120px] transition-all duration-300 group relative overflow-hidden",
                         item.active
@@ -47,7 +63,7 @@ export function OverviewTab() {
                             <div className={cn("text-[10px] font-mono", item.active ? "text-zinc-800 font-bold" : "text-zinc-500")}>
                                 {item.sub}
                             </div>
-                            {item.active && <ArrowRight className="w-4 h-4 text-black" />}
+                            {item.active && <ArrowRight className="w-4 h-4 text-black" aria-hidden="true" />}
                         </div>
                     </div>
                 ))}
@@ -67,7 +83,16 @@ export function OverviewTab() {
                         </div>
                         <div className="flex gap-2">
                             {['1W', '1M', '3M', '1Y'].map(range => (
-                                <button key={range} className="px-3 py-1 bg-zinc-950 border border-zinc-800 text-[10px] font-mono text-zinc-400 hover:text-white hover:border-zinc-600 transition-colors">
+                                <button
+                                    key={range}
+                                    onClick={() => setSelectedRange(range as "1W" | "1M" | "3M" | "1Y")}
+                                    className={cn(
+                                        "px-3 py-1 border text-[10px] font-mono transition-colors",
+                                        selectedRange === range
+                                            ? "bg-[#a3e635]/20 border-[#a3e635]/40 text-[#a3e635]"
+                                            : "bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600"
+                                    )}
+                                >
                                     {range}
                                 </button>
                             ))}
@@ -77,23 +102,40 @@ export function OverviewTab() {
                     {/* Chart Container */}
                     <div className="flex-1 bg-zinc-950/30 border border-zinc-800/50 relative min-h-[300px] flex items-end px-4 pb-0 gap-2">
                         {/* Mock Bars */}
-                        {Array.from({ length: 12 }).map((_, i) => {
-                            const height = Math.floor(Math.random() * 60) + 20;
+                        {(isLoading ? monthlyEarnings.slice(0, 6) : monthlyEarnings).map((point, i) => {
+                            const max = Math.max(...monthlyEarnings.map((item) => item.amount), 1);
+                            const height = Math.max(18, Math.round((point.amount / max) * 100));
+                            const isSelected = selectedMonth === point.month;
                             return (
-                                <div key={i} className="flex-1 flex flex-col justify-end group/bar cursor-pointer relative">
+                                <button
+                                    key={`${point.month}-${i}`}
+                                    onClick={() => {
+                                        setSelectedMonth(point.month);
+                                        setPanelMessage(`${point.month} earnings registered at ${formatCurrency(point.amount)}.`);
+                                    }}
+                                    className="flex-1 flex flex-col justify-end group/bar cursor-pointer relative"
+                                >
                                     <div
-                                        className="w-full bg-zinc-800/50 group-hover/bar:bg-[#a3e635] transition-colors relative border-t border-x border-zinc-700/30 group-hover/bar:border-transparent"
+                                        className={cn(
+                                            "w-full transition-colors relative border-t border-x",
+                                            isSelected
+                                                ? "bg-[#a3e635] border-transparent"
+                                                : "bg-zinc-800/50 group-hover/bar:bg-[#a3e635] border-zinc-700/30 group-hover/bar:border-transparent"
+                                        )}
                                         style={{ height: `${height}%` }}
                                     >
                                         <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-2 py-1 opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap border border-zinc-700 pointer-events-none z-10 font-mono">
-                                            ${height * 120}
+                                            {formatCurrency(point.amount)}
                                         </div>
                                     </div>
-                                    <div className="text-[9px] text-zinc-600 font-mono text-center mt-2 border-t border-zinc-800 pt-2 group-hover/bar:text-white transition-colors">
-                                        {['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'][i]}
+                                    <div className={cn(
+                                        "text-[9px] font-mono text-center mt-2 border-t border-zinc-800 pt-2 transition-colors",
+                                        isSelected ? "text-[#a3e635]" : "text-zinc-600 group-hover/bar:text-white"
+                                    )}>
+                                        {point.month}
                                     </div>
-                                </div>
-                            )
+                                </button>
+                            );
                         })}
                     </div>
                 </div>
@@ -126,25 +168,34 @@ export function OverviewTab() {
                     <div className="tech-border p-5">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-xs font-bold text-zinc-300 font-display uppercase tracking-wider">Top_Earners</h3>
-                            <button className="text-[9px] text-[#a3e635] font-mono hover:underline uppercase">View_All</button>
+                            <button
+                                onClick={() => setPanelMessage(`Showing ${topCampaigns.length} top campaigns by invoice amount.`)}
+                                className="text-[9px] text-[#a3e635] font-mono hover:underline uppercase"
+                            >
+                                View_All
+                            </button>
                         </div>
                         <div className="space-y-3">
-                            {TOP_CAMPAIGNS.map((c, i) => (
-                                <div key={i} className="flex items-center justify-between p-2 hover:bg-zinc-900/50 border border-transparent hover:border-zinc-800 transition-colors cursor-pointer group">
+                            {topCampaigns.map((campaign) => (
+                                <button
+                                    key={campaign.id}
+                                    onClick={() => setPanelMessage(`${campaign.client} / ${campaign.campaign} invoice is ${campaign.status.toUpperCase()}.`)}
+                                    className="w-full text-left flex items-center justify-between p-2 hover:bg-zinc-900/50 border border-transparent hover:border-zinc-800 transition-colors cursor-pointer group"
+                                >
                                     <div className="flex items-center gap-3">
                                         <div className="w-8 h-8 bg-zinc-950 flex items-center justify-center text-[10px] font-bold text-zinc-400 border border-zinc-800 group-hover:border-zinc-600 group-hover:text-white transition-colors">
-                                            {c.brand[0]}
+                                            {campaign.client[0]}
                                         </div>
                                         <div>
-                                            <div className="text-xs font-bold text-white group-hover:text-[#a3e635] transition-colors">{c.brand}</div>
-                                            <div className="text-[9px] text-zinc-500 font-mono uppercase">{c.campaign}</div>
+                                            <div className="text-xs font-bold text-white group-hover:text-[#a3e635] transition-colors">{campaign.client}</div>
+                                            <div className="text-[9px] text-zinc-500 font-mono uppercase">{campaign.campaign}</div>
                                         </div>
                                     </div>
                                     <div className="text-right">
-                                        <div className="text-xs font-bold text-white font-mono">{c.amount}</div>
-                                        <div className="text-[9px] text-zinc-600 font-mono">{c.date}</div>
+                                        <div className="text-xs font-bold text-white font-mono">{formatCurrency(campaign.amount)}</div>
+                                        <div className="text-[9px] text-zinc-600 font-mono">{campaign.dateIssued}</div>
                                     </div>
-                                </div>
+                                </button>
                             ))}
                         </div>
                     </div>
@@ -157,8 +208,8 @@ export function OverviewTab() {
                     <Calendar className="w-4 h-4 text-[#a3e635]" />
                     <span className="text-xs text-[#a3e635] font-mono">NEXT_PAYOUT_SCHEDULED: <span className="font-bold">FEB 28, 2026</span></span>
                 </div>
-                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest hidden sm:block">
-                    AUTO_WITHDRAWAL_ENABLED
+                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest hidden sm:block max-w-[50%] truncate" title={panelMessage}>
+                    {panelMessage}
                 </div>
             </div>
         </div>

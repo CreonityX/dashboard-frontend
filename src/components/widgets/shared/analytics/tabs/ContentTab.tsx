@@ -1,5 +1,6 @@
 import { Search, Filter, ArrowUpRight, MessageSquare, Share2, Heart, Eye, PlayCircle, Image as ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMemo, useState } from "react";
 
 const CONTENT_ITEMS = [
     { id: 1, title: "Cyberpunk Aesthetics Review", date: "Feb 12, 2026", type: "video", platform: "YouTube", views: "45.2K", engagement: 4.8, earnings: "$1,200", thumbnail: "bg-purple-900/20" },
@@ -11,6 +12,33 @@ const CONTENT_ITEMS = [
 ];
 
 export function ContentTab() {
+    const [query, setQuery] = useState("");
+    const [highEngagementOnly, setHighEngagementOnly] = useState(false);
+    const [platformFilter, setPlatformFilter] = useState<"all" | "Instagram" | "YouTube" | "TikTok">("all");
+    const [selectedItem, setSelectedItem] = useState<(typeof CONTENT_ITEMS)[number] | null>(null);
+
+    const filteredItems = useMemo(() => {
+        const lowered = query.trim().toLowerCase();
+        return CONTENT_ITEMS.filter((item) => {
+            const queryMatch =
+                lowered.length === 0
+                || item.title.toLowerCase().includes(lowered)
+                || item.platform.toLowerCase().includes(lowered);
+            const engagementMatch = !highEngagementOnly || item.engagement >= 6;
+            const platformMatch = platformFilter === "all" || item.platform === platformFilter;
+            return queryMatch && engagementMatch && platformMatch;
+        });
+    }, [highEngagementOnly, platformFilter, query]);
+
+    const cyclePlatform = () => {
+        setPlatformFilter((current) => {
+            if (current === "all") return "Instagram";
+            if (current === "Instagram") return "YouTube";
+            if (current === "YouTube") return "TikTok";
+            return "all";
+        });
+    };
+
     return (
         <div className="space-y-6">
             {/* Toolbar */}
@@ -20,6 +48,8 @@ export function ContentTab() {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-600 group-hover:text-zinc-400 transition-colors" />
                         <input
                             type="text"
+                            value={query}
+                            onChange={(event) => setQuery(event.target.value)}
                             placeholder="SEARCH_CONTENT_DB..."
                             className="w-full bg-zinc-950/50 border border-zinc-800 rounded-sm pl-9 pr-3 py-2 text-xs text-white font-mono placeholder:text-zinc-700 focus:outline-none focus:border-[#a3e635]/50 transition-colors"
                         />
@@ -27,19 +57,30 @@ export function ContentTab() {
 
                     {/* Filters */}
                     <div className="flex gap-2">
-                        <button className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors">
+                        <button
+                            onClick={() => setHighEngagementOnly((current) => !current)}
+                            className={cn(
+                                "flex items-center gap-2 px-3 py-2 border rounded-sm text-xs font-mono transition-colors",
+                                highEngagementOnly
+                                    ? "bg-[#a3e635]/10 border-[#a3e635]/30 text-[#a3e635]"
+                                    : "bg-zinc-950/50 border-zinc-800 hover:bg-zinc-900 text-zinc-400"
+                            )}
+                        >
                             <Filter className="w-3.5 h-3.5" />
-                            FILTER
+                            {highEngagementOnly ? "HIGH_ENGAGEMENT" : "FILTER"}
                         </button>
-                        <button className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors">
-                            PLATFORM: ALL
+                        <button
+                            onClick={cyclePlatform}
+                            className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors"
+                        >
+                            PLATFORM: {platformFilter.toUpperCase()}
                         </button>
                     </div>
                 </div>
 
             {/* Content Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-                {CONTENT_ITEMS.map((item) => (
+                {filteredItems.map((item) => (
                     <div key={item.id} className="group bg-zinc-900/40 border border-zinc-800 hover:border-zinc-600 rounded-sm overflow-hidden transition-all duration-300">
                         {/* Thumbnail */}
                         <div className={cn("h-32 w-full relative", item.thumbnail)}>
@@ -50,7 +91,10 @@ export function ContentTab() {
 
                             {/* Hover Overlay */}
                             <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 backdrop-blur-sm">
-                                <button className="px-3 py-1.5 bg-[#a3e635] text-black text-[10px] font-bold font-mono rounded-[2px] uppercase">
+                                <button
+                                    onClick={() => setSelectedItem(item)}
+                                    className="px-3 py-1.5 bg-[#a3e635] text-black text-[10px] font-bold font-mono rounded-[2px] uppercase"
+                                >
                                     View_Stats
                                 </button>
                             </div>
@@ -82,6 +126,51 @@ export function ContentTab() {
                     </div>
                 ))}
             </div>
+
+            {filteredItems.length === 0 && (
+                <div className="rounded-sm border border-zinc-800 bg-zinc-900/50 p-8 text-center text-zinc-400 text-sm">
+                    No content matches your current filters.
+                </div>
+            )}
+
+            {selectedItem && (
+                <div
+                    className="fixed inset-0 z-50 bg-black/70 backdrop-blur-[2px] p-4 flex items-center justify-center"
+                    onClick={() => setSelectedItem(null)}
+                >
+                    <div
+                        className="w-full max-w-lg rounded-sm border border-zinc-700 bg-zinc-900/95 p-5"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <h4 className="text-sm font-bold text-white">{selectedItem.title}</h4>
+                        <p className="text-[11px] text-zinc-500 font-mono mt-1">{selectedItem.platform} - {selectedItem.date}</p>
+
+                        <div className="grid grid-cols-3 gap-2 mt-4">
+                            <div className="rounded-sm border border-zinc-800 p-3 bg-zinc-950/60">
+                                <div className="text-[10px] text-zinc-500 font-mono">Views</div>
+                                <div className="text-sm text-white font-bold mt-1">{selectedItem.views}</div>
+                            </div>
+                            <div className="rounded-sm border border-zinc-800 p-3 bg-zinc-950/60">
+                                <div className="text-[10px] text-zinc-500 font-mono">Engagement</div>
+                                <div className="text-sm text-white font-bold mt-1">{selectedItem.engagement}%</div>
+                            </div>
+                            <div className="rounded-sm border border-zinc-800 p-3 bg-zinc-950/60">
+                                <div className="text-[10px] text-zinc-500 font-mono">Earnings</div>
+                                <div className="text-sm text-[#a3e635] font-bold mt-1">{selectedItem.earnings}</div>
+                            </div>
+                        </div>
+
+                        <div className="mt-4 flex justify-end">
+                            <button
+                                onClick={() => setSelectedItem(null)}
+                                className="px-3 py-2 border border-zinc-700 rounded-sm text-xs text-zinc-300 hover:text-white hover:border-zinc-500"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,37 +1,19 @@
-import { Mail, ArrowRight, X, Check } from "lucide-react";
+import { Check, Mail, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const INVITES = [
-    {
-        id: 1,
-        brand: "Dyson",
-        title: "Product Launch - Tech Reviewer",
-        offer: "$3,500",
-        message: "We love your recent tech content and think you'd be perfect for our new Airwrap launch campaign.",
-        deadline: "Respond by Feb 20",
-        logoBg: "bg-black text-white"
-    },
-    {
-        id: 2,
-        brand: "Canva",
-        title: "Design Tutorials Series",
-        offer: "$2,000",
-        message: "Looking for creators to showcase our new AI magic edit features.",
-        deadline: "Respond by Feb 18",
-        logoBg: "bg-[#00C4CC] text-white"
-    }
-];
+import { useProjectsMvp } from "@/components/widgets/shared/projects/ProjectsMvpContext";
 
 export function InvitationsTab() {
+    const { invitations, acceptInvitation, declineInvitation } = useProjectsMvp();
+    const pendingInvites = invitations.filter((invite) => invite.status === "pending");
+
     return (
         <div className="space-y-6">
-            <p className="text-zinc-500 font-mono text-xs">EXCLUSIVE_OFFERS // {INVITES.length}_PENDING</p>
+            <p className="text-zinc-500 font-mono text-xs">EXCLUSIVE_OFFERS // {pendingInvites.length}_PENDING</p>
 
             <div className="space-y-4 max-w-2xl">
-                {INVITES.map((invite) => (
+                {invitations.map((invite) => (
                     <div key={invite.id} className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-6 relative overflow-hidden group">
-                        {/* Decor */}
-                        <div className="absolute top-0 left-0 w-1 h-full bg-[#a3e635]" />
+                        <div className={cn("absolute top-0 left-0 w-1 h-full", invite.status === "declined" ? "bg-red-500/80" : invite.status === "accepted" ? "bg-blue-500" : "bg-[#a3e635]")} />
 
                         <div className="flex items-start gap-4 mb-4">
                             <div className={cn("w-12 h-12 rounded-sm flex items-center justify-center text-sm font-bold tracking-tighter border border-zinc-700/50 shrink-0", invite.logoBg)}>
@@ -52,9 +34,7 @@ export function InvitationsTab() {
 
                         <div className="bg-zinc-950/50 p-4 rounded-sm border border-zinc-800/50 mb-5 relative">
                             <Mail className="absolute top-4 left-4 w-4 h-4 text-zinc-700" />
-                            <p className="text-xs text-zinc-400 pl-8 leading-relaxed italic">
-                                "{invite.message}"
-                            </p>
+                            <p className="text-xs text-zinc-400 pl-8 leading-relaxed italic">{invite.message}</p>
                         </div>
 
                         <div className="flex items-center justify-between">
@@ -63,12 +43,31 @@ export function InvitationsTab() {
                                 {invite.deadline}
                             </div>
                             <div className="flex gap-3">
-                                <button className=" px-4 py-2 bg-zinc-950 border border-zinc-800 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-500 rounded-sm text-xs font-bold font-mono uppercase transition-colors flex items-center gap-2">
-                                    <X className="w-3.5 h-3.5" /> Decline
-                                </button>
-                                <button className=" px-4 py-2 bg-[#a3e635] text-black border border-[#a3e635] rounded-sm text-xs font-bold font-mono uppercase hover:opacity-90 transition-colors flex items-center gap-2">
-                                    <Check className="w-3.5 h-3.5" /> Accept_Offer
-                                </button>
+                                {invite.status === "pending" ? (
+                                    <>
+                                        <button
+                                            onClick={() => declineInvitation(invite.id)}
+                                            className="px-4 py-2 bg-zinc-950 border border-zinc-800 hover:bg-red-500/10 hover:border-red-500/30 hover:text-red-500 rounded-sm text-xs font-bold font-mono uppercase transition-colors flex items-center gap-2"
+                                        >
+                                            <X className="w-3.5 h-3.5" /> Decline
+                                        </button>
+                                        <button
+                                            onClick={() => acceptInvitation(invite.id)}
+                                            className="px-4 py-2 bg-[#a3e635] text-black border border-[#a3e635] rounded-sm text-xs font-bold font-mono uppercase hover:opacity-90 transition-colors flex items-center gap-2"
+                                        >
+                                            <Check className="w-3.5 h-3.5" /> Accept_Offer
+                                        </button>
+                                    </>
+                                ) : (
+                                    <span className={cn(
+                                        "px-3 py-1.5 rounded-sm text-[10px] font-mono uppercase border",
+                                        invite.status === "accepted"
+                                            ? "text-blue-300 border-blue-500/40 bg-blue-500/10"
+                                            : "text-red-300 border-red-500/40 bg-red-500/10"
+                                    )}>
+                                        {invite.status}
+                                    </span>
+                                )}
                             </div>
                         </div>
                     </div>

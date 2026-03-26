@@ -1,20 +1,55 @@
+import { useMemo, useState } from "react";
 import { ArrowDownLeft, ArrowUpRight, Search, Filter, Download, FileText } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useFinanceMvp } from "@/components/widgets/shared/finance/FinanceMvpContext";
 
-const TRANSACTIONS = [
-    { id: 'TX-8821', date: 'Feb 12, 2026', desc: 'Nike - Air Max Launch', type: 'credit', amount: '+$4,500.00', status: 'completed', brand: 'Nike' },
-    { id: 'TX-8820', date: 'Feb 10, 2026', desc: 'Withdrawal to Chase Bank', type: 'debit', amount: '-$2,100.00', status: 'completed', brand: 'Transfer' },
-    { id: 'TX-8819', date: 'Feb 08, 2026', desc: 'Samsung - Galaxy S26', type: 'credit', amount: '+$3,200.00', status: 'pending', brand: 'Samsung' },
-    { id: 'TX-8818', date: 'Feb 05, 2026', desc: 'Adobe - Creative Cloud', type: 'credit', amount: '+$1,800.00', status: 'completed', brand: 'Adobe' },
-    { id: 'TX-8817', date: 'Feb 01, 2026', desc: 'Monthly Subscription', type: 'debit', amount: '-$29.00', status: 'completed', brand: 'Service' },
-];
+function downloadFile(fileName: string, content: string, type: string) {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = fileName;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
+    URL.revokeObjectURL(url);
+}
 
 export function TransactionsTab() {
+    const {
+        searchQuery,
+        setSearchQuery,
+        cycleTypeFilter,
+        cycleStatusFilter,
+        transactionTypeFilter,
+        transactionStatusFilter,
+        filteredTransactions,
+        getTransactionsCsv,
+        getInvoiceDownloadText,
+        formatCurrency
+    } = useFinanceMvp();
+    const [page, setPage] = useState(1);
+    const [actionMessage, setActionMessage] = useState("Filtering is active across this transaction feed.");
+
+    const perPage = 5;
+    const totalPages = Math.max(1, Math.ceil(filteredTransactions.length / perPage));
+    const currentPage = Math.min(page, totalPages);
+    const visibleRows = useMemo(
+        () => filteredTransactions.slice((currentPage - 1) * perPage, currentPage * perPage),
+        [currentPage, filteredTransactions]
+    );
+
     return (
         <div className="space-y-6">
             {/* Controls */}
             <div className="flex justify-end">
-                <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">
+                <button
+                    onClick={() => {
+                        downloadFile("transactions.csv", getTransactionsCsv(), "text/csv;charset=utf-8");
+                        setActionMessage("Transactions CSV exported successfully.");
+                    }}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase"
+                >
                     <Download className="w-3 h-3" /> Export_CSV
                 </button>
             </div>
@@ -27,18 +62,35 @@ export function TransactionsTab() {
                         <input
                             type="text"
                             placeholder="SEARCH_ID_OR_BRAND..."
+                            value={searchQuery}
+                            onChange={(event) => {
+                                setPage(1);
+                                setSearchQuery(event.target.value);
+                            }}
                             className="w-full bg-zinc-950/50 border border-zinc-800 rounded-sm pl-9 pr-3 py-2 text-xs text-white font-mono placeholder:text-zinc-700 focus:outline-none focus:border-[#a3e635]/50 transition-colors"
                         />
                     </div>
 
                     {/* Filters */}
                     <div className="flex gap-2">
-                        <button className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors">
+                        <button
+                            onClick={() => {
+                                setPage(1);
+                                cycleTypeFilter();
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors"
+                        >
                             <Filter className="w-3.5 h-3.5" />
-                            TYPE: ALL
+                            TYPE: {transactionTypeFilter.toUpperCase()}
                         </button>
-                        <button className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors">
-                            STATUS: ALL
+                        <button
+                            onClick={() => {
+                                setPage(1);
+                                cycleStatusFilter();
+                            }}
+                            className="flex items-center gap-2 px-3 py-2 bg-zinc-950/50 border border-zinc-800 hover:bg-zinc-900 rounded-sm text-xs text-zinc-400 font-mono transition-colors"
+                        >
+                            STATUS: {transactionStatusFilter.toUpperCase()}
                         </button>
                     </div>
                 </div>
@@ -55,7 +107,7 @@ export function TransactionsTab() {
                     </div>
 
                     <div className="divide-y divide-zinc-800">
-                        {TRANSACTIONS.map((tx) => (
+                        {visibleRows.map((tx) => (
                             <div key={tx.id} className="grid grid-cols-12 px-4 py-4 items-center hover:bg-zinc-800/30 transition-colors group">
                                 {/* Date/ID */}
                                 <div className="col-span-2">
@@ -93,15 +145,26 @@ export function TransactionsTab() {
                                 <div className="col-span-2 text-right">
                                     <span className={cn(
                                         "text-sm font-bold font-mono",
-                                        tx.type === 'credit' ? "text-[#a3e635]" : "text-white"
+                                        tx.type === "credit" ? "text-[#a3e635]" : "text-white"
                                     )}>
-                                        {tx.amount}
+                                        {formatCurrency(tx.amount, tx.type)}
                                     </span>
                                 </div>
 
                                 {/* Action */}
                                 <div className="col-span-1 flex justify-end">
-                                    <button className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-600 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
+                                    <button
+                                        onClick={() => {
+                                            const invoiceId = tx.invoiceId;
+                                            if (!invoiceId) {
+                                                setActionMessage(`No invoice attached to ${tx.id}.`);
+                                                return;
+                                            }
+                                            downloadFile(`${invoiceId}.txt`, getInvoiceDownloadText(invoiceId), "text/plain;charset=utf-8");
+                                            setActionMessage(`Invoice ${invoiceId} exported from ${tx.id}.`);
+                                        }}
+                                        className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-600 hover:text-white transition-colors opacity-0 group-hover:opacity-100"
+                                    >
                                         <FileText className="w-4 h-4" />
                                     </button>
                                 </div>
@@ -113,15 +176,28 @@ export function TransactionsTab() {
 
             {/* Pagination Mock */}
             <div className="flex justify-between items-center text-[10px] font-mono text-zinc-600">
-                <span>SHOWING 1-5 OF 42</span>
+                <span>
+                    SHOWING {filteredTransactions.length === 0 ? 0 : (currentPage - 1) * perPage + 1}-{Math.min(currentPage * perPage, filteredTransactions.length)} OF {filteredTransactions.length}
+                </span>
                 <div className="flex gap-2">
-                    <button className="hover:text-white">PREV</button>
-                    <span className="text-zinc-400">1</span>
-                    <button className="hover:text-white">2</button>
-                    <button className="hover:text-white">3</button>
-                    <button className="hover:text-white">NEXT</button>
+                    <button
+                        onClick={() => setPage((p) => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                        PREV
+                    </button>
+                    <span className="text-zinc-400">{currentPage}</span>
+                    <button
+                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                        NEXT
+                    </button>
                 </div>
             </div>
+            <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">{actionMessage}</div>
         </div>
     );
 }

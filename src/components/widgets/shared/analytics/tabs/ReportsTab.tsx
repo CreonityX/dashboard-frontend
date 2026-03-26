@@ -1,19 +1,69 @@
 import { FileText, Download, Plus, Mail } from "lucide-react";
+import { useState } from "react";
+
+type ExportFile = {
+    name: string;
+    date: string;
+    size: string;
+};
+
+const TEMPLATES = ["Monthly Performance", "Campaign Summary", "Yearly Overview", "Media Kit One-Pager"];
+
+const INITIAL_EXPORTS: ExportFile[] = [
+    { name: "Jan_2026_Report.pdf", date: "Feb 01, 2026", size: "2.4 MB" },
+    { name: "Nike_Campaign_Final.pdf", date: "Jan 28, 2026", size: "4.1 MB" },
+    { name: "2025_Year_End.pdf", date: "Jan 15, 2026", size: "8.5 MB" }
+];
 
 export function ReportsTab() {
+    const [exports, setExports] = useState<ExportFile[]>(INITIAL_EXPORTS);
+    const [actionNote, setActionNote] = useState("");
+
+    const createReport = (label: string) => {
+        const filename = `${label.replace(/\s+/g, "_")}_${Date.now()}.pdf`;
+        const generated: ExportFile = {
+            name: filename,
+            date: new Date().toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" }),
+            size: `${(Math.random() * 4 + 1).toFixed(1)} MB`
+        };
+        setExports((current) => [generated, ...current]);
+        setActionNote(`${label} generated.`);
+    };
+
+    const downloadFile = (file: ExportFile) => {
+        if (typeof window === "undefined") return;
+        const blob = new Blob([`Dummy report file: ${file.name}`], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = file.name.replace(".pdf", ".txt");
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(url);
+        setActionNote(`${file.name} downloaded.`);
+    };
+
     return (
         <div className="space-y-6">
             {/* Action Button */}
             <div className="flex justify-end">
-                <button className="flex items-center gap-2 px-4 py-2 bg-[#a3e635] text-black text-xs font-bold font-mono rounded-[2px] uppercase hover:bg-[#a3e635]/90 transition-all">
+                <button
+                    onClick={() => createReport("Custom Report")}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#a3e635] text-black text-xs font-bold font-mono rounded-[2px] uppercase hover:bg-[#a3e635]/90 transition-all"
+                >
                     <Plus className="w-4 h-4" /> New_Report
                 </button>
             </div>
 
             {/* Templates */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {['Monthly Performance', 'Campaign Summary', 'Yearly Overview', 'Media Kit One-Pager'].map((title, i) => (
-                    <div key={i} className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm hover:border-zinc-600 transition-colors group cursor-pointer flex flex-col items-center text-center">
+                {TEMPLATES.map((title, i) => (
+                    <button
+                        key={i}
+                        onClick={() => createReport(title)}
+                        className="bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm hover:border-zinc-600 transition-colors group cursor-pointer flex flex-col items-center text-center"
+                    >
                         <div className="w-12 h-16 bg-zinc-800 border border-zinc-700 mb-4 shadow-lg group-hover:-translate-y-1 transition-transform relative">
                             <div className="absolute top-2 left-2 right-2 h-[1px] bg-zinc-600"></div>
                             <div className="absolute top-4 left-2 right-4 h-[1px] bg-zinc-700"></div>
@@ -21,18 +71,14 @@ export function ReportsTab() {
                         </div>
                         <h4 className="text-xs font-bold text-zinc-300 font-display uppercase">{title}</h4>
                         <p className="text-[10px] text-zinc-600 font-mono mt-1">AUTO_GENERATED</p>
-                    </div>
+                    </button>
                 ))}
             </div>
 
             {/* Recent Exports */}
             <h3 className="text-xs font-bold text-zinc-500 font-display tracking-widest uppercase mt-4">Recent_Exports</h3>
             <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm">
-                {[
-                    { name: 'Jan_2026_Report.pdf', date: 'Feb 01, 2026', size: '2.4 MB' },
-                    { name: 'Nike_Campaign_Final.pdf', date: 'Jan 28, 2026', size: '4.1 MB' },
-                    { name: '2025_Year_End.pdf', date: 'Jan 15, 2026', size: '8.5 MB' },
-                ].map((file, i) => (
+                {exports.map((file, i) => (
                     <div key={i} className="flex items-center justify-between px-4 py-3 border-b border-zinc-800 last:border-0 hover:bg-zinc-800/30 transition-colors">
                         <div className="flex items-center gap-3">
                             <FileText className="w-4 h-4 text-zinc-500" />
@@ -42,12 +88,28 @@ export function ReportsTab() {
                             </div>
                         </div>
                         <div className="flex gap-2">
-                            <button className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-white transition-colors"><Mail className="w-3.5 h-3.5" /></button>
-                            <button className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-[#a3e635] transition-colors"><Download className="w-3.5 h-3.5" /></button>
+                            <button
+                                onClick={() => setActionNote(`Email draft opened for ${file.name}.`)}
+                                className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-white transition-colors"
+                            >
+                                <Mail className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                                onClick={() => downloadFile(file)}
+                                className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-[#a3e635] transition-colors"
+                            >
+                                <Download className="w-3.5 h-3.5" />
+                            </button>
                         </div>
                     </div>
                 ))}
             </div>
+
+            {actionNote && (
+                <div className="rounded-sm border border-blue-500/30 bg-blue-500/10 p-3 text-[11px] text-blue-200">
+                    {actionNote}
+                </div>
+            )}
         </div>
     );
 }

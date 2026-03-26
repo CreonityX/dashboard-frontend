@@ -13,7 +13,6 @@ import {
     User,
     LifeBuoy,
     GraduationCap,
-    Calendar,
     BarChart3,
     X
 } from "lucide-react";
@@ -29,7 +28,7 @@ const MAIN_NAV_ITEMS = [
     { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "ANALYTICS", icon: BarChart3, href: "/analytics" },
     { label: "FINANCE", icon: Wallet, href: "/finance" },
-    { label: "CALENDAR", icon: Calendar, href: "/calendar" },
+    // { label: "CALENDAR", icon: Calendar, href: "/calendar" },
 ];
 
 const BOTTOM_NAV_ITEMS = [

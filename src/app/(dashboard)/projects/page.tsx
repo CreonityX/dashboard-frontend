@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ProjectsShell } from "@/components/widgets/shared/projects/ProjectsShell";
+import { ProjectsMvpProvider } from "@/components/widgets/shared/projects/ProjectsMvpContext";
 
 // Tabs
 import { DiscoverTab } from "@/components/widgets/shared/projects/tabs/DiscoverTab";
@@ -34,9 +35,11 @@ function ProjectsContent() {
     };
 
     return (
-        <ProjectsShell activeTab={activeTab} onTabChange={handleTabChange}>
-            {renderContent()}
-        </ProjectsShell>
+        <ProjectsMvpProvider>
+            <ProjectsShell activeTab={activeTab} onTabChange={handleTabChange}>
+                {renderContent()}
+            </ProjectsShell>
+        </ProjectsMvpProvider>
     );
 }
 

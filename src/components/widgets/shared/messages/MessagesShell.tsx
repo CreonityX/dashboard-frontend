@@ -8,6 +8,7 @@ import { Edit } from "lucide-react";
 import { ConversationListPanel } from "./panels/ConversationListPanel";
 import { ThreadPanel } from "./panels/ThreadPanel";
 import { DetailsPanel } from "./panels/DetailsPanel";
+import { MessagesMvpProvider } from "./MessagesMvpContext";
 
 export function MessagesShell() {
     const router = useRouter();
@@ -26,7 +27,8 @@ export function MessagesShell() {
     };
 
     return (
-        <div className="flex h-full w-full relative overflow-hidden backdrop-blur-md">
+        <MessagesMvpProvider>
+            <div className="flex h-full w-full relative overflow-hidden backdrop-blur-md">
             {/* Thread List Panel */}
             <div className={cn(
                 "w-full md:w-80 border-r border-zinc-800 flex flex-col bg-zinc-900/20 md:flex",
@@ -59,6 +61,7 @@ export function MessagesShell() {
                     onClose={() => setShowDetails(false)}
                 />
             )}
-        </div>
+            </div>
+        </MessagesMvpProvider>
     );
 }

@@ -3,6 +3,7 @@
 import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FinanceShell } from "@/components/widgets/shared/finance/FinanceShell";
+import { FinanceMvpProvider } from "@/components/widgets/shared/finance/FinanceMvpContext";
 
 // Tabs
 import { OverviewTab } from "@/components/widgets/shared/finance/tabs/OverviewTab";
@@ -43,7 +44,9 @@ function FinanceContent() {
 export default function FinancePage() {
     return (
         <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
-            <FinanceContent />
+            <FinanceMvpProvider>
+                <FinanceContent />
+            </FinanceMvpProvider>
         </Suspense>
     );
 }

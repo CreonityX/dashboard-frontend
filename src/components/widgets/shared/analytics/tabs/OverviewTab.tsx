@@ -1,5 +1,6 @@
 import { ArrowUpRight, ArrowDownRight, Calendar, Info, Bell, Eye, Database, Activity, Share2, Users, MousePointer2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMemo, useState } from "react";
 
 const METRICS = [
     { title: "Total Views", value: "2.4M", change: "+12.5%", trend: "up", icon: Eye },
@@ -92,26 +93,63 @@ function SimpleLineChart() {
 }
 
 export function OverviewTab() {
+    const [range, setRange] = useState<"7d" | "30d" | "90d">("30d");
+    const [isLive, setIsLive] = useState(true);
+
+    const rangeMultiplier = range === "7d" ? 0.35 : range === "90d" ? 1.8 : 1;
+    const scaledMetrics = useMemo(() => {
+        return METRICS.map((metric) => {
+            if (metric.title === "Total Views") {
+                return { ...metric, value: `${(2.4 * rangeMultiplier).toFixed(1)}M` };
+            }
+            if (metric.title === "Total Engagement") {
+                return { ...metric, value: `${Math.round(845 * rangeMultiplier)}K` };
+            }
+            if (metric.title === "Follower Growth") {
+                return { ...metric, value: `+${(12.4 * rangeMultiplier).toFixed(1)}K` };
+            }
+            if (metric.title === "Content Published") {
+                return { ...metric, value: `${Math.max(1, Math.round(24 * rangeMultiplier))}` };
+            }
+            return metric;
+        });
+    }, [rangeMultiplier]);
+
+    const cycleRange = () => {
+        setRange((current) => (current === "7d" ? "30d" : current === "30d" ? "90d" : "7d"));
+    };
+
     return (
         <div className="space-y-6">
             {/* Time Selector */}
             <div className="flex justify-between items-center">
-                <p className="text-zinc-500 font-mono text-xs">GLOBAL_METRICS // LAST_30_DAYS</p>
+                <p className="text-zinc-500 font-mono text-xs">GLOBAL_METRICS // LAST_{range === "7d" ? "7" : range === "30d" ? "30" : "90"}_DAYS</p>
                 <div className="flex items-center gap-2">
-                    <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-sm text-xs text-zinc-400 hover:text-white hover:border-zinc-700 transition-all font-mono">
+                    <button
+                        onClick={cycleRange}
+                        className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-sm text-xs text-zinc-400 hover:text-white hover:border-zinc-700 transition-all font-mono"
+                    >
                         <Calendar className="w-3.5 h-3.5" />
-                        Last 30 Days
+                        {range === "7d" ? "Last 7 Days" : range === "30d" ? "Last 30 Days" : "Last 90 Days"}
                     </button>
-                    <button className="flex items-center gap-2 px-3 py-1.5 bg-[#a3e635]/10 border border-[#a3e635]/20 rounded-sm text-xs text-[#a3e635] hover:bg-[#a3e635]/20 transition-all font-mono">
+                    <button
+                        onClick={() => setIsLive((value) => !value)}
+                        className={cn(
+                            "flex items-center gap-2 px-3 py-1.5 border rounded-sm text-xs transition-all font-mono",
+                            isLive
+                                ? "bg-[#a3e635]/10 border-[#a3e635]/20 text-[#a3e635] hover:bg-[#a3e635]/20"
+                                : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
+                        )}
+                    >
                         <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse" />
-                        Live Data
+                        {isLive ? "Live Data" : "Paused"}
                     </button>
                 </div>
             </div>
 
             {/* Metrics Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {METRICS.map((metric) => (
+                {scaledMetrics.map((metric) => (
                     <MetricCard key={metric.title} metric={metric} />
                 ))}
             </div>

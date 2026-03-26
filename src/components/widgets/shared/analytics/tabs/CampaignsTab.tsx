@@ -8,6 +8,24 @@ const CAMPAIGNS = [
 ];
 
 export function CampaignsTab() {
+    const exportCsv = () => {
+        if (typeof window === "undefined") return;
+        const header = "brand,campaign,status,reach,engagement,roi,conversions";
+        const rows = CAMPAIGNS.map((item) =>
+            [item.brand, item.name, item.status, item.reach, item.engagement, item.roi, item.conversions].join(",")
+        );
+        const csv = [header, ...rows].join("\n");
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "campaign-analytics.csv";
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="space-y-6">
             {/* Summary Cards */}
@@ -45,7 +63,7 @@ export function CampaignsTab() {
             <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden">
                 <div className="px-4 py-3 border-b border-zinc-800 bg-zinc-900/60 flex justify-between items-center">
                     <h3 className="text-xs font-bold text-zinc-300 font-display tracking-widest uppercase">Recent_Activity</h3>
-                    <button className="text-[10px] text-[#a3e635] hover:underline font-mono">EXPORT_CSV</button>
+                    <button onClick={exportCsv} className="text-[10px] text-[#a3e635] hover:underline font-mono">EXPORT_CSV</button>
                 </div>
 
                 <div className="divide-y divide-zinc-800">

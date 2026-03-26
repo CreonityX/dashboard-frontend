@@ -86,13 +86,14 @@ interface SelectGroupProps extends React.SelectHTMLAttributes<HTMLSelectElement>
     options: { label: string; value: string }[];
 }
 
-export function SelectGroup({ label, options, className, ...props }: SelectGroupProps) {
+export function SelectGroup({ label, options, className, onChange, ...props }: SelectGroupProps) {
     return (
         <div className={cn("space-y-2", className)}>
             <label className="text-xs font-mono text-zinc-400 font-medium uppercase">{label}</label>
             <div className="relative">
                 <select
                     className="w-full bg-zinc-900/50 border border-zinc-800 rounded-sm px-4 py-2.5 text-xs text-white font-mono outline-none appearance-none cursor-pointer hover:border-zinc-700 focus:border-[#a3e635]/50 transition-all"
+                    onChange={(e) => onChange?.(e.currentTarget.value)}
                     {...props}
                 >
                     {options.map((opt) => (

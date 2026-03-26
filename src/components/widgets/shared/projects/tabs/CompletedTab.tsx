@@ -1,42 +1,41 @@
-import { Star, Download, RotateCcw } from "lucide-react";
+import { useMemo } from "react";
+import { Download, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const COMPLETED_PROJECTS = [
-    {
-        id: 1,
-        brand: "Coca-Cola",
-        campaign: "Summer Vibes",
-        date: "Jan 15, 2026",
-        earned: "$3,500",
-        rating: 5,
-        logoBg: "bg-red-600 text-white"
-    },
-    {
-        id: 2,
-        brand: "Sony",
-        campaign: "PS5 Pro Launch",
-        date: "Dec 20, 2025",
-        earned: "$5,000",
-        rating: 4,
-        logoBg: "bg-black text-white"
-    },
-    {
-        id: 3,
-        brand: "Zara",
-        campaign: "Winter Collection",
-        date: "Nov 10, 2025",
-        earned: "$1,800",
-        rating: 5,
-        logoBg: "bg-black text-white"
-    }
-];
+import { useProjectsMvp } from "@/components/widgets/shared/projects/ProjectsMvpContext";
 
 export function CompletedTab() {
+    const { completedProjects } = useProjectsMvp();
+
+    const lifetimeEarnings = useMemo(() => {
+        const total = completedProjects.reduce((sum, project) => {
+            const value = Number(project.earned.replace(/[$,]/g, ""));
+            return sum + (Number.isNaN(value) ? 0 : value);
+        }, 0);
+        return `$${total.toLocaleString()}`;
+    }, [completedProjects]);
+
+    const exportPortfolio = () => {
+        if (typeof window === "undefined") return;
+        const data = JSON.stringify(completedProjects, null, 2);
+        const blob = new Blob([data], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = "completed-projects-portfolio.json";
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(url);
+    };
+
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <p className="text-zinc-500 font-mono text-xs">LIFETIME_EARNINGS // $14,500</p>
-                <button className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase">
+            <div className="flex justify-between items-center gap-3 flex-wrap">
+                <p className="text-zinc-500 font-mono text-xs">LIFETIME_EARNINGS // {lifetimeEarnings}</p>
+                <button
+                    onClick={exportPortfolio}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-sm text-[10px] font-mono text-zinc-400 hover:text-white transition-colors uppercase"
+                >
                     <Download className="w-3 h-3" /> Export_Portfolio
                 </button>
             </div>
@@ -46,14 +45,12 @@ export function CompletedTab() {
                     <div className="col-span-4">Campaign</div>
                     <div className="col-span-3">Date Completed</div>
                     <div className="col-span-2 text-right">Earned</div>
-                    <div className="col-span-2 text-center">Rating</div>
-                    <div className="col-span-1 text-right">Action</div>
+                    <div className="col-span-3 text-center">Rating</div>
                 </div>
 
                 <div className="divide-y divide-zinc-800">
-                    {COMPLETED_PROJECTS.map((project) => (
+                    {completedProjects.map((project) => (
                         <div key={project.id} className="grid grid-cols-12 px-6 py-4 items-center hover:bg-zinc-800/30 transition-colors group">
-                            {/* Campaign */}
                             <div className="col-span-4 flex items-center gap-3">
                                 <div className={cn("w-8 h-8 rounded-sm flex items-center justify-center text-[10px] font-bold border border-zinc-700/50", project.logoBg)}>
                                     {project.brand[0]}
@@ -64,31 +61,23 @@ export function CompletedTab() {
                                 </div>
                             </div>
 
-                            {/* Date */}
-                            <div className="col-span-3 text-xs text-zinc-400 font-mono">
-                                {project.date}
-                            </div>
+                            <div className="col-span-3 text-xs text-zinc-400 font-mono">{project.date}</div>
 
-                            {/* Earned */}
                             <div className="col-span-2 text-right">
                                 <span className="font-bold text-[#a3e635] font-mono text-xs">{project.earned}</span>
                             </div>
 
-                            {/* Rating */}
-                            <div className="col-span-2 flex justify-center gap-1">
+                            <div className="col-span-3 flex justify-center gap-1">
                                 {Array.from({ length: 5 }).map((_, i) => (
                                     <Star key={i} className={cn("w-3 h-3", i < project.rating ? "text-yellow-500 fill-yellow-500" : "text-zinc-700")} />
                                 ))}
                             </div>
-
-                            {/* Action */}
-                            <div className="col-span-1 flex justify-end">
-                                <button className="p-1.5 hover:bg-zinc-800 rounded-sm text-zinc-500 hover:text-white transition-colors" title="Reorder / Work Again">
-                                    <RotateCcw className="w-3.5 h-3.5" />
-                                </button>
-                            </div>
                         </div>
                     ))}
+
+                    {completedProjects.length === 0 && (
+                        <div className="px-6 py-8 text-center text-zinc-400 text-sm">No completed projects yet.</div>
+                    )}
                 </div>
             </div>
         </div>

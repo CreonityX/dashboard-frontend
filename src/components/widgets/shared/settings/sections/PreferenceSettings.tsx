@@ -1,9 +1,12 @@
 "use client";
 
 import { SettingsSection, SelectGroup, ToggleGroup } from "../SettingsComponents";
+import { useSettingsMvp, type CurrencyCode } from "../SettingsMvpContext";
 import { Monitor, Moon, Sun } from "lucide-react";
 
 export function PreferenceSettings() {
+    const { selectedCurrency, updateCurrency } = useSettingsMvp();
+
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {/* Theme */}
@@ -22,6 +25,32 @@ export function PreferenceSettings() {
             {/* Localization */}
             <SettingsSection title="Localization">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <SelectGroup
+                        label="Currency"
+                        value={selectedCurrency}
+                        options={[
+                            { label: 'US Dollar ($)', value: 'USD' },
+                            { label: 'Euro (€)', value: 'EUR' },
+                            { label: 'British Pound (£)', value: 'GBP' },
+                            { label: 'Japanese Yen (¥)', value: 'JPY' },
+                            { label: 'Indian Rupee (₹)', value: 'INR' },
+                            { label: 'Australian Dollar (A$)', value: 'AUD' },
+                            { label: 'Canadian Dollar (C$)', value: 'CAD' },
+                            { label: 'Singapore Dollar (S$)', value: 'SGD' },
+                            { label: 'Hong Kong Dollar (HK$)', value: 'HKD' },
+                            { label: 'Mexican Peso (Mex$)', value: 'MXN' },
+                            { label: 'Brazilian Real (R$)', value: 'BRL' },
+                            { label: 'South African Rand (R)', value: 'ZAR' },
+                            { label: 'Swiss Franc (CHF)', value: 'CHF' },
+                            { label: 'Chinese Yuan (¥)', value: 'CNY' },
+                            { label: 'Swedish Krona (kr)', value: 'SEK' },
+                            { label: 'New Zealand Dollar (NZ$)', value: 'NZD' },
+                            { label: 'South Korean Won (₩)', value: 'KRW' },
+                            { label: 'Norwegian Krone (kr)', value: 'NOK' },
+                            { label: 'Russian Ruble (₽)', value: 'RUB' },
+                        ]}
+                        onChange={(value) => updateCurrency(value as CurrencyCode)}
+                    />
                     <SelectGroup
                         label="Interface Language"
                         options={[

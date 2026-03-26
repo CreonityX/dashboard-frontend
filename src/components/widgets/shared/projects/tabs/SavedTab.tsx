@@ -1,38 +1,18 @@
-import { Bookmark, Clock, DollarSign, ExternalLink, Trash2 } from "lucide-react";
+import { Clock, DollarSign, ExternalLink, Trash2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const SAVED = [
-    {
-        id: 4,
-        brand: "Spotify",
-        title: "Podcast Promotion",
-        type: "Instagram Story",
-        budget: "$800 - $1,500",
-        deadline: "Mar 05",
-        tags: ["Music", "Entertainment"],
-        logoBg: "bg-[#1DB954] text-black"
-    },
-    {
-        id: 6,
-        brand: "Squarespace",
-        title: "Website Builder Showcase",
-        type: "YouTube Integration",
-        budget: "$2,500 - $4,500",
-        deadline: "Apr 01",
-        tags: ["Tech", "Business"],
-        logoBg: "bg-white text-black"
-    }
-];
+import { useProjectsMvp } from "@/components/widgets/shared/projects/ProjectsMvpContext";
 
 export function SavedTab() {
+    const { savedOpportunities, applications, toggleSave, applyToOpportunity } = useProjectsMvp();
+    const applied = new Set(applications.map((item) => item.opportunityId));
+
     return (
         <div className="space-y-6">
-            <p className="text-zinc-500 font-mono text-xs">BOOKMARKS // {SAVED.length}_ITEMS</p>
+            <p className="text-zinc-500 font-mono text-xs">BOOKMARKS // {savedOpportunities.length}_ITEMS</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                {SAVED.map((gig) => (
+                {savedOpportunities.map((gig) => (
                     <div key={gig.id} className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-5 hover:border-zinc-700 transition-all group relative">
-                        {/* Header */}
                         <div className="flex items-start gap-3 mb-4">
                             <div className={cn("w-10 h-10 rounded-sm flex items-center justify-center text-xs font-bold tracking-tighter border border-zinc-700/50", gig.logoBg)}>
                                 {gig.brand[0]}
@@ -43,9 +23,7 @@ export function SavedTab() {
                             </div>
                         </div>
 
-                        <h4 className="text-sm text-zinc-300 font-medium leading-relaxed mb-4 min-h-[40px]">
-                            {gig.title}
-                        </h4>
+                        <h4 className="text-sm text-zinc-300 font-medium leading-relaxed mb-4 min-h-[40px]">{gig.title}</h4>
 
                         <div className="pt-4 border-t border-zinc-800/50 flex items-center justify-between">
                             <div>
@@ -59,16 +37,34 @@ export function SavedTab() {
                                 </div>
                             </div>
                             <div className="flex gap-2">
-                                <button className="p-2 bg-zinc-950 border border-zinc-800 hover:border-red-500/50 rounded-sm text-zinc-500 hover:text-red-500 transition-colors">
+                                <button
+                                    onClick={() => toggleSave(gig.id)}
+                                    className="p-2 bg-zinc-950 border border-zinc-800 hover:border-red-500/50 rounded-sm text-zinc-500 hover:text-red-500 transition-colors"
+                                >
                                     <Trash2 className="w-4 h-4" />
                                 </button>
-                                <button className="px-3 py-2 bg-[#a3e635] text-black text-[10px] font-bold font-mono rounded-sm uppercase hover:opacity-90 transition-opacity flex items-center gap-1">
-                                    Apply <ExternalLink className="w-3 h-3 ml-0.5" />
+                                <button
+                                    onClick={() => applyToOpportunity(gig.id)}
+                                    disabled={applied.has(gig.id)}
+                                    className={cn(
+                                        "px-3 py-2 text-[10px] font-bold font-mono rounded-sm uppercase transition-opacity flex items-center gap-1",
+                                        applied.has(gig.id)
+                                            ? "bg-zinc-700 text-zinc-200 cursor-default"
+                                            : "bg-[#a3e635] text-black hover:opacity-90"
+                                    )}
+                                >
+                                    {applied.has(gig.id) ? "Applied" : "Apply"} <ExternalLink className="w-3 h-3 ml-0.5" />
                                 </button>
                             </div>
                         </div>
                     </div>
                 ))}
+
+                {savedOpportunities.length === 0 && (
+                    <div className="md:col-span-2 xl:col-span-3 border border-zinc-800 rounded-sm p-8 text-center text-zinc-400 text-sm bg-zinc-900/30">
+                        No saved opportunities yet.
+                    </div>
+                )}
             </div>
         </div>
     );

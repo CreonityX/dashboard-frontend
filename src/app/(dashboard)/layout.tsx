@@ -3,6 +3,7 @@
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
 import { SidebarProvider } from "@/components/dashboard/SidebarContext";
+import { SettingsMvpProvider } from "@/components/widgets/shared/settings/SettingsMvpContext";
 import { motion } from "framer-motion";
 import { Suspense } from "react";
 
@@ -16,7 +17,8 @@ function HeaderFallback() {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
     return (
-        <SidebarProvider>
+        <SettingsMvpProvider>
+            <SidebarProvider>
             <div className="flex bg-black font-sans h-screen overflow-hidden">
                 <DashboardSidebar />
                 <div className="flex-1 flex flex-col h-full relative z-0">
@@ -39,6 +41,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     </main>
                 </div>
             </div>
-        </SidebarProvider>
+            </SidebarProvider>
+        </SettingsMvpProvider>
     );
 }
