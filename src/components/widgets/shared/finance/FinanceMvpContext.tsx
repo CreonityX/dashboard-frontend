@@ -459,7 +459,7 @@ export function FinanceMvpProvider({ children }: { children: ReactNode }) {
             `Client: ${invoice.client}`,
             `Campaign: ${invoice.campaign}`,
             `Date: ${invoice.dateIssued}`,
-            `Amount: ${formatCurrency(invoice.amount)}`,
+            `Amount: ${settings.formatCurrency(invoice.amount)}`,
             `Status: ${invoice.status.toUpperCase()}`
         ].join("\n");
     };

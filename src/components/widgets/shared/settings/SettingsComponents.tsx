@@ -81,9 +81,10 @@ export function ToggleGroup({ label, description, checked, onChange }: ToggleGro
     );
 }
 
-interface SelectGroupProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectGroupProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "onChange"> {
     label: string;
     options: { label: string; value: string }[];
+    onChange?: (value: string) => void;
 }
 
 export function SelectGroup({ label, options, className, onChange, ...props }: SelectGroupProps) {
