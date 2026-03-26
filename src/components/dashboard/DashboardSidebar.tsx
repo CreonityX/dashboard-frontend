@@ -41,9 +41,9 @@ export function DashboardSidebar() {
     const pathname = usePathname();
     const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileSidebar } = useSidebar();
 
-    const NavGroup = ({ items, staggerBase = 0 }: { items: typeof MAIN_NAV_ITEMS; staggerBase?: number }) => (
+    const NavGroup = ({ items }: { items: typeof MAIN_NAV_ITEMS }) => (
         <div className="space-y-0.5">
-            {items.map((item, index) => {
+            {items.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                     <Link
@@ -52,23 +52,16 @@ export function DashboardSidebar() {
                         className="block"
                         onClick={closeMobileSidebar}
                     >
-                        <motion.div
-                            initial={{ opacity: 0, x: -12 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: (staggerBase + index) * 0.04, duration: 0.3, ease: [0.33, 1, 0.68, 1] }}
+                        <div
                             className={cn(
-                                "flex items-center px-6 py-3 transition-all duration-200 group relative overflow-hidden border-l-2",
+                                "flex items-center px-6 py-3 group relative overflow-hidden border-l-2",
                                 isActive
                                     ? "border-[#a3e635] bg-white/5 text-white"
                                     : "border-transparent text-zinc-500 hover:text-white hover:bg-white/[0.03]"
                             )}>
                             {/* Active background glow */}
                             {isActive && (
-                                <motion.div
-                                    layoutId="sidebar-active-bg"
-                                    className="absolute inset-0 bg-gradient-to-r from-[#a3e635]/[0.07] to-transparent pointer-events-none"
-                                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                                />
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#a3e635]/[0.07] to-transparent pointer-events-none" />
                             )}
 
                             <TechIcon
@@ -78,7 +71,7 @@ export function DashboardSidebar() {
                             />
 
                             <span className={cn(
-                                "text-xs font-mono tracking-wide transition-all duration-300 relative z-10",
+                                "text-xs font-mono tracking-wide relative z-10",
                                 isCollapsed && "lg:opacity-0 lg:w-0 lg:translate-x-10"
                             )}>
                                 {item.label}
@@ -86,10 +79,10 @@ export function DashboardSidebar() {
 
                             {/* Hover indicator line */}
                             <div className={cn(
-                                "absolute right-0 top-1/2 -translate-y-1/2 w-[2px] h-0 bg-zinc-600 transition-all duration-200",
+                                "absolute right-0 top-1/2 -translate-y-1/2 w-[2px] h-0 bg-zinc-600",
                                 !isActive && "group-hover:h-4"
                             )} />
-                        </motion.div>
+                        </div>
                     </Link>
                 );
             })}
@@ -182,7 +175,7 @@ export function DashboardSidebar() {
                     </AnimatePresence>
 
                     <div>
-                        <NavGroup items={BOTTOM_NAV_ITEMS} staggerBase={6} />
+                        <NavGroup items={BOTTOM_NAV_ITEMS} />
                     </div>
                 </nav>
 
