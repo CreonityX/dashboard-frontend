@@ -7,10 +7,10 @@ import {
     Briefcase,
     MessageSquare,
     Wallet,
+    Calendar,
     Settings,
     ChevronLeft,
     ChevronRight,
-    User,
     LifeBuoy,
     GraduationCap,
     BarChart3,
@@ -28,7 +28,7 @@ const MAIN_NAV_ITEMS = [
     { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "ANALYTICS", icon: BarChart3, href: "/analytics" },
     { label: "FINANCE", icon: Wallet, href: "/finance" },
-    // { label: "CALENDAR", icon: Calendar, href: "/calendar" },
+    { label: "CALENDAR", icon: Calendar, href: "/calendar" },
 ];
 
 const BOTTOM_NAV_ITEMS = [
@@ -37,11 +37,20 @@ const BOTTOM_NAV_ITEMS = [
     { label: "SUPPORT", icon: LifeBuoy, href: "/support" },
 ];
 
-export function DashboardSidebar() {
-    const pathname = usePathname();
-    const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileSidebar } = useSidebar();
+type NavItem = (typeof MAIN_NAV_ITEMS)[number];
 
-    const NavGroup = ({ items }: { items: typeof MAIN_NAV_ITEMS }) => (
+function NavGroup({
+    items,
+    pathname,
+    isCollapsed,
+    closeMobileSidebar,
+}: {
+    items: NavItem[];
+    pathname: string;
+    isCollapsed: boolean;
+    closeMobileSidebar: () => void;
+}) {
+    return (
         <div className="space-y-0.5">
             {items.map((item) => {
                 const isActive = pathname === item.href;
@@ -88,6 +97,11 @@ export function DashboardSidebar() {
             })}
         </div>
     );
+}
+
+export function DashboardSidebar() {
+    const pathname = usePathname();
+    const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileSidebar } = useSidebar();
 
     return (
         <>
@@ -157,7 +171,12 @@ export function DashboardSidebar() {
                 {/* Navigation */}
                 <nav className="flex-1 flex flex-col py-6 px-0 overflow-y-auto overflow-x-hidden relative z-10 custom-scrollbar">
                     <div className="flex-1">
-                        <NavGroup items={MAIN_NAV_ITEMS} />
+                        <NavGroup
+                            items={MAIN_NAV_ITEMS}
+                            pathname={pathname}
+                            isCollapsed={isCollapsed}
+                            closeMobileSidebar={closeMobileSidebar}
+                        />
                     </div>
 
                     {/* Promo Box */}
@@ -175,7 +194,12 @@ export function DashboardSidebar() {
                     </AnimatePresence>
 
                     <div>
-                        <NavGroup items={BOTTOM_NAV_ITEMS} />
+                        <NavGroup
+                            items={BOTTOM_NAV_ITEMS}
+                            pathname={pathname}
+                            isCollapsed={isCollapsed}
+                            closeMobileSidebar={closeMobileSidebar}
+                        />
                     </div>
                 </nav>
 
