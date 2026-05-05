@@ -25,9 +25,9 @@ import { TechIcon } from "../TechIcon";
 const MAIN_NAV_ITEMS = [
     { label: "DASHBOARD", icon: LayoutDashboard, href: "/" },
     { label: "PROJECTS", icon: Briefcase, href: "/projects" },
-    { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "ANALYTICS", icon: BarChart3, href: "/analytics" },
     { label: "FINANCE", icon: Wallet, href: "/finance" },
+    { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "CALENDAR", icon: Calendar, href: "/calendar" },
 ];
 
