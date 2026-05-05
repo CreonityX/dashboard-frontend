@@ -1,6 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { Download, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ANALYTICS_TABS } from "@/lib/mock-data";
 
@@ -11,6 +12,7 @@ interface AnalyticsShellProps {
 }
 
 export function AnalyticsShell({ activeTab, onTabChange, children }: AnalyticsShellProps) {
+    const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     return (
         <div className="flex flex-col lg:flex-row h-full w-full overflow-hidden relative">
             {/* Sidebar Navigation */}
@@ -38,6 +40,17 @@ export function AnalyticsShell({ activeTab, onTabChange, children }: AnalyticsSh
                         );
                     })}
                 </nav>
+
+                {/* Global Actions */}
+                <div className="p-4 mt-2">
+                    <button 
+                        onClick={() => setIsExportModalOpen(true)}
+                        className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white rounded-sm text-[10px] font-mono uppercase transition-colors"
+                    >
+                        <Download className="w-3.5 h-3.5" />
+                        Export_Report
+                    </button>
+                </div>
 
                 {/* Data Core Header (Sidebar) - Hidden on mobile */}
                 <div className="p-4 mt-4 border-t border-zinc-800 hidden lg:block">
@@ -80,6 +93,47 @@ export function AnalyticsShell({ activeTab, onTabChange, children }: AnalyticsSh
                     <span className="text-[#a3e635]/50">LATENCY: 12ms</span>
                 </div>
             </main>
+
+            {/* Export Report Modal */}
+            {isExportModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 rounded-sm shadow-2xl overflow-hidden">
+                        <div className="flex justify-between items-center p-4 border-b border-zinc-800 bg-zinc-950/50">
+                            <h3 className="text-sm font-bold text-white uppercase tracking-wider font-display">Export Report</h3>
+                            <button onClick={() => setIsExportModalOpen(false)} className="text-zinc-500 hover:text-white transition-colors">
+                                <X className="w-4 h-4" />
+                            </button>
+                        </div>
+                        <div className="p-6 space-y-4">
+                            <p className="text-xs text-zinc-400 font-mono mb-4">Select the timeframe for your analytics report.</p>
+                            
+                            <div className="grid grid-cols-2 gap-3">
+                                {['Weekly', 'Monthly', 'Yearly', 'Custom Range'].map((option, idx) => (
+                                    <button key={option} className={cn(
+                                        "p-3 border rounded-sm text-xs font-mono transition-colors text-left flex justify-between items-center group",
+                                        idx === 1 ? "bg-zinc-800/80 border-[#a3e635]/50 text-white" : "border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:border-zinc-700 hover:text-white"
+                                    )}>
+                                        {option}
+                                        <div className={cn(
+                                            "w-2.5 h-2.5 rounded-full border",
+                                            idx === 1 ? "border-[#a3e635] bg-[#a3e635]" : "border-zinc-600 group-hover:border-zinc-400"
+                                        )} />
+                                    </button>
+                                ))}
+                            </div>
+                            
+                            <div className="pt-6 flex justify-end gap-3">
+                                <button onClick={() => setIsExportModalOpen(false)} className="px-4 py-2 border border-zinc-800 text-xs font-mono text-zinc-400 hover:text-white hover:bg-zinc-800 rounded-sm transition-colors">
+                                    Cancel
+                                </button>
+                                <button onClick={() => setIsExportModalOpen(false)} className="px-4 py-2 bg-[#a3e635] text-black font-bold text-xs font-mono uppercase rounded-sm hover:bg-[#b4f046] transition-colors flex items-center gap-2">
+                                    <Download className="w-3.5 h-3.5" /> Download CSV
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -61,12 +61,8 @@ export const PROFILE_TABS = [
 
 export const ANALYTICS_TABS = [
     { id: 'overview', label: 'Overview', icon: Activity },
-    { id: 'content', label: 'Content Performance', icon: LayoutList },
-    { id: 'audience', label: 'Audience Insights', icon: Users },
-    { id: 'platform', label: 'Platform Analytics', icon: Monitor }, // Using Monitor as generic platform icon
-    { id: 'campaigns', label: 'Campaign ROI', icon: TrendingUp },
-    { id: 'benchmarking', label: 'Benchmarking', icon: TrendingUp }, // Reusing TrendingUp for now or find better
-    { id: 'reports', label: 'Reports', icon: FileText },
+    { id: 'performance', label: 'Performance', icon: LayoutList },
+    { id: 'audience', label: 'Audience & Market', icon: Users },
 ];
 
 export const FINANCE_TABS = [
@@ -79,8 +75,7 @@ export const FINANCE_TABS = [
 
 export const PROJECT_TABS = [
     { id: 'discover', label: 'Discover', icon: Search },
-    { id: 'applied', label: 'Applied', icon: Send },
-    { id: 'active', label: 'Active', icon: Zap },
+    { id: 'pipeline', label: 'Pipeline', icon: Zap },
     { id: 'completed', label: 'Completed', icon: CheckCircle },
     { id: 'saved', label: 'Saved', icon: Bookmark },
     { id: 'invitations', label: 'Invitations', icon: Mail },

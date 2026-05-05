@@ -7,8 +7,7 @@ import { ProjectsMvpProvider } from "@/components/widgets/shared/projects/Projec
 
 // Tabs
 import { DiscoverTab } from "@/components/widgets/shared/projects/tabs/DiscoverTab";
-import { AppliedTab } from "@/components/widgets/shared/projects/tabs/AppliedTab";
-import { ActiveTab } from "@/components/widgets/shared/projects/tabs/ActiveTab";
+import { PipelineTab } from "@/components/widgets/shared/projects/tabs/PipelineTab";
 import { CompletedTab } from "@/components/widgets/shared/projects/tabs/CompletedTab";
 import { SavedTab } from "@/components/widgets/shared/projects/tabs/SavedTab";
 import { InvitationsTab } from "@/components/widgets/shared/projects/tabs/InvitationsTab";
@@ -25,8 +24,7 @@ function ProjectsContent() {
     const renderContent = () => {
         switch (activeTab) {
             case 'discover': return <DiscoverTab />;
-            case 'applied': return <AppliedTab />;
-            case 'active': return <ActiveTab />;
+            case 'pipeline': return <PipelineTab />;
             case 'completed': return <CompletedTab />;
             case 'saved': return <SavedTab />;
             case 'invitations': return <InvitationsTab />;
