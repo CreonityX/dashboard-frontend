@@ -59,7 +59,7 @@ export function DashboardHeader() {
         if (sub) breadcrumbs.push(sub);
     }
     else if (pathname.includes('/resources')) {
-        const sub = getSubLevel('tab', RESOURCE_TABS, 'courses');
+        const sub = getSubLevel('tab', RESOURCE_TABS, 'best-practices');
         if (sub) breadcrumbs.push(sub);
     }
     else if (pathname.includes('/support')) {

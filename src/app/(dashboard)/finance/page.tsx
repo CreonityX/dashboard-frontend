@@ -10,7 +10,6 @@ import { OverviewTab } from "@/components/widgets/shared/finance/tabs/OverviewTa
 import { TransactionsTab } from "@/components/widgets/shared/finance/tabs/TransactionsTab";
 import { PayoutsTab } from "@/components/widgets/shared/finance/tabs/PayoutsTab";
 import { InvoicesTab } from "@/components/widgets/shared/finance/tabs/InvoicesTab";
-import { TaxTab } from "@/components/widgets/shared/finance/tabs/TaxTab";
 import { ReferralsTab } from "@/components/widgets/shared/finance/tabs/ReferralsTab";
 
 function FinanceContent() {
@@ -28,7 +27,6 @@ function FinanceContent() {
             case 'transactions': return <TransactionsTab />;
             case 'payouts': return <PayoutsTab />;
             case 'invoices': return <InvoicesTab />;
-            case 'tax': return <TaxTab />;
             case 'referrals': return <ReferralsTab />;
             default: return <OverviewTab />;
         }

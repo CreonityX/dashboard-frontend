@@ -29,12 +29,9 @@ export const SETTINGS_TABS = [
 ];
 
 export const RESOURCE_TABS = [
-    { id: 'courses', label: 'Courses & Tutorials', icon: GraduationCap },
     { id: 'best-practices', label: 'Best Practices', icon: BookOpen },
     { id: 'tools', label: 'Templates & Tools', icon: Wrench },
     { id: 'community', label: 'Creator Community', icon: Users },
-    { id: 'insights', label: 'Market Insights', icon: TrendingUp },
-    { id: 'news', label: 'Blog & News', icon: Newspaper },
 ];
 
 export const SUPPORT_TABS = [
@@ -77,7 +74,6 @@ export const FINANCE_TABS = [
     { id: 'transactions', label: 'Transactions', icon: ArrowLeftRight },
     { id: 'payouts', label: 'Payouts', icon: CreditCard },
     { id: 'invoices', label: 'Invoices', icon: FileText },
-    { id: 'tax', label: 'Tax Center', icon: Landmark },
     { id: 'referrals', label: 'Referrals', icon: Users },
 ];
 
