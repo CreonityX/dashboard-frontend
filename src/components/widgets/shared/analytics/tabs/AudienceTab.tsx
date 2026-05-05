@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { User, Globe, Clock, Download, TrendingUp, TrendingDown, Target, Award, Users } from "lucide-react";
+import { User, Globe, Clock, Download, TrendingUp, TrendingDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const DEMOGRAPHICS = [
@@ -193,33 +193,6 @@ export function AudienceTab() {
                             </div>
                         </div>
                     ))}
-                </div>
-
-                <div className="mt-6 bg-zinc-900/40 border border-zinc-800 p-5 rounded-sm">
-                    <div className="flex items-center gap-2 mb-4">
-                        <Target className="w-4 h-4 text-purple-500" />
-                        <h3 className="text-xs font-bold text-white font-display tracking-widest uppercase">Growth_Opportunities</h3>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-3 bg-zinc-950/50 border border-zinc-800 rounded-sm flex gap-3">
-                            <div className="shrink-0 w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-800">
-                                <Users className="w-4 h-4 text-zinc-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-xs font-bold text-zinc-300">Under-saturated Platform</h4>
-                                <p className="text-[10px] text-zinc-600 font-mono mt-1 leading-relaxed">LinkedIn Video is growing 200% MoM in the Tech niche. You have 0 presence there.</p>
-                            </div>
-                        </div>
-                        <div className="p-3 bg-zinc-950/50 border border-zinc-800 rounded-sm flex gap-3">
-                            <div className="shrink-0 w-8 h-8 bg-zinc-900 rounded-full flex items-center justify-center border border-zinc-800">
-                                <Award className="w-4 h-4 text-zinc-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-xs font-bold text-zinc-300">Content Format</h4>
-                                <p className="text-[10px] text-zinc-600 font-mono mt-1 leading-relaxed">Short-form tutorials (under 60s) are driving 3x more engagement than your long-form reviews.</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
