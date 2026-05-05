@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle2, ChevronRight, MessageSquare, Paperclip, ExternalLink, Send, Clock, Target, GripHorizontal } from "lucide-react";
+import { Calendar, CheckCircle2, ChevronRight, ChevronLeft, MessageSquare, Paperclip, ExternalLink, Send, Clock, Target, GripHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProjectsMvp, ApplicationStatus, TaskStatus, ActiveTask } from "@/components/widgets/shared/projects/ProjectsMvpContext";
 import { useState, useMemo } from "react";
@@ -142,8 +142,9 @@ export function PipelineTab() {
     }
 
     return (
-        <div className="flex flex-col h-full min-w-0">
-            <div className="flex-1 overflow-x-auto overflow-y-hidden scrollbar-hide -mx-4 px-4 lg:-mx-10 lg:px-10">
+        <div className="flex flex-col h-full min-w-0 relative">
+            {/* Cyber Custom Scrollbar */}
+            <div className="flex-1 overflow-x-auto overflow-y-hidden custom-cyber-scrollbar pb-4 lg:pb-10 -mx-4 px-4 lg:-mx-10 lg:px-10 -mb-4 lg:-mb-10">
                 <div className="flex gap-4 h-full min-w-max">
                     {columns.map(col => (
                         <div key={col.id} className="flex-none w-80 flex flex-col bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden">

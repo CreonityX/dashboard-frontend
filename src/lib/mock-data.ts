@@ -77,6 +77,6 @@ export const PROJECT_TABS = [
     { id: 'discover', label: 'Discover', icon: Search },
     { id: 'invitations', label: 'Invitations', icon: Mail },
     { id: 'pipeline', label: 'Pipeline', icon: Zap },
-    { id: 'completed', label: 'Completed', icon: CheckCircle },
     { id: 'saved', label: 'Saved', icon: Bookmark },
+    { id: 'completed', label: 'Completed', icon: CheckCircle },
 ];

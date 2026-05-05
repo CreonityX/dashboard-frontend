@@ -453,4 +453,20 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
   }
+
+  /* Ultra-thin Cyber Scrollbar */
+  .custom-cyber-scrollbar::-webkit-scrollbar {
+    height: 10px;
+  }
+  .custom-cyber-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin-inline: 16px;
+  }
+  .custom-cyber-scrollbar::-webkit-scrollbar-thumb {
+    background: #52525b; /* zinc-600 for better visibility */
+    border-radius: 6px;
+  }
+  .custom-cyber-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #a3e635;
+  }
 }
