@@ -53,7 +53,7 @@ export function ProjectsShell({ activeTab, onTabChange, children }: ProjectsShel
             </aside>
 
             {/* Main Content Area */}
-            <main className="flex-1 overflow-hidden flex flex-col relative backdrop-blur-md">
+            <main className="flex-1 overflow-hidden flex flex-col relative backdrop-blur-md min-w-0">
                 {/* Header Decoration */}
                 <div className="absolute top-0 right-0 p-4 pointer-events-none z-20">
                     <div className="flex gap-1">
@@ -67,7 +67,7 @@ export function ProjectsShell({ activeTab, onTabChange, children }: ProjectsShel
                 <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] pointer-events-none z-0" />
 
                 {/* Live Content */}
-                <div className="flex-1 overflow-y-auto p-4 lg:p-10 custom-scrollbar relative z-10">
+                <div className="flex-1 overflow-y-auto p-4 lg:p-10 custom-scrollbar relative z-10 min-w-0">
                     {children}
                 </div>
 

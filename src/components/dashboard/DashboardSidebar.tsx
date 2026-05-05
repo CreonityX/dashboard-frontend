@@ -121,7 +121,7 @@ export function DashboardSidebar() {
 
             <aside
                 className={cn(
-                    "fixed inset-y-0 left-0 z-50 h-screen flex flex-col transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] group/sidebar",
+                    "fixed inset-y-0 left-0 z-50 h-screen flex flex-col shrink-0 transition-all duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] group/sidebar",
                     "border-r border-zinc-800 bg-zinc-900/95 backdrop-blur-xl",
                     "lg:relative lg:translate-x-0",
                     isMobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",

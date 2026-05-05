@@ -21,11 +21,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <SidebarProvider>
             <div className="flex bg-black font-sans h-screen overflow-hidden">
                 <DashboardSidebar />
-                <div className="flex-1 flex flex-col h-full relative z-0">
+                <div className="flex-1 flex flex-col h-full relative z-0 min-w-0">
                     <Suspense fallback={<HeaderFallback />}>
                         <DashboardHeader />
                     </Suspense>
-                    <main className="flex-1 overflow-y-auto relative bg-grid-zinc">
+                    <main className="flex-1 overflow-y-auto relative bg-grid-zinc min-w-0">
                         <div className="absolute inset-0 bg-black/95 pointer-events-none" />
 
                         <div className="relative z-10 h-full overflow-y-auto scroll-smooth custom-scrollbar">
