@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState, useCallback } from "react";
 import { MOCK_CONVERSATIONS } from "@/lib/mock-data";
 
 export type MessageItem = {
@@ -111,24 +111,31 @@ export function MessagesMvpProvider({ children }: { children: ReactNode }) {
         [state.conversations]
     );
 
-    const getConversationById = (conversationId: string | null) => {
+    const getConversationById = useCallback((conversationId: string | null) => {
         if (!conversationId) return undefined;
         return state.conversations.find((item) => item.id === conversationId);
-    };
+    }, [state.conversations]);
 
-    const getMessagesForConversation = (conversationId: string | null) => {
+    const getMessagesForConversation = useCallback((conversationId: string | null) => {
         if (!conversationId) return [];
         return state.messagesByConversation[conversationId] || [];
-    };
+    }, [state.messagesByConversation]);
 
-    const markConversationRead = (conversationId: string) => {
-        setState((current) => ({
-            ...current,
-            conversations: current.conversations.map((item) =>
-                item.id === conversationId ? { ...item, unreadCount: 0 } : item
-            )
-        }));
-    };
+    const markConversationRead = useCallback((conversationId: string) => {
+        setState((current) => {
+            const needsUpdate = current.conversations.some(
+                item => item.id === conversationId && item.unreadCount > 0
+            );
+            if (!needsUpdate) return current;
+
+            return {
+                ...current,
+                conversations: current.conversations.map((item) =>
+                    item.id === conversationId ? { ...item, unreadCount: 0 } : item
+                )
+            };
+        });
+    }, []);
 
     const toggleArchiveConversation = (conversationId: string) => {
         setState((current) => ({
