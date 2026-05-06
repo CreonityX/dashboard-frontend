@@ -34,8 +34,15 @@ export function TemplatesTab() {
     return (
         <div className="space-y-8">
             <div>
-                <h2 className="text-xs font-bold text-zinc-500 font-display tracking-widest uppercase mb-4">Pre-built Templates</h2>
-                <p className="text-[11px] text-zinc-500 font-mono mb-4">Templates by objective. Duplicate to start a new campaign.</p>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h2 className="text-xs font-bold text-zinc-500 font-display tracking-widest uppercase mb-1">Pre-built Templates</h2>
+                        <p className="text-[11px] text-zinc-500 font-mono">Templates by objective. Duplicate to start a new campaign.</p>
+                    </div>
+                    <button className="px-4 py-2 bg-[#a3e635] text-black text-[10px] font-bold font-mono uppercase rounded-[1px] hover:bg-[#b0f545] transition-colors shadow-[0_0_12px_rgba(163,230,53,0.2)] whitespace-nowrap shrink-0">
+                        + Create Template
+                    </button>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {CAMPAIGN_TEMPLATES.map(t => (
                         <div key={t.id} className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-4 hover:border-zinc-700 transition-colors">

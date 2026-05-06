@@ -23,12 +23,6 @@ export function TechIcon({ icon: Icon, label, isActive, className }: TechIconPro
 
             <Icon className="w-5 h-5 relative z-10 stroke-[1.5]" />
 
-            {/* Active indicator dot with pulse */}
-            {isActive && (
-                <div className="absolute -right-1 top-1 w-1.5 h-1.5 bg-[#a3e635] rounded-full shadow-[0_0_8px_#a3e635]">
-                    <div className="absolute inset-0 rounded-full bg-[#a3e635] animate-ping opacity-30" />
-                </div>
-            )}
         </div>
     );
 }
