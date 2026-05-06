@@ -56,7 +56,6 @@ const BRAND_MAIN_NAV = [
 ];
 const BRAND_BOTTOM_NAV = [
     { label: "SETTINGS", icon: Settings, href: "/settings" },
-    { label: "INSIGHTS", icon: Lightbulb, href: "/insights" },
     { label: "SUPPORT", icon: LifeBuoy, href: "/support" },
 ];
 
