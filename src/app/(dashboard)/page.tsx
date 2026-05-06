@@ -21,7 +21,6 @@ import { CreatorPipelineWidget } from "@/components/widgets/shared/home/CreatorP
 import { RecentActivityFeed as BrandRecentActivityFeed } from "@/components/widgets/shared/home/BrandRecentActivityFeed";
 import { TopPerformingCreators } from "@/components/widgets/shared/home/TopPerformingCreators";
 import { UpcomingDeadlines } from "@/components/widgets/shared/home/UpcomingDeadlines";
-import { RecommendedCreatorsCarousel } from "@/components/widgets/shared/home/RecommendedCreatorsCarousel";
 import { QuickActionsPanel } from "@/components/widgets/shared/home/QuickActionsPanel";
 
 function CreatorHome() {
@@ -72,9 +71,6 @@ function BrandHome() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
                 <UpcomingDeadlines />
                 <TopPerformingCreators />
-            </div>
-            <div className="mt-2">
-                <RecommendedCreatorsCarousel />
             </div>
         </BrandHomeShell>
     );

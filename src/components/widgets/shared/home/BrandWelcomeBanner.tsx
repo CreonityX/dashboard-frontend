@@ -54,9 +54,6 @@ export function WelcomeBanner() {
                     <Link href="/campaigns?tab=list" className="px-5 py-2 bg-[#a3e635] text-black text-xs font-mono font-bold rounded-sm hover:bg-[#b5f045] transition-colors press-effect hover:shadow-[0_0_12px_rgba(163,230,53,0.3)]">
                         + Create campaign
                     </Link>
-                    <Link href="/creators?tab=discover" className="px-5 py-2 border border-zinc-800 text-xs font-mono text-zinc-400 rounded-sm hover:border-zinc-600 hover:text-white transition-colors press-effect">
-                        Find creators
-                    </Link>
                 </motion.div>
             </div>
             <motion.div
