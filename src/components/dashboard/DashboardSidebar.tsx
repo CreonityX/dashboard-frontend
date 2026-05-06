@@ -14,15 +14,21 @@ import {
     LifeBuoy,
     GraduationCap,
     BarChart3,
-    X
+    X,
+    Users,
+    ClipboardCheck,
+    Lightbulb,
+    LogOut,
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
 import { TechIcon } from "../TechIcon";
+import { useUser } from "@/lib/UserContext";
 
-const MAIN_NAV_ITEMS = [
+// ── Creator Nav ──
+const CREATOR_MAIN_NAV = [
     { label: "DASHBOARD", icon: LayoutDashboard, href: "/" },
     { label: "PROJECTS", icon: Briefcase, href: "/projects" },
     { label: "ANALYTICS", icon: BarChart3, href: "/analytics" },
@@ -30,14 +36,31 @@ const MAIN_NAV_ITEMS = [
     { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
     { label: "CALENDAR", icon: Calendar, href: "/calendar" },
 ];
-
-const BOTTOM_NAV_ITEMS = [
+const CREATOR_BOTTOM_NAV = [
     { label: "SETTINGS", icon: Settings, href: "/settings" },
     { label: "RESOURCES", icon: GraduationCap, href: "/resources" },
     { label: "SUPPORT", icon: LifeBuoy, href: "/support" },
 ];
 
-type NavItem = (typeof MAIN_NAV_ITEMS)[number];
+// ── Brand Nav ──
+const BRAND_MAIN_NAV = [
+    { label: "DASHBOARD", icon: LayoutDashboard, href: "/" },
+    { label: "CAMPAIGNS", icon: Briefcase, href: "/campaigns" },
+    { label: "CREATORS", icon: Users, href: "/creators" },
+    { label: "APPLICATIONS", icon: ClipboardCheck, href: "/applications" },
+    { label: "CONTENT REVIEW", icon: ClipboardCheck, href: "/content-review" },
+    { label: "MESSAGES", icon: MessageSquare, href: "/messages" },
+    { label: "ANALYTICS", icon: BarChart3, href: "/analytics" },
+    { label: "FINANCE", icon: Wallet, href: "/finance" },
+    { label: "CALENDAR", icon: Calendar, href: "/calendar" },
+];
+const BRAND_BOTTOM_NAV = [
+    { label: "SETTINGS", icon: Settings, href: "/settings" },
+    { label: "INSIGHTS", icon: Lightbulb, href: "/insights" },
+    { label: "SUPPORT", icon: LifeBuoy, href: "/support" },
+];
+
+type NavItem = { label: string; icon: typeof LayoutDashboard; href: string };
 
 function NavGroup({
     items,
@@ -102,6 +125,10 @@ function NavGroup({
 export function DashboardSidebar() {
     const pathname = usePathname();
     const { isCollapsed, toggleSidebar, isMobileOpen, closeMobileSidebar } = useSidebar();
+    const { user, isBrand, logout } = useUser();
+
+    const mainNav = isBrand ? BRAND_MAIN_NAV : CREATOR_MAIN_NAV;
+    const bottomNav = isBrand ? BRAND_BOTTOM_NAV : CREATOR_BOTTOM_NAV;
 
     return (
         <>
@@ -172,7 +199,7 @@ export function DashboardSidebar() {
                 <nav className="flex-1 flex flex-col py-6 px-0 overflow-y-auto overflow-x-hidden relative z-10 custom-scrollbar">
                     <div className="flex-1">
                         <NavGroup
-                            items={MAIN_NAV_ITEMS}
+                            items={mainNav}
                             pathname={pathname}
                             isCollapsed={isCollapsed}
                             closeMobileSidebar={closeMobileSidebar}
@@ -195,7 +222,7 @@ export function DashboardSidebar() {
 
                     <div>
                         <NavGroup
-                            items={BOTTOM_NAV_ITEMS}
+                            items={bottomNav}
                             pathname={pathname}
                             isCollapsed={isCollapsed}
                             closeMobileSidebar={closeMobileSidebar}
@@ -203,24 +230,35 @@ export function DashboardSidebar() {
                     </div>
                 </nav>
 
-                {/* User Profile */}
+                {/* User Profile + Logout */}
                 <div className="p-4 border-t border-white/5 relative z-10">
-                    <Link href="/profile" className={cn(
-                        "flex items-center gap-3 transition-all duration-300 group",
-                        isCollapsed ? "lg:justify-center" : ""
-                    )}>
-                        <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0 group-hover:border-[#a3e635] transition-colors relative">
-                            <span className="text-[10px] font-bold text-white">KZ</span>
-                            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#a3e635] border-2 border-zinc-900 rounded-full" />
-                        </div>
-                        <div className={cn(
-                            "transition-all duration-300 overflow-hidden whitespace-nowrap",
-                            isCollapsed ? "lg:opacity-0 lg:w-0" : "opacity-100 w-auto"
+                    <div className="flex items-center justify-between">
+                        <Link href="/profile" className={cn(
+                            "flex items-center gap-3 transition-all duration-300 group flex-1 min-w-0",
+                            isCollapsed ? "lg:justify-center" : ""
                         )}>
-                            <div className="text-xs font-bold text-white font-display group-hover:text-[#a3e635] transition-colors">Kai_Zen</div>
-                            <div className="text-[10px] text-zinc-500 font-mono">CREATOR_PRO</div>
-                        </div>
-                    </Link>
+                            <div className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0 group-hover:border-[#a3e635] transition-colors relative">
+                                <span className="text-[10px] font-bold text-white">{user?.initials ?? "KZ"}</span>
+                                <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#a3e635] border-2 border-zinc-900 rounded-full" />
+                            </div>
+                            <div className={cn(
+                                "transition-all duration-300 overflow-hidden whitespace-nowrap",
+                                isCollapsed ? "lg:opacity-0 lg:w-0" : "opacity-100 w-auto"
+                            )}>
+                                <div className="text-xs font-bold text-white font-display group-hover:text-[#a3e635] transition-colors">{user?.displayName ?? "Kai_Zen"}</div>
+                                <div className="text-[10px] text-zinc-500 font-mono">{user?.badge ?? "CREATOR_PRO"}</div>
+                            </div>
+                        </Link>
+                        {!isCollapsed && (
+                            <button
+                                onClick={logout}
+                                className="p-1.5 text-zinc-600 hover:text-red-400 transition-colors rounded-sm hover:bg-white/5 press-effect"
+                                title="Logout"
+                            >
+                                <LogOut className="w-3.5 h-3.5" />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </aside>
         </>

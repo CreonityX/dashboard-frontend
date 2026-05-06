@@ -33,10 +33,14 @@ function ResourcesContent() {
     );
 }
 
+import { RoleGuard } from "@/lib/RoleGuard";
+
 export default function ResourcesPage() {
     return (
-        <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
-            <ResourcesContent />
-        </Suspense>
+        <RoleGuard allow="creator">
+            <Suspense fallback={<div className="h-full w-full bg-zinc-900/40" />}>
+                <ResourcesContent />
+            </Suspense>
+        </RoleGuard>
     );
 }

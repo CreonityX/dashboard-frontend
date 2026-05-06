@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Manrope, JetBrains_Mono } from "next/font/google";
+import { ClientProviders } from "./ClientProviders";
 import "./globals.css";
 
 const syne = Syne({
@@ -21,8 +22,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Creonity — Creator Dashboard",
-  description: "Your creative ecosystem command center. Manage gigs, track earnings, and grow your creator career.",
+  title: "Creonity — Dashboard",
+  description: "Your creative ecosystem command center. Manage gigs, campaigns, track earnings, and grow.",
 };
 
 export default function RootLayout({
@@ -35,7 +36,7 @@ export default function RootLayout({
       <body
         className={`${syne.variable} ${manrope.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );
