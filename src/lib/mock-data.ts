@@ -70,7 +70,6 @@ export const FINANCE_TABS = [
     { id: 'transactions', label: 'Transactions', icon: ArrowLeftRight },
     { id: 'payouts', label: 'Payouts', icon: CreditCard },
     { id: 'invoices', label: 'Invoices', icon: FileText },
-    { id: 'referrals', label: 'Referrals', icon: Users },
 ];
 
 export const PROJECT_TABS = [

@@ -98,7 +98,6 @@ export function IntegrationSettings() {
 
             <IntegrationGroup title="E-Commerce & Payments" items={ecomm} onConnect={setConnectTarget} onDisconnect={setDisconnectTarget} onConfigure={setConfigureTarget} />
             <IntegrationGroup title="Analytics & CRM" items={analytics} onConnect={setConnectTarget} onDisconnect={setDisconnectTarget} onConfigure={setConfigureTarget} />
-            <IntegrationGroup title="Workflow & Communication" items={workflow} onConnect={setConnectTarget} onDisconnect={setDisconnectTarget} onConfigure={setConfigureTarget} />
 
             {/* Connect Modal */}
             {connectTarget && (

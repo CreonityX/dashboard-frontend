@@ -11,7 +11,6 @@ import { OverviewTab as CreatorOverviewTab } from "@/components/widgets/shared/f
 import { TransactionsTab as CreatorTransactionsTab } from "@/components/widgets/shared/finance/tabs/TransactionsTab";
 import { PayoutsTab as CreatorPayoutsTab } from "@/components/widgets/shared/finance/tabs/PayoutsTab";
 import { InvoicesTab as CreatorInvoicesTab } from "@/components/widgets/shared/finance/tabs/InvoicesTab";
-import { ReferralsTab as CreatorReferralsTab } from "@/components/widgets/shared/finance/tabs/ReferralsTab";
 
 // Brand Imports
 import { FinanceShell as BrandFinanceShell } from "@/components/widgets/shared/finance/BrandFinanceShell";
@@ -21,8 +20,6 @@ import { HistoryTab } from "@/components/widgets/shared/finance/tabs/HistoryTab"
 import { InvoicesTab as BrandInvoicesTab } from "@/components/widgets/shared/finance/tabs/BrandInvoicesTab";
 import { AlertsTab } from "@/components/widgets/shared/finance/tabs/AlertsTab";
 import { ReportsTab } from "@/components/widgets/shared/finance/tabs/ReportsTab";
-import { TaxTab as BrandTaxTab } from "@/components/widgets/shared/finance/tabs/BrandTaxTab";
-import { ReferralsTab as BrandReferralsTab } from "@/components/widgets/shared/finance/tabs/BrandReferralsTab";
 
 function CreatorFinanceContent() {
     const router = useRouter();
@@ -39,7 +36,6 @@ function CreatorFinanceContent() {
             case 'transactions': return <CreatorTransactionsTab />;
             case 'payouts': return <CreatorPayoutsTab />;
             case 'invoices': return <CreatorInvoicesTab />;
-            case 'referrals': return <CreatorReferralsTab />;
             default: return <CreatorOverviewTab />;
         }
     };
@@ -68,8 +64,6 @@ function BrandFinanceContent() {
             case 'invoices': return <BrandInvoicesTab />;
             case 'alerts': return <AlertsTab />;
             case 'reports': return <ReportsTab />;
-            case 'tax': return <BrandTaxTab />;
-            case 'referrals': return <BrandReferralsTab />;
             default: return <BrandOverviewTab />;
         }
     };

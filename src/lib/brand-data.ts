@@ -98,8 +98,6 @@ export const FINANCE_TABS = [
     { id: 'invoices', label: 'Invoices & Receipts', icon: FileText },
     { id: 'alerts', label: 'Budget Alerts', icon: Bell },
     { id: 'reports', label: 'Financial Reports', icon: BarChart3 },
-    { id: 'tax', label: 'Tax Center', icon: Landmark },
-    { id: 'referrals', label: 'Referrals', icon: Users },
 ];
 export const INSIGHTS_TABS = [
     { id: 'industry', label: 'Industry Trends', icon: TrendingUp },
