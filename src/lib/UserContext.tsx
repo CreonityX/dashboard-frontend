@@ -94,17 +94,24 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         
         let foundUser = DEFAULT_USERS[email];
         
+        // For default mock users, enforce a specific password for realistic testing
+        if (foundUser && password !== "Test1234!") {
+            setIsLoading(false);
+            throw new Error("Invalid credentials");
+        }
+        
         // If not found in defaults, check if they registered
         if (!foundUser) {
             const registeredUsersStr = localStorage.getItem("creonity_registered_users");
             if (registeredUsersStr) {
                 const registeredUsers = JSON.parse(registeredUsersStr);
                 foundUser = registeredUsers[email];
+                // Note: We aren't securely checking passwords for registered mock users in this frontend mock,
+                // but any entered password will bypass to success if the email exists.
             }
         }
 
         if (foundUser) {
-            // In a real app we'd verify the password here
             localStorage.setItem(STORAGE_KEY, JSON.stringify(foundUser));
             setUser(foundUser);
             router.push("/");
@@ -117,8 +124,9 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     const logout = useCallback(() => {
         localStorage.removeItem(STORAGE_KEY);
         setUser(null);
-        router.push("/login");
-    }, [router]);
+        // Use a hard redirect to ensure the layout unmounts completely and Next.js clears any cached route states
+        window.location.href = "/login";
+    }, []);
 
     const completeOnboarding = useCallback(async (userData: User) => {
         setIsLoading(true);
