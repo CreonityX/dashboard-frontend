@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser, UserRole } from "./UserContext";
+import { useUser, UserRole } from "@/lib/UserContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -11,7 +11,6 @@ interface RoleGuardProps {
 }
 
 /**
- * Protects a page so only users with the specified role can access it.
  * Redirects others to `redirectTo` (defaults to "/").
  */
 export function RoleGuard({ allow, redirectTo = "/", children }: RoleGuardProps) {

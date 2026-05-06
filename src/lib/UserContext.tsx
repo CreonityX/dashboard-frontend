@@ -114,6 +114,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         if (foundUser) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(foundUser));
             setUser(foundUser);
+            setIsLoading(false);
             router.push("/");
         } else {
             setIsLoading(false);
@@ -141,6 +142,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         // Log them in
         localStorage.setItem(STORAGE_KEY, JSON.stringify(userData));
         setUser(userData);
+        setIsLoading(false);
         router.push("/");
     }, [router]);
 
