@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
     X, MapPin, Globe, CheckCircle, Bookmark, BookmarkCheck, MessageSquare, Share2,
-    Instagram, Youtube, Star, TrendingUp, ExternalLink
+    Instagram, Youtube, Star, TrendingUp, ExternalLink, ArrowLeft
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MOCK_CAMPAIGNS } from "@/lib/brand-data";
@@ -46,6 +46,13 @@ export function CreatorProfileDetail({ creator, onClose, isSaved, onToggleSaved 
 
     return (
         <div className="space-y-6">
+            <button 
+                onClick={onClose} 
+                className="flex items-center gap-2 text-zinc-400 hover:text-white transition-colors text-xs font-mono group w-fit press-effect"
+            >
+                <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" /> 
+                BACK TO DISCOVER CREATORS
+            </button>
             {/* Header */}
             <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm overflow-hidden relative">
                 <div className="h-24 bg-gradient-to-br from-zinc-800 to-zinc-900" />
@@ -115,12 +122,7 @@ export function CreatorProfileDetail({ creator, onClose, isSaved, onToggleSaved 
                         </div>
                     </div>
 
-                    {creator.ratePublic && (
-                        <div className="bg-zinc-900/40 border border-zinc-800 rounded-sm p-4">
-                            <h2 className="text-[10px] font-bold text-zinc-500 font-display tracking-widest uppercase mb-3">Rate Card</h2>
-                            <div className="text-sm font-mono text-white">Starting at <span className="text-[#a3e635]">${creator.rate}</span> / negotiable</div>
-                        </div>
-                    )}
+
                 </div>
 
                 {/* Right: Stats, Reviews, Invite */}
