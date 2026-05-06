@@ -2,6 +2,7 @@
 
 import { User, Globe, Smartphone, Monitor } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BenchmarkingTab } from "./BenchmarkingTab";
 
 const DEMOGRAPHICS = [
     { label: '18-24', value: 28, color: 'bg-[#a3e635]' },
@@ -98,6 +99,10 @@ export function AudienceTab() {
                 <p className="text-[11px] text-zinc-500 font-mono">
                     Aggregate across all campaigns. Total unique reach: 4.2M. Estimated overlap (same users across multiple campaigns): ~18%.
                 </p>
+            </div>
+
+            <div className="pt-6 mt-6 border-t border-zinc-800">
+                <BenchmarkingTab />
             </div>
         </div>
     );

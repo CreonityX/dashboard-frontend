@@ -81,15 +81,9 @@ export const PROFILE_TABS = [
 ];
 export const ANALYTICS_TABS = [
     { id: 'overview', label: 'Overview', icon: Activity },
-    { id: 'campaigns', label: 'Campaign Analytics', icon: TrendingUp },
-    { id: 'creators', label: 'Creator Performance', icon: Users },
-    { id: 'content', label: 'Content Performance', icon: LayoutList },
-    { id: 'audience', label: 'Audience Insights', icon: Users },
-    { id: 'comparison', label: 'Cross-Campaign', icon: GitCompare },
-    { id: 'platform', label: 'Platform Analytics', icon: Monitor },
-    { id: 'roi', label: 'ROI & Attribution', icon: PieChart },
-    { id: 'benchmarking', label: 'Benchmarking', icon: BarChart3 },
-    { id: 'reports', label: 'Reports', icon: FileText },
+    { id: 'performance', label: 'Performance', icon: TrendingUp },
+    { id: 'audience', label: 'Audience & Market', icon: Users },
+    { id: 'roi', label: 'ROI & Reports', icon: PieChart },
 ];
 export const FINANCE_TABS = [
     { id: 'overview', label: 'Budget Overview', icon: LayoutDashboard },

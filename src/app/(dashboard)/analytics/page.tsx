@@ -13,15 +13,9 @@ import { AudienceTab as CreatorAudienceTab } from "@/components/widgets/shared/a
 // Brand Imports
 import { AnalyticsShell as BrandAnalyticsShell } from "@/components/widgets/shared/analytics/BrandAnalyticsShell";
 import { OverviewTab as BrandOverviewTab } from "@/components/widgets/shared/analytics/tabs/BrandOverviewTab";
-import { CampaignsTab } from "@/components/widgets/shared/analytics/tabs/CampaignsTab";
-import { CreatorsTab } from "@/components/widgets/shared/analytics/tabs/CreatorsTab";
-import { ContentTab } from "@/components/widgets/shared/analytics/tabs/ContentTab";
+import { BrandPerformanceTab } from "@/components/widgets/shared/analytics/tabs/BrandPerformanceTab";
+import { RoiAndReportsTab } from "@/components/widgets/shared/analytics/tabs/RoiAndReportsTab";
 import { AudienceTab as BrandAudienceTab } from "@/components/widgets/shared/analytics/tabs/BrandAudienceTab";
-import { ComparisonTab } from "@/components/widgets/shared/analytics/tabs/ComparisonTab";
-import { PlatformTab } from "@/components/widgets/shared/analytics/tabs/PlatformTab";
-import { AttributionTab } from "@/components/widgets/shared/analytics/tabs/AttributionTab";
-import { BenchmarkingTab } from "@/components/widgets/shared/analytics/tabs/BenchmarkingTab";
-import { ReportsTab } from "@/components/widgets/shared/analytics/tabs/ReportsTab";
 
 function CreatorAnalyticsContent() {
     const router = useRouter();
@@ -60,15 +54,9 @@ function BrandAnalyticsContent() {
     const renderContent = () => {
         switch (activeTab) {
             case 'overview': return <BrandOverviewTab />;
-            case 'campaigns': return <CampaignsTab />;
-            case 'creators': return <CreatorsTab />;
-            case 'content': return <ContentTab />;
+            case 'performance': return <BrandPerformanceTab />;
             case 'audience': return <BrandAudienceTab />;
-            case 'comparison': return <ComparisonTab />;
-            case 'platform': return <PlatformTab />;
-            case 'roi': return <AttributionTab />;
-            case 'benchmarking': return <BenchmarkingTab />;
-            case 'reports': return <ReportsTab />;
+            case 'roi': return <RoiAndReportsTab />;
             default: return <BrandOverviewTab />;
         }
     };
